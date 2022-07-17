@@ -13,6 +13,7 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   int currentSelectedIndex = 1;
+  bool isMusicPlaying = false;
 
   List navbarpages = [
     const FavouriteMusicScreen(),
@@ -59,6 +60,56 @@ class _NavBarState extends State<NavBar> {
             );
           },
           items: itembottomnavabr,
+        ),
+      ),
+      
+      bottomSheet: Container(
+        color: Colors.deepPurple[700],
+        height: 60,
+        child: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              title: const Text(
+                'data',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25,               ),
+              ),
+              leading: const Icon(
+                Icons.music_note,
+                color: Colors.white,
+                size: 25,
+              ),
+              trailing: Wrap(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.pause_circle,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                  // const SizedBox(
+                  //   width: 10,
+                  // ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.skip_next_rounded,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  )
+
+                  // Icon(Icons.pause_circle),
+                  // SizedBox(width: 10,),
+                  // Icon(Icons.skip_next_rounded)
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

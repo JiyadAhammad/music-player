@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music/screen/musicplayscreen.dart';
 
 class MySearch extends SearchDelegate {
   @override

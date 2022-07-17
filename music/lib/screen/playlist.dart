@@ -2,6 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:music/navbar/navbar.dart';
 import 'package:music/screen/eachplaylistscreen.dart';
 
+final listofitemsgrid = [
+  'Malaylam',
+  'English',
+  'Hindi',
+  'Melody',
+  'tamil',
+  // 'Favourites',
+  'Sleep',
+  'Gym',
+];
+
 class PlayListScreen extends StatefulWidget {
   const PlayListScreen({Key? key}) : super(key: key);
 
@@ -12,8 +23,8 @@ class PlayListScreen extends StatefulWidget {
 class _PlayListScreenState extends State<PlayListScreen> {
   @override
   Widget build(BuildContext context) {
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+    // final double screenHeight = MediaQuery.of(context).size.height;
+    // final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -60,16 +71,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
         body: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 4/ 3,
+            childAspectRatio: 4 / 3,
           ),
           itemCount: listofitemsgrid.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: InkWell(
-                onLongPress: () {
-                  deletedPlayList();
-                },
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -79,25 +87,40 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     ),
                   );
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Colors.white54,
-                      style: BorderStyle.solid,
-                      width: 2.5,
-                    ),
-                    color: Colors.transparent,
-                  ),
-                  child: Center(
-                    child: Text(
-                      listofitemsgrid[index],
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: Colors.white54,
+                          style: BorderStyle.solid,
+                          width: 2.5,
+                        ),
+                        color: Colors.transparent,
+                      ),
+                      child: Center(
+                        child: Text(
+                          listofitemsgrid[index],
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    IconButton(
+                      alignment: Alignment.topRight,
+                      onPressed: () {
+                        deletedPlayList();
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -154,30 +177,6 @@ class _PlayListScreenState extends State<PlayListScreen> {
                               duration: Duration(seconds: 1),
                               shape: StadiumBorder(),
                               elevation: 100,
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 255, 82, 189),
-                              margin: EdgeInsets.all(20),
-                              behavior: SnackBarBehavior.floating,
-                              content: Center(
-                                heightFactor: 1.0,
-                                child: Text(
-                                  "Longpress to delete",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
-                              duration: Duration(seconds: 3),
-                              elevation: 100,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              )),
                             ),
                           );
                           Navigator.pop(context, 'ok');
@@ -239,15 +238,4 @@ class _PlayListScreenState extends State<PlayListScreen> {
       },
     );
   }
-
-  final listofitemsgrid = [
-    'Malaylam',
-    'English',
-    'Hindi',
-    'Melody',
-    'tamil',
-    // 'Favourites',
-    'Sleep',
-    'Gym',
-  ];
 }

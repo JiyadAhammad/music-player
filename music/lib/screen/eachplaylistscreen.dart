@@ -72,8 +72,12 @@ class _EachPlayListState extends State<EachPlayList> {
                     ),
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: ((context) => const MusicPlaySceeen())));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) =>
+                                MusicPlaySceeen(index: index)),
+                          ),
+                        );
                       },
                       leading: const CircleAvatar(
                         child: Icon(

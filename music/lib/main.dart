@@ -4,6 +4,7 @@ import 'package:music/screen/splashscreen.dart';
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -12,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Music',
-      theme: ThemeData(primarySwatch:Colors.deepPurple ),
-      home:const SplashScreen(),
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      home: const SplashScreen(),
     );
   }
 }
