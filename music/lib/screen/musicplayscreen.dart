@@ -9,7 +9,7 @@ class MusicPlaySceeen extends StatefulWidget {
   // final songpath;
   const MusicPlaySceeen({
     Key? key,
-    required this.index,
+     this.index,
     this.songtitle,
     // this.songpath,
   }) : super(key: key);
@@ -79,7 +79,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
           // widget.index,
         ],
       ),
-      notificationSettings:const NotificationSettings(
+      notificationSettings: const NotificationSettings(
         stopEnabled: false,
       ),
       autoStart: true,
@@ -124,30 +124,6 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
                   builder: ((context) => const NavBar()),
                 ),
               );
-
-              // showModalBottomSheet<void>(
-              //   context: context,
-              //   builder: (BuildContext context) {
-              //     return SizedBox(
-              //       height: 200,
-              //       child: Center(
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: const <Widget>[
-              //             Text('GeeksforGeeks'),
-              //           ],
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // );
-              // Navigator.of(context).pushReplacement(
-              //   MaterialPageRoute(
-              //     builder: (ctx) {
-              //       return const NavBar();
-              //     },
-              //   ),
-              // );
             },
             icon: const Icon(
               Icons.expand_more,
@@ -296,27 +272,32 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
     audioPlayer.seek(newDuration);
   }
 
-  Widget slider(Duration currentPosition, Duration duration) {
-    double currentValue = currentPosition.inSeconds / duration.inSeconds;
-    //currentPosition.inSeconds / duration.inSeconds;
-    return StatefulBuilder(
-      builder: (BuildContext context, state) {
-        return Slider(
-          activeColor: Colors.white,
-          inactiveColor: Colors.blueGrey,
-          value: currentValue,
-          thumbColor: Colors.white,
-          onChanged: (value) {
-            state(() {
-              // seekToSecond(currentValue.toInt());
-
-              currentValue = value;
-
-              audioPlayer.seek(Duration(seconds: currentValue.toInt()));
-            });
-          },
-        );
-      },
+  Widget slider(RealtimePlayingInfos realtimePlayingInfos) {
+    return Stack(
+      children: [
+        SliderTheme(
+          data: const SliderThemeData(
+            thumbColor: Colors.white,
+            activeTrackColor: Colors.white,
+            inactiveTrackColor: Colors.grey,
+            overlayColor: Colors.transparent,
+          ),
+          child: Slider.adaptive(
+            value: realtimePlayingInfos.currentPosition.inSeconds.toDouble(),
+            max: realtimePlayingInfos.duration.inSeconds.toDouble(),
+            min: 0,
+            onChanged: (value) {
+              if (value <= 0) {
+                audioPlayer.seek(Duration(seconds: 0));
+              } else if (value >= realtimePlayingInfos.duration.inSeconds) {
+                audioPlayer.seek(realtimePlayingInfos.duration);
+              } else {
+                audioPlayer.seek(Duration(seconds: value.toInt()));
+              }
+            },
+          ),
+        )
+      ],
     );
   }
 
@@ -404,11 +385,12 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
           const SizedBox(
             height: 5,
           ),
-          slider(realtimePlayingInfos.currentPosition,
-              realtimePlayingInfos.duration),
+          slider(realtimePlayingInfos),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // timeStamp(realtimePlayingInfos)
               getTimeText(
                 realtimePlayingInfos.currentPosition,
               ),
@@ -469,129 +451,4 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
     );
   }
 }
-// Padding(
-//             padding: const EdgeInsets.fromLTRB(50, 50, 50, 0),
-//             child: Column(
-//               children: [
-//                 Container(
-//                   height: 300,
-//                   width: 300,
-//                   decoration: const BoxDecoration(
-//                     image: DecorationImage(
-//                       image: AssetImage('assets/img/musiclogo.png'),
-//                       fit: BoxFit.fill,
-//                     ),
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(top: 50),
-//                   child: Center(
-//                     child: Text(
-//                       widget.songtitle,
-//                       style: const TextStyle(
-//                         color: Colors.white,
-//                         fontSize: 20,
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(top: 30),
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: [
-//                       IconButton(
-//                         onPressed: () {},
-//                         icon: Icon(
-//                           Icons.loop,
-//                           color: Colors.pink[100],
-//                         ),
-//                       ),
-//                       IconButton(
-//                         onPressed: () {},
-//                         icon: const Icon(
-//                           Icons.favorite,
-//                           color: Colors.white,
-//                           size: 30,
-//                         ),
-//                       ),
-//                       IconButton(
-//                         onPressed: () {},
-//                         icon: Icon(
-//                           Icons.shuffle,
-//                           color: Colors.pink[100],
-//                         ),
-//                       ),
-//                     ],
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 slider(),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                   children: const [
-//                     Text(
-//                       '0.00',
-//                       style: TextStyle(
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                     Text(
-//                       '05.00',
-//                       style: TextStyle(
-//                         color: Colors.white,
-//                       ),
-//                     )
-//                   ],
-//                 ),
-//                 const SizedBox(
-//                   height: 10,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   children: [
-//                     IconButton(
-//                       onPressed: () {
-//                         audioPlayer.previous();
-//                       },
-//                       icon: const Icon(
-//                         Icons.skip_previous,
-//                         color: Colors.white,
-//                         size: 40,
-//                       ),
-//                     ),
-//                     Container(
-//                       height: 60,
-//                       width: 60,
-//                       decoration: BoxDecoration(
-//                         color: Colors.transparent,
-//                         borderRadius: BorderRadius.circular(100),
-//                       ),
-//                       alignment: Alignment.topLeft,
-//                       child: IconButton(
-//                         icon: const Icon(
-//                           Icons.pause,
-//                           size: 50,
-//                         ),
-//                         color: Colors.white,
-//                         onPressed: () {},
-//                       ),
-//                     ),
-//                     IconButton(
-//                       onPressed: () {
-//                         audioPlayer.next();
-//                       },
-//                       icon: const Icon(
-//                         Icons.skip_next,
-//                         size: 40,
-//                         color: Colors.white,
-//                       ),
-//                     ),
-//                   ],
-//                 )
-//               ],
-//             ),
-//           ),
+

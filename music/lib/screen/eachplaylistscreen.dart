@@ -75,7 +75,7 @@ class _EachPlayListState extends State<EachPlayList> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: ((context) =>
-                                MusicPlaySceeen(index: index)),
+                                const MusicPlaySceeen()),
                           ),
                         );
                       },

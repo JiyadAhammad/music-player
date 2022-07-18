@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music/screen/favouritescreen.dart';
 import 'package:music/screen/homescreen.dart';
+import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/playlist.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -38,6 +39,7 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.red,
       extendBody: true,
       body: navbarpages[currentSelectedIndex],
       bottomNavigationBar: Theme(
@@ -62,54 +64,72 @@ class _NavBarState extends State<NavBar> {
           items: itembottomnavabr,
         ),
       ),
-      
-      bottomSheet: Container(
-        color: Colors.deepPurple[700],
-        height: 60,
-        child: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: const Text(
-                'data',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,               ),
+      bottomSheet: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MusicPlaySceeen(),
+            ),
+          );
+        },
+        child: Container(
+          // color: Colors.black,
+          // margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Colors.deepPurple[700],
+            border: Border.all(
+              color: const Color.fromARGB(255, 60, 57, 57),
+              width: 3.0,
+            ),
+            // borderRadius: const BorderRadius.all(
+            //   Radius.circular(
+            //    15.0,
+            //   ),
+            // ),
+            boxShadow: const [
+              BoxShadow(
+                blurRadius: 10,
+                color: Colors.black,
+                offset: Offset(1, 3),
               ),
-              leading: const Icon(
-                Icons.music_note,
+            ],
+          ),
+          height: 55,
+          child: ListTile(
+            title: const Text(
+              'data',
+              style: TextStyle(
                 color: Colors.white,
-                size: 25,
+                fontSize: 25,
               ),
-              trailing: Wrap(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.pause_circle,
-                      color: Colors.white,
-                      size: 30,
-                    ),
+            ),
+            leading: const Icon(
+              Icons.music_note,
+              color: Colors.white,
+              size: 25,
+            ),
+            trailing: Wrap(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.pause_circle,
+                    color: Colors.white,
+                    size: 30,
                   ),
-                  // const SizedBox(
-                  //   width: 10,
-                  // ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.skip_next_rounded,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  )
-
-                  // Icon(Icons.pause_circle),
-                  // SizedBox(width: 10,),
-                  // Icon(Icons.skip_next_rounded)
-                ],
-              ),
-            );
-          },
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.skip_next_rounded,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );
