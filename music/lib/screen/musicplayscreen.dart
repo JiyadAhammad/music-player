@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:music/navbar/navbar.dart';
 import 'package:music/screen/playlist.dart';
 
 class MusicPlaySceeen extends StatefulWidget {
@@ -9,7 +10,7 @@ class MusicPlaySceeen extends StatefulWidget {
   // final songpath;
   const MusicPlaySceeen({
     Key? key,
-     this.index,
+    this.index,
     this.songtitle,
     // this.songpath,
   }) : super(key: key);
@@ -20,6 +21,8 @@ class MusicPlaySceeen extends StatefulWidget {
 
 class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  bool isRepeat = false;
+  Color color = Color.fromARGB(255, 235, 139, 171);
 
   @override
   void initState() {
@@ -37,31 +40,52 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
           ),
           Audio(
             'assets/audio/Arabic Kuthu.mp3',
-            metas: Metas(title: 'Arabic Kuthu', artist: '<unknown>'),
+            metas: Metas(
+              title: 'Arabic Kuthu',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/audio1.mp3',
-            metas: Metas(title: 'vikram-surya', artist: '<unknown>'),
+            metas: Metas(
+              title: 'vikram-surya',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/audio2.mp3',
-            metas: Metas(title: 'vikram -theme', artist: '<unknown>'),
+            metas: Metas(
+              title: 'vikram -theme',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/audio3.mp3',
-            metas: Metas(title: 'messi', artist: '<unknown>'),
+            metas: Metas(
+              title: 'messi',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/Kutti Story.mp3',
-            metas: Metas(title: 'Kutty Story', artist: '<unknown>'),
+            metas: Metas(
+              title: 'Kutty Story',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/Master the Blaster.mp3',
-            metas: Metas(title: 'Master the Balaster', artist: '<unknown>'),
+            metas: Metas(
+              title: 'Master the Balaster',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/Mehabooba-Malayalam.mp3',
-            metas: Metas(title: 'Mehabooba', artist: '<unknown>'),
+            metas: Metas(
+              title: 'Mehabooba',
+              artist: '<unknown>',
+            ),
           ),
           Audio(
             'assets/audio/Sanam Re.mp3',
@@ -84,7 +108,6 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
       ),
       autoStart: true,
       playInBackground: PlayInBackground.enabled,
-      showNotification: true,
       loopMode: LoopMode.playlist,
     );
   }
@@ -119,137 +142,17 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: ((context) => const NavBar()),
-                ),
-              );
+              Navigator.pop(context);
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: ((context) => const NavBar()),
+              //   ),
+              // );
             },
             icon: const Icon(
               Icons.expand_more,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(30),
-                    ),
-                  ),
-                  builder: (context) {
-                    return Container(
-                      height: 350,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        ),
-                        gradient: RadialGradient(
-                          colors: [
-                            Color(0xFF911BEE),
-                            Color(0xFF4D0089),
-                          ],
-                        ),
-                      ),
-                      child: Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.black,
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 30,
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (ctx) {
-                                    return AlertDialog(
-                                      title: const Text('Playlist Name'),
-                                      content: TextFormField(
-                                        decoration: const InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          labelText: 'Playlist Name',
-                                        ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter some text';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, 'Cancel'),
-                                          child: const Text('Cancel'),
-                                        ),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context, 'ok');
-                                          },
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                          Expanded(
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 4 / 3,
-                              ),
-                              itemCount: listofitemsgrid.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15),
-                                      border: Border.all(
-                                        color: Colors.white54,
-                                        style: BorderStyle.solid,
-                                        width: 2.5,
-                                      ),
-                                      color: Colors.transparent,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        listofitemsgrid[index],
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              icon: const Icon(
-                Icons.queue_music,
-                size: 35,
-              ),
-            )
-          ],
         ),
         body: SafeArea(
           child: audioPlayer.builderRealtimePlayingInfos(
@@ -358,10 +261,29 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (isRepeat == false) {
+                      audioPlayer.setLoopMode(LoopMode.single);
+                      setState(
+                        () {
+                          isRepeat = true;
+                          color = Colors.black;
+                        },
+                      );
+                    } else {
+                      audioPlayer.setLoopMode(LoopMode.playlist);
+                      setState(
+                        () {
+                          isRepeat = false;
+                          color = Colors.white;
+                        },
+                      );
+                    }
+                  },
                   icon: Icon(
-                    Icons.loop,
-                    color: Colors.pink[100],
+                    isRepeat == false ? Icons.loop : Icons.repeat_one,
+                    color: Colors.white,
+                    size: 30,
                   ),
                 ),
                 IconButton(
@@ -373,12 +295,135 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.shuffle,
-                    color: Colors.pink[100],
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(30),
+                        ),
+                      ),
+                      builder: (context) {
+                        return Container(
+                          height: 350,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30),
+                              topRight: Radius.circular(30),
+                            ),
+                            gradient: RadialGradient(
+                              colors: [
+                                Color(0xFF911BEE),
+                                Color(0xFF4D0089),
+                              ],
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.black,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (ctx) {
+                                        return AlertDialog(
+                                          title: const Text('Playlist Name'),
+                                          content: TextFormField(
+                                            decoration: const InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              labelText: 'Playlist Name',
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Please enter some text';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  context, 'Cancel'),
+                                              child: const Text('Cancel'),
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context, 'ok');
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: GridView.builder(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 4 / 3,
+                                  ),
+                                  itemCount: listofitemsgrid.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          15, 10, 15, 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          border: Border.all(
+                                            color: Colors.white54,
+                                            style: BorderStyle.solid,
+                                            width: 2.5,
+                                          ),
+                                          color: Colors.transparent,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            listofitemsgrid[index],
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.queue_music,
+                    size: 35,
+                    color: Colors.white,
                   ),
-                ),
+                )
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: Icon(
+                //     Icons.shuffle,
+                //     color: Colors.pink[100],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -451,4 +496,3 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
     );
   }
 }
-

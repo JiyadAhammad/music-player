@@ -79,7 +79,7 @@ class _NavBarState extends State<NavBar> {
           decoration: BoxDecoration(
             color: Colors.deepPurple[700],
             border: Border.all(
-              color: const Color.fromARGB(255, 60, 57, 57),
+              color: const Color.fromARGB(255, 56, 100, 136),
               width: 3.0,
             ),
             // borderRadius: const BorderRadius.all(
