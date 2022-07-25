@@ -25,14 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
       play(audioPlayer);
     });
     super.initState();
-log('${fullsonglist}from data');
+// log('${fullsonglist}from data');
   }
 
   Future<void> play(AssetsAudioPlayer assetsaudioPlayer) async {
     log('..........................!!!!!!!!!${HomeScreen.index}');
-    log('${fullsonglist}fullhome');
-    log('${allAudios.length} home all');
-    log('${allAudio.length}all home');
+    // log('${fullsonglist}fullhome');
+    // log('${allAudios.length} home all');
+    // log('${allAudio.length}all home');
 
     // for (var i = 0; i < 3; i++) {
     //   widget.abc.add(Audio.file(
@@ -118,7 +118,7 @@ log('${fullsonglist}from data');
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: allAudio.length,
+                itemCount: fullsonglist.length,
                 itemBuilder: (BuildContext context, int index) {
                   // var path = songs[index].toString();
                   // // path = path.replaceAll("%20", " ");
@@ -143,18 +143,31 @@ log('${fullsonglist}from data');
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ListTile(
-                        onTap: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: ((context) => MusicPlaySceeen(
-                          //       audioPlayer.playlistPlayAtIndex(index);
-                          //           // index: index,
-                          //           // songtitle: songtitle,
-                          //         )),
-                          //   ),
-                          // );
-                          audioPlayer.playlistPlayAtIndex(index);
-                        },
+                        onTap: (() {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (ctx) => MusicPlaySceeen(
+                                allSongs: fullsonglist,
+                                index: index,
+                                songId: fullsonglist[index].metas.id.toString(),
+                                audioPlayer: audioPlayer,
+                              ),
+                            ),
+                          );
+                        }),
+                        //   onTap:( () {
+
+                        //   // (
+                        //   //         fullSongs: [],
+                        //   //         index: index,
+                        //   //         songId: fullsonglist[index].metas.id.toString(),)
+                        //   //     .openAssetPlayer(
+                        //   //   index: index,
+                        //   //   songs: fullsonglist,
+                        //   // );
+
+                        //     // audioPlayer.playlistPlayAtIndex(index);
+                        // }),
                         leading: const CircleAvatar(
                           child: Icon(
                             Icons.music_note,
@@ -164,8 +177,9 @@ log('${fullsonglist}from data');
                         title: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
+                            fullsonglist[index].metas.title!,
                             // songslist[index].songtitle!,
-                            allAudio[index],
+                            // allAudio[index],
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

@@ -74,7 +74,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: ((context) =>
-                                const MusicPlaySceeen()),
+                                 MusicPlaySceeen()),
                           ),
                         );
                       },

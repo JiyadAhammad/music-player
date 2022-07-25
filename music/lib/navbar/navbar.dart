@@ -69,7 +69,7 @@ class _NavBarState extends State<NavBar> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const MusicPlaySceeen(),
+              builder: (context) =>  MusicPlaySceeen(),
             ),
           );
         },

@@ -2,16 +2,23 @@ import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/screen/playlist.dart';
+import 'package:music/screen/splashscreen.dart';
 
 class MusicPlaySceeen extends StatefulWidget {
-  final index;
-  final songtitle;
+ List<Audio>? allSongs = [];
+  int? index;
+  final String? songId;
+  AssetsAudioPlayer? audioPlayer;
   // final songpath;
-  const MusicPlaySceeen({
-    Key? key,
+   MusicPlaySceeen({
+    Key? key,  
+    this.allSongs,
     this.index,
-    this.songtitle,
+    this.songId,
+    this.audioPlayer
+    
     // this.songpath,
   }) : super(key: key);
 
@@ -24,11 +31,25 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
   bool isRepeat = false;
   Color color = Color.fromARGB(255, 235, 139, 171);
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   setupPlaylist();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    setupPlaylist();
+
+  }
+   void setupPlaylist(){
+    audioPlayer.open(Playlist(
+      audios: [
+        Audio.file(
+          widget.allSongs.toString(),
+          metas: Metas(
+            title:'sample',
+            artist: '<Unknown>'
+          ),
+        ),
+      ]
+    ));
+  }
 
   // void setupPlaylist() async {
   //   audioPlayer.open(
