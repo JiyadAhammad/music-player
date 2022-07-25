@@ -24,99 +24,99 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
   bool isRepeat = false;
   Color color = Color.fromARGB(255, 235, 139, 171);
 
-  @override
-  void initState() {
-    super.initState();
-    setupPlaylist();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   setupPlaylist();
+  // }
 
-  void setupPlaylist() async {
-    audioPlayer.open(
-      Playlist(
-        audios: [
-          Audio(
-            'assets/audio/01 Sanam Teri Kasam.mp3',
-            metas: Metas(title: widget.songtitle, artist: '<unknown>'),
-          ),
-          Audio(
-            'assets/audio/Arabic Kuthu.mp3',
-            metas: Metas(
-              title: 'Arabic Kuthu',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/audio1.mp3',
-            metas: Metas(
-              title: 'vikram-surya',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/audio2.mp3',
-            metas: Metas(
-              title: 'vikram -theme',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/audio3.mp3',
-            metas: Metas(
-              title: 'messi',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/Kutti Story.mp3',
-            metas: Metas(
-              title: 'Kutty Story',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/Master the Blaster.mp3',
-            metas: Metas(
-              title: 'Master the Balaster',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/Mehabooba-Malayalam.mp3',
-            metas: Metas(
-              title: 'Mehabooba',
-              artist: '<unknown>',
-            ),
-          ),
-          Audio(
-            'assets/audio/Sanam Re.mp3',
-            metas: Metas(title: 'Sanam Re', artist: '<unknown>'),
-          ),
-          Audio(
-            'assets/audio/Sulthana.mp3',
-            metas: Metas(title: 'KGF Sulthana', artist: '<unknown>'),
-          ),
-          Audio(
-            'assets/audio/Vaathi Coming.mp3',
-            metas: Metas(title: 'Vaathi comming', artist: '<unknown>'),
-          ),
+  // void setupPlaylist() async {
+  //   audioPlayer.open(
+  //     Playlist(
+  //       audios: [
+  //         Audio(
+  //           'assets/audio/01 Sanam Teri Kasam.mp3',
+  //           metas: Metas(title: widget.songtitle, artist: '<unknown>'),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Arabic Kuthu.mp3',
+  //           metas: Metas(
+  //             title: 'Arabic Kuthu',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/audio1.mp3',
+  //           metas: Metas(
+  //             title: 'vikram-surya',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/audio2.mp3',
+  //           metas: Metas(
+  //             title: 'vikram -theme',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/audio3.mp3',
+  //           metas: Metas(
+  //             title: 'messi',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Kutti Story.mp3',
+  //           metas: Metas(
+  //             title: 'Kutty Story',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Master the Blaster.mp3',
+  //           metas: Metas(
+  //             title: 'Master the Balaster',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Mehabooba-Malayalam.mp3',
+  //           metas: Metas(
+  //             title: 'Mehabooba',
+  //             artist: '<unknown>',
+  //           ),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Sanam Re.mp3',
+  //           metas: Metas(title: 'Sanam Re', artist: '<unknown>'),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Sulthana.mp3',
+  //           metas: Metas(title: 'KGF Sulthana', artist: '<unknown>'),
+  //         ),
+  //         Audio(
+  //           'assets/audio/Vaathi Coming.mp3',
+  //           metas: Metas(title: 'Vaathi comming', artist: '<unknown>'),
+  //         ),
 
-          // widget.index,
-        ],
-      ),
-      notificationSettings: const NotificationSettings(
-        stopEnabled: false,
-      ),
-      autoStart: true,
-      playInBackground: PlayInBackground.enabled,
-      loopMode: LoopMode.playlist,
-    );
-  }
+  //         // widget.index,
+  //       ],
+  //     ),
+  //     notificationSettings: const NotificationSettings(
+  //       stopEnabled: false,
+  //     ),
+  //     autoStart: true,
+  //     playInBackground: PlayInBackground.enabled,
+  //     loopMode: LoopMode.playlist,
+  //   );
+  // }
 
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   audioPlayer.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

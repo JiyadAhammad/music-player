@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/screen/splashscreen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(SongsAdapter());
   runApp(const MyApp());
 }
 
@@ -14,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Music',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const SplashScreen(),
+      home:  SplashScreen(),
     );
   }
 }
