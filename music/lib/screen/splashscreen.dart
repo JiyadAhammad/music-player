@@ -81,14 +81,14 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-   void searchInStorage(
+  void searchInStorage(
     List<String> query,
     void Function(List<String>) onSuccess,
     void Function(String) onError,
   ) {
     _platform.invokeMethod('search', query).then((value) {
       final _res = value as List<Object?>;
-      log('res 1 ${_res.toString()}');
+      // log('res 1 ${_res.toString()}');
 
       setState(() {
         // a = [Audio(_res[1].toString())];
@@ -98,11 +98,10 @@ class _SplashScreenState extends State<SplashScreen> {
     }).onError((error, stackTrace) {
       log(error.toString());
       onError(error.toString());
-      print(onError);
-      print(onSuccess);
+      // print(onError);
+      // print(onSuccess);
     });
   }
-
 
   Future splashFetch() async {
     log('requst permission');
@@ -175,12 +174,12 @@ class _SplashScreenState extends State<SplashScreen> {
     // final data = Songs(path: allAudios);
     final data = Songs(path: allAudios!);
     addMusicList(data);
-    log('${data.id} haiii');
+    // log('${data.id} haiii');
     await getAllSongsDetails();
     dbSongs = musicValueNotifier.value[1].path!;
-    log('begore for loop');
+    // log('begore for loop');
     for (var i = 0; i < dbSongs.length; i++) {
-      log('insode for loop');
+      // log('insode for loop');
       fullsonglist.add(
         Audio.file(
           dbSongs[i],
@@ -191,14 +190,11 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       );
-      log('inside for loop ................${fullsonglist.toString()} jnjknkjhkhj');
+      // log('inside for loop ................${fullsonglist.toString()} jnjknkjhkhj');
     }
     // log()
-    log('outside for loop');
-    log('${fullsonglist.length} lenght of fullof string');
-    log('allvideos ${dbSongs.toString()}dbsongsakgaijhgaghnaierngdja');
+    // log('outside for loop');
+    // log('${fullsonglist.length} lenght of fullof string');
+    // log('allvideos ${dbSongs.toString()}dbsongsakgaijhgaghnaierngdja');
   }
-
-  
-
 }

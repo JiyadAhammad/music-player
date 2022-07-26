@@ -19,37 +19,37 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
-  @override
-  void initState() {
-    setState(() {
-      play(audioPlayer);
-    });
-    super.initState();
-// log('${fullsonglist}from data');
-  }
+//   @override
+//   void initState() {
+//     setState(() {
+//       play(audioPlayer);
+//     });
+//     super.initState();
+// // log('${fullsonglist}from data');
+//   }
 
-  Future<void> play(AssetsAudioPlayer assetsaudioPlayer) async {
-    log('..........................!!!!!!!!!${HomeScreen.index}');
-    // log('${fullsonglist}fullhome');
-    // log('${allAudios.length} home all');
-    // log('${allAudio.length}all home');
+  // Future<void> play(AssetsAudioPlayer assetsaudioPlayer) async {
+  //   log('..........................!!!!!!!!!${HomeScreen.index}');
+  //   // log('${fullsonglist}fullhome');
+  //   // log('${allAudios.length} home all');
+  //   // log('${allAudio.length}all home');
 
-    // for (var i = 0; i < 3; i++) {
-    //   widget.abc.add(Audio.file(
-    //     musicValueNotifier.value[0].path![i],
-    //   ));
-    //   log('inside for loop ................${widget.abc.toString()}');
-    // }
+  //   // for (var i = 0; i < 3; i++) {
+  //   //   widget.abc.add(Audio.file(
+  //   //     musicValueNotifier.value[0].path![i],
+  //   //   ));
+  //   //   log('inside for loop ................${widget.abc.toString()}');
+  //   // }
 
-    await assetsaudioPlayer.open(
-      Playlist(audios: fullsonglist),
-      showNotification: false,
-      autoStart: false,
-      loopMode: LoopMode.playlist,
-      notificationSettings: const NotificationSettings(
-          stopEnabled: false, nextEnabled: true, prevEnabled: true),
-    );
-  }
+  //   await assetsaudioPlayer.open(
+  //     Playlist(audios: fullsonglist),
+  //     showNotification: false,
+  //     autoStart: false,
+  //     loopMode: LoopMode.playlist,
+  //     notificationSettings: const NotificationSettings(
+  //         stopEnabled: false, nextEnabled: true, prevEnabled: true),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -154,6 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
+                          // audioPlayer.playlistPlayAtIndex(index);
                         }),
                         //   onTap:( () {
 

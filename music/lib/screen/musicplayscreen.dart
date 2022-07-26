@@ -7,19 +7,17 @@ import 'package:music/screen/playlist.dart';
 import 'package:music/screen/splashscreen.dart';
 
 class MusicPlaySceeen extends StatefulWidget {
- List<Audio>? allSongs = [];
+  List<Audio>? allSongs = [];
   int? index;
   final String? songId;
   AssetsAudioPlayer? audioPlayer;
   // final songpath;
-   MusicPlaySceeen({
-    Key? key,  
+  MusicPlaySceeen({
+    Key? key,
     this.allSongs,
     this.index,
     this.songId,
-    this.audioPlayer
-    
-    // this.songpath,
+    this.audioPlayer,
   }) : super(key: key);
 
   @override
@@ -29,27 +27,41 @@ class MusicPlaySceeen extends StatefulWidget {
 class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
   bool isRepeat = false;
-  Color color = Color.fromARGB(255, 235, 139, 171);
+  Color color = const Color.fromARGB(255, 235, 139, 171);
 
   @override
   void initState() {
+    setState(() {
+      play(audioPlayer);
+    });
     super.initState();
-    setupPlaylist();
+// log('${fullsonglist}from data');
+  }
 
+  Future<void> play(AssetsAudioPlayer assetsaudioPlayer) async {
+    await assetsaudioPlayer.open(
+      Playlist(audios: fullsonglist, startIndex: widget.index!),
+      notificationSettings: const NotificationSettings(
+        stopEnabled: false,
+      ),
+      autoStart: true,
+      playInBackground: PlayInBackground.enabled,
+      loopMode: LoopMode.playlist,
+    );
   }
-   void setupPlaylist(){
-    audioPlayer.open(Playlist(
-      audios: [
-        Audio.file(
-          widget.allSongs.toString(),
-          metas: Metas(
-            title:'sample',
-            artist: '<Unknown>'
-          ),
-        ),
-      ]
-    ));
-  }
+  //  void setupPlaylist(){
+  //   audioPlayer.open(Playlist(
+  //     audios: [
+  //       Audio.file(
+  //         widget.allSongs.toString(),
+  //         metas: Metas(
+  //           title:'sample',
+  //           artist: '<Unknown>'
+  //         ),
+  //       ),
+  //     ]
+  //   ));
+  // }
 
   // void setupPlaylist() async {
   //   audioPlayer.open(
@@ -266,9 +278,10 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
                     fontSize: 20,
                   ),
                 ),
-                Text(
-                  " ${realtimePlayingInfos.current?.audio.audio.metas.artist}",
-                  style: const TextStyle(
+                const Text(
+                  '<unknown>',
+                  // " ${realtimePlayingInfos.current?.audio.audio.metas.artist}",
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),
