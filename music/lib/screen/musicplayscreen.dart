@@ -45,6 +45,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
         stopEnabled: false,
       ),
       autoStart: true,
+      showNotification: true,
       playInBackground: PlayInBackground.enabled,
       loopMode: LoopMode.playlist,
     );

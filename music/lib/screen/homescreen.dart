@@ -200,13 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         trailing: Wrap(
                           children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite,
-                                color: Colors.white,
-                              ),
-                            ),
                             PopupMenuButton(
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
@@ -216,13 +209,40 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.black,
                               itemBuilder: (context) {
                                 return [
-                                  const PopupMenuItem(
+                                  PopupMenuItem(
+                                    onTap: (() {}),
                                     value: '1',
-                                    child: Text(
-                                      'Add to playlist',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
+                                    child: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.favorite,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          'Add to favorite',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  PopupMenuItem(
+                                    onTap: (() {}),
+                                    value: '2',
+                                    child: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.queue_music,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          'Add to playlist',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ];

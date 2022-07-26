@@ -164,10 +164,10 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       // allAudios = allAudio;
 
-      log('${allAudios.toString()}all audio');
-      log('${allAudios!.length}all splash');
-      log('${fullsonglist.length} full splash');
-            log('${allAudio.length}splash all');
+      // log('${allAudios.toString()}all audio');
+      // log('${allAudios!.length}all splash');
+      // log('${fullsonglist.length} full splash');
+      //       log('${allAudio.length}splash all');
 
       // a = [Audio(allVideos.toString())];
     });
