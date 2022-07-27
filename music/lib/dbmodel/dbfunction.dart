@@ -16,7 +16,7 @@ Future<void> addMusicList(Songs value) async {
   final musicListData = Songs(path: value.path, id: id);
   musicListDb.put(id, musicListData);
   // log('$id id is this');
-  // log('musiclistlllllllllllllllllllllllllllllllll$musicListData');
+  // log('musiclistdbdata$musicListData');
   // log('${musicListData.path}path in database');
   musicValueNotifier.notifyListeners();
 }

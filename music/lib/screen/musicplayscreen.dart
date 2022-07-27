@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/screen/playlist.dart';
 import 'package:music/screen/splashscreen.dart';
@@ -42,7 +43,6 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
       vsync: this,
       duration: const Duration(seconds: 7),
     );
-
     animationController.repeat();
   }
 
@@ -233,11 +233,19 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
             min: 0,
             onChanged: (value) {
               if (value <= 0) {
-                audioPlayer.seek(Duration(seconds: 0));
+                audioPlayer.seek(
+                  const Duration(
+                    seconds: 0,
+                  ),
+                );
               } else if (value >= realtimePlayingInfos.duration.inSeconds) {
                 audioPlayer.seek(realtimePlayingInfos.duration);
               } else {
-                audioPlayer.seek(Duration(seconds: value.toInt()));
+                audioPlayer.seek(
+                  Duration(
+                    seconds: value.toInt(),
+                  ),
+                );
               }
             },
           ),
@@ -248,8 +256,12 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
 
   Widget getTimeText(Duration currentValue) {
     return Text(
-      transformingString(currentValue.inSeconds),
-      style: const TextStyle(color: Colors.white),
+      transformingString(
+        currentValue.inSeconds,
+      ),
+      style: const TextStyle(
+        color: Colors.white,
+      ),
     );
   }
 
@@ -266,48 +278,48 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
       padding: const EdgeInsets.fromLTRB(50, 50, 50, 0),
       child: Column(
         children: [
-          Container(
-            height: 250,
-            width: 300,
-            child: AnimatedBuilder(
-              animation: animationController,
-              child: Container(child: Image.asset('assets/img/musiclogo.png')),
-              builder: (context, child) {
-                return Transform.rotate(
-                  angle: animationController.value * 6.3,
-                  child: child,
-                );
-              },
+          AnimatedBuilder(
+            animation: animationController,
+            child: Image.asset(
+              'assets/img/musiclogo.png',
             ),
-            // decoration: const BoxDecoration(
-            //   // image: DecorationImage(
-            //   //   image: AssetImage('assets/img/musiclogo.png'),
-            //   //   fit: BoxFit.fill,
-            //   // ),
-            // ),
+            builder: (context, child) {
+              return Transform.rotate(
+                angle: animationController.value * 6.3,
+                child: child,
+              );
+            },
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30),
-            child: Column(
-              children: [
-                Text(
-                  " ${realtimePlayingInfos.current?.audio.audio.metas.title}",
+          const SizedBox(
+            height: 20,
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: 30,
+                width: 200,
+                child: Marquee(
+                  blankSpace: 20.0,
+                  startAfter: Duration.zero,
+                  velocity: 60,
+                  text: realtimePlayingInfos.current!.audio.audio.metas.title
+                      .toString(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                   ),
                 ),
-                const Text(
-                  '<unknown>',
-                  // " ${realtimePlayingInfos.current?.audio.audio.metas.artist}",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
+              ),
+              const Text(
+                '<unknown>',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: Row(

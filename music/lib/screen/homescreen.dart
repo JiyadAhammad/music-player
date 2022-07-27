@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/function/searchdelagete.dart';
@@ -137,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.transparent,
                     elevation: 0,
                     child: Container(
-                      height: 75,
+                      height: 80,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
@@ -156,104 +157,111 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                           // audioPlayer.playlistPlayAtIndex(index);
                         }),
-                        //   onTap:( () {
 
-                        //   // (
-                        //   //         fullSongs: [],
-                        //   //         index: index,
-                        //   //         songId: fullsonglist[index].metas.id.toString(),)
-                        //   //     .openAssetPlayer(
-                        //   //   index: index,
-                        //   //   songs: fullsonglist,
-                        //   // );
-
-                        //     // audioPlayer.playlistPlayAtIndex(index);
-                        // }),
                         leading: const CircleAvatar(
                           child: Icon(
                             Icons.music_note,
                             color: Colors.white,
                           ),
                         ),
-                        title: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Text(
-                            fullsonglist[index].metas.title!,
-                            // songslist[index].songtitle!,
-                            // allAudio[index],
+                        title: SizedBox(
+                          height: 80,
+                          width: 100,
+                          child: Marquee(
+                            blankSpace: 20.0,
+                            startAfter: Duration.zero,
+                            velocity: 60,
+                            text: fullsonglist[index].metas.title!,
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                             ),
                           ),
+                          
                         ),
-                        subtitle: const SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Text(
-                            " <unknown>",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
+                        // subtitle: const Text(
+                        //   '<unknown>',
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 16,
+                        //   ),
+                        // ),
+                        // title: SingleChildScrollView(
+                        //   scrollDirection: Axis.horizontal,
+                        //   child: Text(
+                        //     fullsonglist[index].metas.title!,
+                        //     // songslist[index].songtitle!,
+                        //     // allAudio[index],
+                        //     style: const TextStyle(
+                        //       color: Colors.white,
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 20,
+                        //     ),
+                        //   ),
+                        // ),
+                        // subtitle: const SingleChildScrollView(
+                        //   scrollDirection: Axis.horizontal,
+                        //   child: Text(
+                        //     " <unknown>",
+                        //     style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 16,
+                        //     ),
+                        //   ),
+                        // ),
+                        trailing: PopupMenuButton(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.0),
                             ),
                           ),
-                        ),
-                        trailing: Wrap(
-                          children: [
-                            PopupMenuButton(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15.0),
+                          color: Colors.black,
+                          itemBuilder: (context) {
+                            return [
+                              PopupMenuItem(
+                                onTap: (() {}),
+                                value: '1',
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.favorite,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      'Add to favorite',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              color: Colors.black,
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    onTap: (() {}),
-                                    value: '1',
-                                    child: Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.favorite,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          'Add to favorite',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                              PopupMenuItem(
+                                onTap: (() {}),
+                                value: '2',
+                                child: Row(
+                                  children: const [
+                                    Icon(
+                                      Icons.queue_music,
+                                      color: Colors.white,
                                     ),
-                                  ),
-                                  PopupMenuItem(
-                                    onTap: (() {}),
-                                    value: '2',
-                                    child: Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.queue_music,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          'Add to playlist',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      'Add to playlist',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                ];
-                              },
-                              onSelected: (String value) {},
-                              icon: const Icon(
-                                Icons.more_vert,
-                                color: Colors.white,
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ];
+                          },
+                          onSelected: (String value) {},
+                          icon: const Icon(
+                            Icons.more_vert,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
