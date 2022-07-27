@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                           // audioPlayer.playlistPlayAtIndex(index);
                         }),
-
+                        // subtitle: const Text('data',style: TextStyle(color: Colors.white),),
                         leading: const CircleAvatar(
                           child: Icon(
                             Icons.music_note,
@@ -165,8 +165,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         title: SizedBox(
-                          height: 80,
-                          width: 100,
+                          height: 45,
+                          // width: 200,
                           child: Marquee(
                             blankSpace: 20.0,
                             startAfter: Duration.zero,
@@ -178,15 +178,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 20,
                             ),
                           ),
-                          
                         ),
-                        // subtitle: const Text(
-                        //   '<unknown>',
-                        //   style: TextStyle(
-                        //     color: Colors.white,
-                        //     fontSize: 16,
-                        //   ),
-                        // ),
+                        subtitle: const Text(
+                          '  <unknown>',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
                         // title: SingleChildScrollView(
                         //   scrollDirection: Axis.horizontal,
                         //   child: Text(
