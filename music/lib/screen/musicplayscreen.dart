@@ -24,10 +24,12 @@ class MusicPlaySceeen extends StatefulWidget {
   State<MusicPlaySceeen> createState() => _MusicPlaySceeenState();
 }
 
-class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
+class _MusicPlaySceeenState extends State<MusicPlaySceeen>
+    with SingleTickerProviderStateMixin {
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
   bool isRepeat = false;
   Color color = const Color.fromARGB(255, 235, 139, 171);
+  late AnimationController animationController;
 
   @override
   void initState() {
@@ -36,6 +38,12 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
     });
     super.initState();
 // log('${fullsonglist}from data');
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 7),
+    );
+
+    animationController.repeat();
   }
 
   Future<void> play(AssetsAudioPlayer assetsaudioPlayer) async {
@@ -259,14 +267,24 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen> {
       child: Column(
         children: [
           Container(
-            height: 300,
+            height: 250,
             width: 300,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/img/musiclogo.png'),
-                fit: BoxFit.fill,
-              ),
+            child: AnimatedBuilder(
+              animation: animationController,
+              child: Container(child: Image.asset('assets/img/musiclogo.png')),
+              builder: (context, child) {
+                return Transform.rotate(
+                  angle: animationController.value * 6.3,
+                  child: child,
+                );
+              },
             ),
+            // decoration: const BoxDecoration(
+            //   // image: DecorationImage(
+            //   //   image: AssetImage('assets/img/musiclogo.png'),
+            //   //   fit: BoxFit.fill,
+            //   // ),
+            // ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 30),
