@@ -12,6 +12,8 @@ class MusicPlaySceeen extends StatefulWidget {
   int? index;
   final String? songId;
   AssetsAudioPlayer? audioPlayer;
+  List<Audio>? music;
+
   // final songpath;
   MusicPlaySceeen({
     Key? key,
@@ -19,6 +21,7 @@ class MusicPlaySceeen extends StatefulWidget {
     this.index,
     this.songId,
     this.audioPlayer,
+    this.music,
   }) : super(key: key);
 
   @override
@@ -35,8 +38,11 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
   @override
   void initState() {
     setState(() {
-      play(audioPlayer);
+      play(
+        audioPlayer,
+      );
     });
+   
     super.initState();
 // log('${fullsonglist}from data');
     animationController = AnimationController(
@@ -45,10 +51,9 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     );
     animationController.repeat();
   }
-
-  Future<void> play(AssetsAudioPlayer assetsaudioPlayer) async {
-    await assetsaudioPlayer.open(
-      Playlist(audios: fullsonglist, startIndex: widget.index!),
+Future<void> play(AssetsAudioPlayer assetAudioPlayer) async {
+    await assetAudioPlayer.open(
+      Playlist(audios: fullsonglist , startIndex:widget.index!),
       notificationSettings: const NotificationSettings(
         stopEnabled: false,
       ),
@@ -58,6 +63,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
       loopMode: LoopMode.playlist,
     );
   }
+  
   //  void setupPlaylist(){
   //   audioPlayer.open(Playlist(
   //     audios: [
@@ -196,16 +202,14 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
             ),
           ),
         ),
-        body: SafeArea(
-          child: audioPlayer.builderRealtimePlayingInfos(
-            builder: ((context, realtimePlayingInfos) {
-              // if (realtimePlayingInfos != null) {
-              return audioplayerUI(realtimePlayingInfos);
-              // } else {
-              //   return Container();
-              // }
-            }),
-          ),
+        body: audioPlayer.builderRealtimePlayingInfos(
+          builder: ((context, realtimePlayingInfos) {
+            // if (realtimePlayingInfos != null) {
+            return audioplayerUI(realtimePlayingInfos);
+            // } else {
+            //   return Container();
+            // }
+          }),
         ),
       ),
     );
@@ -310,18 +314,41 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                   ),
                 ),
               ),
-              const Text(
-                '<unknown>',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+              const SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 30,
+                width: 200,
+                child: Marquee(
+                  blankSpace: 50.0,
+                  startAfter: Duration.zero,
+                  velocity: 50,
+                  text: realtimePlayingInfos.current!.audio.audio.metas.artist
+                      .toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                  ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
+              // Text(
+              //   realtimePlayingInfos.current!.audio.audio.metas.artist
+              //       .toString(),
+              //   // '<unknown>',
+              //   style: const TextStyle(
+              //     color: Colors.white,
+              //     fontSize: 20,
+              //   ),
+              // ),
             ],
           ),
 
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
