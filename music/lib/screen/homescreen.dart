@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:music/function/searchdelagete.dart';
 import 'package:music/navdrawer/navdrawer.dart';
 import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
+AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
 
 class HomeScreen extends StatefulWidget {
   static int index = 0;
@@ -19,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  
 //   @override
 //   void initState() {
 //     setState(() {
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
           builder:
               (BuildContext context, List<Songs> songslist, Widget? child) {
             return Padding(
-              padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: fullsonglist.length,
@@ -171,9 +171,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
+
                           // audioPlayer.playlistPlayAtIndex(index);
                         }),
+                        // leading: fullsonglist[index].metas.album!,
                         leading: const CircleAvatar(
+                          // child: 
                           child: Icon(
                             Icons.music_note,
                             color: Colors.white,

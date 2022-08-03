@@ -245,16 +245,16 @@ class MainActivity : FlutterActivity() {
                         tempList.put("title", title)
                         // tempList.put("duration", durationk)
                         // tempList.put("id", id)
-                        // tempList.put("alubm", album)
+                        tempList.put("alubm", album)
                         tempList.put("artist", artist)
                         tempList.put("path", pathss)
                         cursor.close()
 
                         //            tempList.put("title",id)
-                        Log.i("title", title.toString())
-                        Log.i("message", "haio")
-                        Log.i("artist", artist.toString())
-                        Log.i("path ", pathss.toString())
+                        // Log.i("title", title.toString())
+                        // Log.i("message", "haio")
+                        // Log.i("artist", artist.toString())
+                        // Log.i("path ", pathss.toString())
                 }
                 return tempList
         }

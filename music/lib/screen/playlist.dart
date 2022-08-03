@@ -58,7 +58,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) {
-                    return const NavBar();
+                    return  NavBar();
                   },
                 ),
               );

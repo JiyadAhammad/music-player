@@ -1,9 +1,8 @@
-import 'dart:developer';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:music/dbmodel/dbfunction.dart';
+import 'package:music/navbar/navbar.dart';
 import 'package:music/screen/playlist.dart';
 import 'package:music/screen/splashscreen.dart';
 
@@ -38,11 +37,11 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
   @override
   void initState() {
     setState(() {
-      play(
+      playSong(
         audioPlayer,
       );
     });
-   
+
     super.initState();
 // log('${fullsonglist}from data');
     animationController = AnimationController(
@@ -51,9 +50,10 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     );
     animationController.repeat();
   }
-Future<void> play(AssetsAudioPlayer assetAudioPlayer) async {
+
+  Future<void> playSong(AssetsAudioPlayer assetAudioPlayer) async {
     await assetAudioPlayer.open(
-      Playlist(audios: fullsonglist , startIndex:widget.index!),
+      Playlist(audios: fullsonglist, startIndex: widget.index!),
       notificationSettings: const NotificationSettings(
         stopEnabled: false,
       ),
@@ -63,7 +63,7 @@ Future<void> play(AssetsAudioPlayer assetAudioPlayer) async {
       loopMode: LoopMode.playlist,
     );
   }
-  
+
   //  void setupPlaylist(){
   //   audioPlayer.open(Playlist(
   //     audios: [
@@ -190,12 +190,16 @@ Future<void> play(AssetsAudioPlayer assetAudioPlayer) async {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: ((context) => const NavBar()),
-              //   ),
-              // );
+              // Navigator.pop(context);
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: ((context) =>  NavBar(
+                    // index: widget.index,
+                    // title: fullsonglist,
+                     
+                  )),
+                ),
+              );
             },
             icon: const Icon(
               Icons.expand_more,
@@ -300,7 +304,7 @@ Future<void> play(AssetsAudioPlayer assetAudioPlayer) async {
           Column(
             children: [
               SizedBox(
-                height: 30,
+                height: 50,
                 width: 200,
                 child: Marquee(
                   blankSpace: 20.0,
@@ -317,33 +321,36 @@ Future<void> play(AssetsAudioPlayer assetAudioPlayer) async {
               const SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                height: 30,
-                width: 200,
-                child: Marquee(
-                  blankSpace: 50.0,
-                  startAfter: Duration.zero,
-                  velocity: 50,
-                  text: realtimePlayingInfos.current!.audio.audio.metas.artist
-                      .toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: 30,
+              //   width: 200,
+              //   child: Marquee(
+              //     blankSpace: 50.0,
+              //     startAfter: Duration.zero,
+              //     velocity: 50,
+              //     text: realtimePlayingInfos.current!.audio.audio.metas.artist
+              //         .toString(),
+              //     style: const TextStyle(
+              //       color: Colors.white,
+              //       fontSize: 15,
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 10,
               ),
-              // Text(
-              //   realtimePlayingInfos.current!.audio.audio.metas.artist
-              //       .toString(),
-              //   // '<unknown>',
-              //   style: const TextStyle(
-              //     color: Colors.white,
-              //     fontSize: 20,
-              //   ),
-              // ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Text(
+                  realtimePlayingInfos.current!.audio.audio.metas.artist
+                      .toString(),
+                  // '<unknown>',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
             ],
           ),
 

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'dart:io';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/navbar/navbar.dart';
 
 import 'package:permission_handler/permission_handler.dart';
-import 'package:music/dbmodel/dbfunction.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,6 +23,7 @@ Map<dynamic, dynamic> allSongsFetch = {};
 List<String> musicTitles = [];
 List<String> musicArtist = [];
 List<String> musicpath = [];
+List<String> musicAlbum = [];
 
 class _SplashScreenState extends State<SplashScreen> {
   List<String>? allAudios;
@@ -89,12 +88,12 @@ class _SplashScreenState extends State<SplashScreen> {
   void searchInStorage() {
     _platform.invokeMethod('search').then((value) {
       final res = value as Map<Object?, Object?>;
-      log('res 1 ${res.toString()}');
-      log('res 2 $value');
+      // log('res 1 ${res.toString()}');
+      // log('res 2 $value');
 
       onSuccess(res);
     }).onError((error, stackTrace) {
-      log(error.toString());
+      // log(error.toString());
       // onError(error.toString());
       // print(onError);
       // print(onSuccess);
@@ -103,22 +102,33 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void convertingFromMap(value) {
     final tempTitle = value['title'] as List<Object?>;
-    log('title of song $tempTitle');
+    // log('title of song $tempTitle');
     musicTitles = tempTitle.map((e) => e.toString()).toList();
-    log("........................${musicTitles.length}");
+    // log("${musicTitles.length}");
 
     final tempPath = value['path'] as List<Object?>;
-    log('path of song $tempPath');
+    // log('path of song $tempPath');
     musicpath = tempPath.map((e) => e.toString()).toList();
-    log("........................${musicpath.length}");
+    // log("${musicpath.length}");
 
     final tempArtist = value['artist'] as List<Object?>;
-    log('Artist of song $tempTitle');
+    // log('Artist of song $tempTitle');
     musicArtist = tempArtist.map((e) => e.toString()).toList();
+
+    // final tempAlbum = value['album'] as List<Object?>;
+
+    // musicAlbum = tempAlbum.map((e) => e.toString()).toList();
+    // log("$musicAlbum");
+
+    // final tempAlbum = value['alubm'] as List<Object?>;
+    // log('$tempTitle');
+    // malbum = tempAlbum.map((e) => e.toString()).toList();
+    // log("........................$malbum");
+    // log("........................${mArtist.length}");
   }
 
   Future splashFetch() async {
-    log('requst permission');
+    // log('requst permission');
     if (await _requestPermission(Permission.storage)) {
       searchInStorage();
     } else {
@@ -134,20 +144,20 @@ class _SplashScreenState extends State<SplashScreen> {
     const access = Permission.accessMediaLocation;
     if (await permission.isGranted) {
       await access.isGranted && await access.isGranted;
-      log('permission granted ');
+      // log('permission granted ');
       return true;
     } else {
       var result = await store.request();
       var oneresult = await access.request();
-      log('permission request ');
+      // log('permission request ');
 
       if (result == PermissionStatus.granted &&
           oneresult == PermissionStatus.granted) {
-        log('permission status granted ');
+        // log('permission status granted ');
 
         return true;
       } else {
-        log('permission denied ');
+        // log('permission denied ');
 
         return false;
       }
@@ -164,7 +174,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 5));
 
     Navigator.of(contxt).pushReplacement(
-      MaterialPageRoute(builder: (ctx) => const NavBar()),
+      MaterialPageRoute(builder: (ctx) => NavBar()),
     );
   }
 
@@ -176,7 +186,7 @@ class _SplashScreenState extends State<SplashScreen> {
   //   setState(() {
   //     // allAudios = allAudio;
 
-  //     log('${allAudios.toString()}all audio');
+  // log('${allAudios.toString()}all audio');
   //     log('${allAudios!.length}all splash');
   //     // log('${fullsonglist.length} full splash');
   //     //       log('${allAudio.length}splash all');
@@ -223,22 +233,23 @@ class _SplashScreenState extends State<SplashScreen> {
       path: allAudios,
     );
     // addMusicList(data);
-    log('db for data..............??????????????$data');
+    // log('db for data..............??????????????$data');
 
     //   await getAllStudentDetails();
     //   dbSongs = musicValueNotifier.value[1].path!;
 
-      for (var i = 0; i < musicpath.length; i++) {
-        fullsonglist.add(Audio.file(
-          musicpath[i],
-          metas: Metas(
-            title: musicTitles[i],
-            artist: musicArtist[i],
-            
-          ),
-        ));
-        log('inside for loop ................${fullsonglist.toString()}');
-      }
+    for (var i = 0; i < musicpath.length; i++) {
+      fullsonglist.add(Audio.file(
+        musicpath[i],
+        metas: Metas(
+          title: musicTitles[i],
+          artist: musicArtist[i],
+          // album: musicAlbum[i],
+
+        ),
+      ));
+      // log('inside for loop ................${fullsonglist.toString()}');
+    }
 
     //   log('allvideos ${dbSongs.toString()}');
     //   // log('an${a.toString()}');
