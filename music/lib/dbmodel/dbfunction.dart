@@ -1,16 +1,19 @@
-
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/screen/homescreen.dart';
+import 'package:music/screen/splashscreen.dart';
+
+import '../main.dart';
 
 ValueNotifier<List<Songs>> musicValueNotifier = ValueNotifier([]);
 
 // Future<void> addMusicList(Songs value) async {
 //   final musicListDb = await Hive.openBox<Songs>('music_db');
 //   final id = await musicListDb.add(value);
-//   value.id = id;
+//  value.id = id;
 //   musicValueNotifier.value.add(value);
 //   final musicListData = Songs(path: value.path, id: id,songtitle: value.songtitle,songartist: value.songartist);
 //   musicListDb.put(id, musicListData);
@@ -23,21 +26,33 @@ Future<void> getAllSongsDetails() async {
   musicValueNotifier.value.addAll(musicListDb.values);
   musicValueNotifier.notifyListeners();
 }
-// getFavourites({required Path})async{
-//   final favouriteDb = await Hive.openBox<Favourite>('fav_db');
 
-// List<Favourite> favList = favouriteDb.values.toList();
-// log('$favList this is th faviurite list vaenfdoooo');
-//   List<Favourite> result =
-//       favList.where((checking) => checking.favouriteAudio == Path).toList();
+addToFavourite(path) async {
 
-//   if (result.isEmpty) {
-//     var favobj = Favourite(favouriteAudio: Path);
-//     favouriteDb.add(favobj);
-//   } else {
-//     boolfav = true;
-//   }
-// }
+  // final id = await favouriteDb.add(path);
+  // musicValueNotifier.value.add(path);
+  // final favouriteDbdata = Favourite(favouriteAudio: path);
+  // favouriteDb.put(id, favouriteDbdata);
+  // musicValueNotifier.notifyListeners();
+
+  List<Favourite> favList = favouriteDb.values.toList();
+
+// log("$fullsonglist this is full songlist ");
+  List<Favourite> result =
+      favList.where((checking) => checking.favouriteAudio == path).toList();
+      
+
+  if (result.isEmpty) {
+    
+    var favobj = Favourite(favouriteAudio: path.toString());
+
+    favouriteDb.add(favobj);
+    log(result.toString());
+  } else {
+    boolfav = true;
+  }
+}
+    
 getsnackbar({
   required context,
 }) {

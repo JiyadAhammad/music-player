@@ -7,6 +7,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/dbmodel/songmodel.dart';
+import 'package:music/main.dart';
 import 'package:music/navbar/navbar.dart';
 
 import 'package:permission_handler/permission_handler.dart';
@@ -223,7 +224,7 @@ class _SplashScreenState extends State<SplashScreen> {
         songartist: musicArtist[i]);
 
 
-        final box = await Hive.openBox<Songs>('Songs_db');
+        
         await box.put(i,data);
         musicValueNotifier.value.add(data);
         musicValueNotifier.notifyListeners();

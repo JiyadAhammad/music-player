@@ -278,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           onSelected: (value) {
                             if (value == 'favourites') {
-                              // getFavourites(Path: musicpath.toString());
+                              addToFavourite(fullsonglist[index] );
+                              
                               getsnackbar(context: context);
                             }
                             if (value == 'playlist') {

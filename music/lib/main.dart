@@ -3,13 +3,23 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/screen/splashscreen.dart';
 
-// late Box<Favourite> favouriteAudiodb;
+late Box<Favourite> favouriteDb;
+late Box<Songs> box;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(SongsAdapter());
-  // Hive.registerAdapter(FavouriteAdapter());
+  if (!Hive.isAdapterRegistered(SongsAdapter().typeId)) {
+      Hive.registerAdapter(SongsAdapter());
+  Hive.registerAdapter(FavouriteAdapter());
+
+    
+  }
+     favouriteDb = await Hive.openBox<Favourite>('fav_db');
+      box = await Hive.openBox<Songs>('Songs_db');
+
+
+ 
 
   // favouriteAudiodb = await Hive.openBox<Favourite>("favourite_db");
   runApp(const MyApp());
