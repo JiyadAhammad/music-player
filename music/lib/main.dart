@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Music',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home:  SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
