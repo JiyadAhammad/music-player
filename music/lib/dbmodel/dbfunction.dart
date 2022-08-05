@@ -28,7 +28,6 @@ Future<void> getAllSongsDetails() async {
 }
 
 addToFavourite(path) async {
-
   // final id = await favouriteDb.add(path);
   // musicValueNotifier.value.add(path);
   // final favouriteDbdata = Favourite(favouriteAudio: path);
@@ -40,19 +39,18 @@ addToFavourite(path) async {
 // log("$fullsonglist this is full songlist ");
   List<Favourite> result =
       favList.where((checking) => checking.favouriteAudio == path).toList();
-      
 
   if (result.isEmpty) {
-    
     var favobj = Favourite(favouriteAudio: path.toString());
 
-    favouriteDb.add(favobj);
+    await favouriteDb.add(favobj);
+    // path.id=id;
     log(result.toString());
   } else {
     boolfav = true;
   }
 }
-    
+
 getsnackbar({
   required context,
 }) {
@@ -76,4 +74,8 @@ getsnackbar({
         ));
   }
   ScaffoldMessenger.of(context).showSnackBar(showsnackbar);
+}
+
+deleteFromFavourite(int id) async {
+  favouriteDb.delete(id);
 }

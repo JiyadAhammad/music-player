@@ -278,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           onSelected: (value) {
                             if (value == 'favourites') {
-                              addToFavourite(fullsonglist[index] );
+                              addToFavourite(musicpath );
                               
                               getsnackbar(context: context);
                             }
