@@ -72,36 +72,36 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 150.h,
+                 const SizedBox(
+                    height: 150,
                   ),
 
-                  Text(
+                 const Text(
                     'jMUSIC',
                     style: TextStyle(
-                        fontSize: 40.sp,
+                        fontSize: 40,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  SizedBox(
-                    height: 10.h,
+                 const SizedBox(
+                    height: 10,
                   ),
                   // ignore: avoid_unnecessary_containers
                   Container(
                     child: Image.asset('assets/img/splash.png'),
                   ),
-                  SizedBox(
-                    height: 30.h,
+                 const SizedBox(
+                    height: 30,
                   ),
-                  Text(
+                 const Text(
                     'Feel the Music',
-                    style: TextStyle(fontSize: 30.sp, color: Colors.white),
+                    style: TextStyle(fontSize: 30, color: Colors.white),
                   ),
                 ],
               ),
             ),
             LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.white, size: 70.0.w.h)
+                color: Colors.white, size: 70.0)
           ],
             // children: [
             //   const Text(
@@ -239,7 +239,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     for (var i = 0; i < musicpath.length; i++) {
       fullsonglist.add(Audio.file(
-        musicId[i].toString(),
+        musicpath[i],
         metas: Metas(
           id: musicId[i].toString(),
           title: musicTitles[i],
