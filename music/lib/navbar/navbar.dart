@@ -1,16 +1,14 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
 import 'package:music/screen/favouritescreen.dart';
 import 'package:music/screen/homescreen.dart';
-import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/playlist.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:music/screen/splashscreen.dart';
  
 class NavBar extends StatefulWidget {
   final index;
   List<Audio>? title;
+  
   NavBar({Key? key, this.index, this.title}) : super(key: key);
 
   @override
@@ -71,67 +69,67 @@ class _NavBarState extends State<NavBar> {
       ),
       // bottomSheet: bottomminiplayer(context,audioPlayer,realtimePlayingInfos)
       // bottomSheet: bottomminiplayer(context, audioPlayer),
-      bottomSheet: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => MusicPlaySceeen(
-                audioPlayer: audioPlayer,
-                allSongs: fullsonglist,
-                songId: fullsonglist[widget.index].metas.id.toString(),
-              ),
-            ),
-          );
-        },
-        child: Container(
-          // color: Colors.black,
-          // margin: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.deepPurple[700],
-            border: Border.all(
-              color: const Color.fromARGB(255, 56, 100, 136),
-              width: 3.0,
-            ),
-            // borderRadius: const BorderRadius.all(
-            //   Radius.circular(
-            //    15.0,
-            //   ),
-            // ),
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 10,
-                color: Colors.black,
-                offset: Offset(1, 3),
-              ),
-            ],
-          ),
-          height: 55,
-          child: ListTile(
-            title: Marquee(
-              text: "ThemeData",
-              // text: fullsonglist[widget.index].metas.title!,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            leading: const Icon(
-              Icons.music_note,
-              color: Colors.white,
-              size: 25,
-            ),
-            trailing: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.pause_circle,
-                color: Colors.white,
-                size: 30,
-              ),
-            ),
-          ),
-        ),
-      ),
+      // bottomSheet: GestureDetector(
+      //   onTap: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => MusicPlaySceeen(
+      //           audioPlayer: audioPlayer,
+      //           allSongs: fullsonglist,
+      //           songId: fullsonglist[widget.index].metas.id.toString(),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      //   child: Container(
+      //     // color: Colors.black,
+      //     // margin: const EdgeInsets.all(10),
+      //     decoration: BoxDecoration(
+      //       color: Colors.deepPurple[700],
+      //       border: Border.all(
+      //         color: const Color.fromARGB(255, 56, 100, 136),
+      //         width: 3.0,
+      //       ),
+      //       // borderRadius: const BorderRadius.all(
+      //       //   Radius.circular(
+      //       //    15.0,
+      //       //   ),
+      //       // ),
+      //       boxShadow: const [
+      //         BoxShadow(
+      //           blurRadius: 10,
+      //           color: Colors.black,
+      //           offset: Offset(1, 3),
+      //         ),
+      //       ],
+      //     ),
+      //     height: 55,
+      //     child: ListTile(
+      //       title: Marquee(
+      //         text: "ThemeData",
+      //         // text: fullsonglist[widget.index].metas.title!,
+      //         style: const TextStyle(
+      //           color: Colors.white,
+      //           fontSize: 20,
+      //         ),
+      //       ),
+      //       leading: const Icon(
+      //         Icons.music_note,
+      //         color: Colors.white,
+      //         size: 25,
+      //       ),
+      //       trailing: IconButton(
+      //         onPressed: () {},
+      //         icon: const Icon(
+      //           Icons.pause_circle,
+      //           color: Colors.white,
+      //           size: 30,
+      //         ),
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
   

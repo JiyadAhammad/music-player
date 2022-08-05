@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:music/navbar/navbar.dart';
 import 'package:music/screen/musicplayscreen.dart';
+import 'package:music/screen/splashscreen.dart';
 
-class FavouriteMusicScreen extends StatelessWidget {
+class FavouriteMusicScreen extends StatefulWidget {
   const FavouriteMusicScreen({Key? key}) : super(key: key);
 
+  @override
+  State<FavouriteMusicScreen> createState() => _FavouriteMusicScreenState();
+}
+
+class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +55,7 @@ class FavouriteMusicScreen extends StatelessWidget {
         ),
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: ListView.builder(
               itemCount: 3,
               itemBuilder: (BuildContext context, int index) {
@@ -87,7 +93,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                       title: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         child: Text(
-                          "Song Name  ${index + 1}",
+                          fullsonglist[index].metas.title!,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,

@@ -1,10 +1,11 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/navbar/navbar.dart';
 
@@ -17,19 +18,22 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-List<Songs> allAudios = [];
+List<Songs> allSongs = [];
+List<Songs> dbSongs = [];
+List<Songs> mappedSongs = [];
 List<String> allAudio = [];
-List<String> dbSongs = [];
+// List<String> dbSongs = [];
 List<Audio> fullsonglist = [];
 Map<dynamic, dynamic> allSongsFetch = {};
 List<String> musicTitles = [];
 List<String> musicArtist = [];
 List<String> musicpath = [];
 List<String> musicAlbum = [];
+List<int> musicId = [];
 
 class _SplashScreenState extends State<SplashScreen> {
-  List<String>? allAudios;
-  List<Audio>? secondAllaudios;
+  // List<String>? allAudios;
+  // List<Audio>? secondAllaudios;
 
   static const _platform = MethodChannel('search_files_in_storage/search');
   bool value = false;
@@ -63,6 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -117,6 +122,8 @@ class _SplashScreenState extends State<SplashScreen> {
             //     ),
             //   ),
             // ],
+
+
           ),
         ),
       ),
@@ -126,55 +133,37 @@ class _SplashScreenState extends State<SplashScreen> {
   void searchInStorage() {
     _platform.invokeMethod('search').then((value) {
       final res = value as Map<Object?, Object?>;
-      // log('res 1 ${res.toString()}');
-      // log('res 2 $value');
-
       onSuccess(res);
     }).onError((error, stackTrace) {
-      // log(error.toString());
-      // onError(error.toString());
-      // print(onError);
-      // print(onSuccess);
     });
   }
 
   void convertingFromMap(value) {
     final tempTitle = value['title'] as List<Object?>;
-    // log('title of song $tempTitle');
     musicTitles = tempTitle.map((e) => e.toString()).toList();
-    // log("${musicTitles.length}");
-
     final tempPath = value['path'] as List<Object?>;
-    // log('path of song $tempPath');
     musicpath = tempPath.map((e) => e.toString()).toList();
-    // log("${musicpath.length}");
-
     final tempArtist = value['artist'] as List<Object?>;
-    // log('Artist of song $tempTitle');
     musicArtist = tempArtist.map((e) => e.toString()).toList();
+    final tempId = value['id'] as List<Object?>;
+    List<String> mId = tempId.map((e) => e.toString()).toList();
+    musicId = mId.map((e) => int.parse(e)).toList();
+    // musicId = tempId.map((e) => e.toString()).toList();
 
-    // final tempAlbum = value['album'] as List<Object?>;
+    // log("$musicId this id get from kotlin");
 
-    // musicAlbum = tempAlbum.map((e) => e.toString()).toList();
-    // log("$musicAlbum");
-
-    // final tempAlbum = value['alubm'] as List<Object?>;
-    // log('$tempTitle');
-    // malbum = tempAlbum.map((e) => e.toString()).toList();
-    // log("........................$malbum");
-    // log("........................${mArtist.length}");
+// for (var e in value) {
+//   allSongs.add()
+// }
   }
 
   Future splashFetch() async {
-    // log('requst permission');
     if (await _requestPermission(Permission.storage)) {
       searchInStorage();
     } else {
       splashFetch();
     }
   }
-
-//request for the permission.
   Directory? dir;
 
   Future<bool> _requestPermission(Permission permission) async {
@@ -182,21 +171,14 @@ class _SplashScreenState extends State<SplashScreen> {
     const access = Permission.accessMediaLocation;
     if (await permission.isGranted) {
       await access.isGranted && await access.isGranted;
-      // log('permission granted ');
       return true;
     } else {
       var result = await store.request();
       var oneresult = await access.request();
-      // log('permission request ');
-
       if (result == PermissionStatus.granted &&
           oneresult == PermissionStatus.granted) {
-        // log('permission status granted ');
-
         return true;
       } else {
-        // log('permission denied ');
-
         return false;
       }
     }
@@ -225,24 +207,46 @@ class _SplashScreenState extends State<SplashScreen> {
       
     });
 
-    final data = Songs(
-      path: allAudios,
-    );
-   
+    // log('$audioListFromStorage    anything here' );
+
+    // final data = Songs(
+    //   path: musicpath,
+    //   songtitle: musicTitles.toString(),
+    //   songartist: musicArtist.toString(),
+    // );
+    // addMusicList(data);
+    for (var i = 0; i < musicpath.length; i++) {
+      final data = Songs(
+        id: musicId[i],
+        path: musicpath[i], 
+        songtitle: musicTitles[i], 
+        songartist: musicArtist[i]);
+
+
+        final box = await Hive.openBox<Songs>('Songs_db');
+        await box.put(i,data);
+        musicValueNotifier.value.add(data);
+        musicValueNotifier.notifyListeners();
+
+
+        // log('${data.id } this is id');
+        // log('${data.path } this is path');
+        // log('${data.songtitle} this is songtitle');
+        // log('${data.songartist} this is songartist');
+    }
+    
+
 
     for (var i = 0; i < musicpath.length; i++) {
       fullsonglist.add(Audio.file(
-        musicpath[i],
+        musicId[i].toString(),
         metas: Metas(
+          id: musicId[i].toString(),
           title: musicTitles[i],
           artist: musicArtist[i],
-          // album: musicAlbum[i],
-
         ),
       ));
-      
     }
-
-    
   }
+  
 }

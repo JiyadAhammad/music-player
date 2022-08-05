@@ -1,4 +1,3 @@
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
@@ -8,7 +7,10 @@ import 'package:music/function/searchdelagete.dart';
 import 'package:music/navdrawer/navdrawer.dart';
 import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
+
 AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+bool boolfav = false;
+var showsnackbar;
 
 class HomeScreen extends StatefulWidget {
   static int index = 0;
@@ -19,7 +21,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
 //   @override
 //   void initState() {
 //     setState(() {
@@ -77,6 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    getAllSongsDetails();
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -131,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 itemCount: fullsonglist.length,
                 itemBuilder: (BuildContext context, int index) {
+                  // final songdata = songslist[index];
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -176,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }),
                         // leading: fullsonglist[index].metas.album!,
                         leading: const CircleAvatar(
-                          // child: 
+                          // child:
                           child: Icon(
                             Icons.music_note,
                             color: Colors.white,
@@ -189,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             blankSpace: 20.0,
                             startAfter: Duration.zero,
                             velocity: 60,
+                            // text: songdata.songtitle!,
                             text: fullsonglist[index].metas.title!,
                             style: const TextStyle(
                               color: Colors.white,
@@ -213,8 +217,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         // ),
                         subtitle: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          
                           child: Text(
+                            // songdata.songartist!,
                             fullsonglist[index].metas.artist!,
                             style: const TextStyle(
                               color: Colors.white,
@@ -233,8 +237,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context) {
                             return [
                               PopupMenuItem(
-                                onTap: (() {}),
-                                value: '1',
+                                onTap: () async {
+                                  // favouriteAudiodb.add(fullsonglist)
+                                },
+                                value: 'favourites',
                                 child: Row(
                                   children: const [
                                     Icon(
@@ -252,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               PopupMenuItem(
                                 onTap: (() {}),
-                                value: '2',
+                                value: 'playlist',
                                 child: Row(
                                   children: const [
                                     Icon(
@@ -270,7 +276,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ];
                           },
-                          onSelected: (String value) {},
+                          onSelected: (value) {
+                            if (value == 'favourites') {
+                              // getFavourites(Path: musicpath.toString());
+                              getsnackbar(context: context);
+                            }
+                            if (value == 'playlist') {
+                              // return getPLopupaddvideos(context: context, path: path);
+                            }
+                          },
                           icon: const Icon(
                             Icons.more_vert,
                             color: Colors.white,
