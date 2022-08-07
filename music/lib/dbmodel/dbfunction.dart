@@ -25,6 +25,3 @@ Future<void> getAllSongsDetails() async {
   musicValueNotifier.value.addAll(musicListDb.values);
   musicValueNotifier.notifyListeners();
 }
-
-
-

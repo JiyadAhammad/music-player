@@ -60,7 +60,6 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                 Icons.arrow_back,
               )),
         ),
-
         body: ValueListenableBuilder(
           valueListenable: favouriteDb.listenable(),
           builder: (BuildContext context, Box<Favourite> favouritelist,
@@ -94,7 +93,7 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: ((context) => MusicPlaySceeen(
-                                songId: result[index].toString(),
+                                    songId: result[index].toString(),
                                     // allSongs: fullsonglist,
                                     index: index,
                                     // songId:
@@ -131,34 +130,35 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                             ),
                           ),
                         ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            favouriteDb.deleteAt(index);
-                            // if (favouritelist.id != null) {
-                            //   deleteFromFavourite(favouritelist.id);
-                            // }
+                        trailing: deleteFav(index: index),
+                        // trailing: IconButton(
+                        //   onPressed: () {
+                        //     favouriteDb.deleteAt(index);
+                        //     // if (favouritelist.id != null) {
+                        //     //   deleteFromFavourite(favouritelist.id);
+                        //     // }
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                backgroundColor: Colors.red,
-                                margin: EdgeInsets.all(20),
-                                behavior: SnackBarBehavior.floating,
-                                content: Center(
-                                    heightFactor: 1.0,
-                                    child: Text(
-                                      "Succesfully removed",
-                                    )),
-                                duration: Duration(seconds: 1),
-                                shape: StadiumBorder(),
-                                elevation: 100,
-                              ),
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.remove_circle,
-                            color: Colors.white,
-                          ),
-                        ),
+                        //     ScaffoldMessenger.of(context).showSnackBar(
+                        //       const SnackBar(
+                        //         backgroundColor: Colors.red,
+                        //         margin: EdgeInsets.all(20),
+                        //         behavior: SnackBarBehavior.floating,
+                        //         content: Center(
+                        //             heightFactor: 1.0,
+                        //             child: Text(
+                        //               "Succesfully removed",
+                        //             )),
+                        //         duration: Duration(seconds: 1),
+                        //         shape: StadiumBorder(),
+                        //         elevation: 100,
+                        //       ),
+                        //     );
+                        //   },
+                        //   icon: const Icon(
+                        //     Icons.remove_circle,
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
                       ),
                     ),
                   );
@@ -167,11 +167,10 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
             );
           },
         ),
-       
       ),
     );
   }
-  
+
   List<String> getList(List<Favourite> list) {
     List<String>? audioPath = [];
     for (Favourite obj in list) {
@@ -179,5 +178,34 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
     }
     return audioPath;
   }
-  }
 
+  deleteFav({required index}) {
+    return PopupMenuButton(
+      onSelected: (value) {
+        favouriteDb.deleteAt(index);
+      },
+      icon: const Icon(
+        Icons.more_vert,
+        color: Colors.white,
+      ),
+      color: Colors.black,
+      itemBuilder: (context) => [
+        PopupMenuItem(
+            value: 'Fav',
+            child: Row(
+              children: const [
+                Icon(
+                  Icons.remove_circle_outline,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  "Remove",
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ))
+      ],
+    );
+  }
+}

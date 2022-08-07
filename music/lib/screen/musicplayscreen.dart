@@ -1,4 +1,3 @@
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
@@ -193,11 +192,11 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
               // Navigator.pop(context);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: ((context) =>  NavBar(
-                    // index: widget.index,
-                    // title: fullsonglist,
-                     
-                  )),
+                  builder: ((context) => NavBar(
+                      // index: widget.index,
+                      // title: fullsonglist,
+
+                      )),
                 ),
               );
             },
@@ -490,7 +489,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                           ),
                                           color: Colors.transparent,
                                         ),
-                                        child:const Center(
+                                        child: const Center(
                                           child: Text(
                                             '',
                                             style: const TextStyle(

@@ -21,7 +21,6 @@ import 'package:hive_flutter/adapters.dart';
 final nameController = TextEditingController();
 
 class PlayListScreen extends StatefulWidget {
-  
   const PlayListScreen({Key? key}) : super(key: key);
 
   @override
@@ -29,10 +28,9 @@ class PlayListScreen extends StatefulWidget {
 }
 
 class _PlayListScreenState extends State<PlayListScreen> {
-  List<dynamic>?playlist;
+  List<dynamic>? playlist;
   @override
   Widget build(BuildContext context) {
-   
     // final double screenHeight = MediaQuery.of(context).size.height;
     // final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
@@ -78,73 +76,71 @@ class _PlayListScreenState extends State<PlayListScreen> {
             ),
           ),
         ),
-      
         body: ValueListenableBuilder(
-          valueListenable: playlistDb.listenable(),
-          builder: (BuildContext context, Box<PlaylistName> playlsitname, Widget?child) {
-            return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 4 / 3,
-            ),
-            itemCount: playlist!.length,
-            itemBuilder: (context,index) {
-           final playlistnameData = playlsitname;
-          //  log("$playlistnameData name thay is saved");
-              return Padding(
-                padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (ctx) {
-                          return const EachPlayList();
-                        },
-                      ),
-                    );
-                  },
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(
-                            color: Colors.white54,
-                            style: BorderStyle.solid,
-                            width: 2.5,
+            valueListenable: playlistDb.listenable(),
+            builder: (BuildContext context, Box<PlaylistName> playlsitname,
+                Widget? child) {
+              return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 4 / 3,
+                ),
+                itemCount: playlist!.length,
+                itemBuilder: (context, index) {
+                  final playlistnameData = playlsitname;
+                  //  log("$playlistnameData name thay is saved");
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return const EachPlayList();
+                            },
                           ),
-                          color: Colors.transparent,
-                        ),
-                        child:  Center(
-                          child: Text(
-                           '${playlist![index]}',
-                            style:const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
+                        );
+                      },
+                      child: Stack(
+                        alignment: Alignment.bottomRight,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: Colors.white54,
+                                style: BorderStyle.solid,
+                                width: 2.5,
+                              ),
+                              color: Colors.transparent,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${playlist![index]}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          IconButton(
+                            alignment: Alignment.topRight,
+                            onPressed: () {
+                              deletedPlayList(index);
+                            },
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        alignment: Alignment.topRight,
-                        onPressed: () {
-                          deletedPlayList(index);
-                        },
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               );
-            },
-          );
-          }
-          
-        ),
+            }),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         floatingActionButton: Container(
           decoration: BoxDecoration(
@@ -245,17 +241,13 @@ class _PlayListScreenState extends State<PlayListScreen> {
     // final playlisvalue = PlaylistName(
     //   playlistName: palyListNameValidate,
     // );
-    final playlistvalue = PlaylistName(
-      
-      playlistName: palyListNameValidate
-    
-    );
+    final playlistvalue = PlaylistName(playlistName: palyListNameValidate);
     playlistDb.add(playlistvalue);
     // final key=playlistDb.get()
 //     playlistDb.add(playlistvalue);
 //     log('$playlistvalue hdfshaklfhl');
 //  playlist= playlistDb.keys.toList();
- }
+  }
 
   void deletedPlayList(int index) {
     showDialog(
@@ -296,5 +288,4 @@ class _PlayListScreenState extends State<PlayListScreen> {
       },
     );
   }
- 
 }

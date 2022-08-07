@@ -170,12 +170,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (ctx) => MusicPlaySceeen(
-                                // allSongs: fullsonglist,
-                                // index: index,
-                                // songId: fullsonglist[index].metas.id.toString(),
-                                // audioPlayer: audioPlayer,
-                                // // path:musicpath
-                              ),
+                                  // allSongs: fullsonglist,
+                                  // index: index,
+                                  // songId: fullsonglist[index].metas.id.toString(),
+                                  // audioPlayer: audioPlayer,
+                                  // // path:musicpath
+                                  ),
                             ),
                           );
 
