@@ -1,19 +1,27 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:music/dbmodel/songmodel.dart';
+import 'package:music/main.dart';
 import 'package:music/navbar/navbar.dart';
 import 'package:music/screen/eachplaylistscreen.dart';
+import 'package:hive_flutter/adapters.dart';
 
-final listofitemsgrid = [
-  'Malaylam',
-  'English',
-  'Hindi',
-  'Melody',
-  'tamil',
-  // 'Favourites',
-  'Sleep',
-  'Gym',
-];
+// final listofitemsgrid = [
+//   'Malaylam',
+//   'English',
+//   'Hindi',
+//   'Melody',
+//   'tamil',
+//   // 'Favourites',
+//   'Sleep',
+//   'Gym',
+// ];
+
+final nameController = TextEditingController();
 
 class PlayListScreen extends StatefulWidget {
+  
   const PlayListScreen({Key? key}) : super(key: key);
 
   @override
@@ -21,8 +29,10 @@ class PlayListScreen extends StatefulWidget {
 }
 
 class _PlayListScreenState extends State<PlayListScreen> {
+  List<dynamic>?playlist;
   @override
   Widget build(BuildContext context) {
+   
     // final double screenHeight = MediaQuery.of(context).size.height;
     // final double screenWidth = MediaQuery.of(context).size.width;
     return Container(
@@ -58,7 +68,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) {
-                    return  NavBar();
+                    return NavBar();
                   },
                 ),
               );
@@ -68,63 +78,72 @@ class _PlayListScreenState extends State<PlayListScreen> {
             ),
           ),
         ),
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 4 / 3,
-          ),
-          itemCount: listofitemsgrid.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (ctx) {
-                        return const EachPlayList();
-                      },
-                    ),
-                  );
-                },
-                child: Stack(
-                  alignment: Alignment.bottomRight,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(
-                          color: Colors.white54,
-                          style: BorderStyle.solid,
-                          width: 2.5,
-                        ),
-                        color: Colors.transparent,
+      
+        body: ValueListenableBuilder(
+          valueListenable: playlistDb.listenable(),
+          builder: (BuildContext context, Box<PlaylistName> playlsitname, Widget?child) {
+            return GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 4 / 3,
+            ),
+            itemCount: playlist!.length,
+            itemBuilder: (context,index) {
+           final playlistnameData = playlsitname;
+          //  log("$playlistnameData name thay is saved");
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) {
+                          return const EachPlayList();
+                        },
                       ),
-                      child: Center(
-                        child: Text(
-                          listofitemsgrid[index],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                    );
+                  },
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: Colors.white54,
+                            style: BorderStyle.solid,
+                            width: 2.5,
+                          ),
+                          color: Colors.transparent,
+                        ),
+                        child:  Center(
+                          child: Text(
+                           '${playlist![index]}',
+                            style:const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      alignment: Alignment.topRight,
-                      onPressed: () {
-                        deletedPlayList();
-                      },
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.white,
+                      IconButton(
+                        alignment: Alignment.topRight,
+                        onPressed: () {
+                          deletedPlayList(index);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          );
+          }
+          
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         floatingActionButton: Container(
@@ -145,6 +164,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
                   return AlertDialog(
                     title: const Text('Playlist Name'),
                     content: TextFormField(
+                      controller: nameController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Playlist Name',
@@ -156,30 +176,14 @@ class _PlayListScreenState extends State<PlayListScreen> {
                         return null;
                       },
                     ),
-                    actions: <Widget>[
+                    actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, 'Cancel'),
                         child: const Text('Cancel'),
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              backgroundColor: Color.fromARGB(255, 49, 185, 11),
-                              margin: EdgeInsets.all(30),
-                              behavior: SnackBarBehavior.floating,
-                              content: Center(
-                                heightFactor: 1.0,
-                                child: Text(
-                                  "Added Succesfully",
-                                ),
-                              ),
-                              duration: Duration(seconds: 1),
-                              shape: StadiumBorder(),
-                              elevation: 100,
-                            ),
-                          );
-                          Navigator.pop(context, 'ok');
+                          onOkButtonPressed(context);
                         },
                         child: const Text('OK'),
                       ),
@@ -200,7 +204,60 @@ class _PlayListScreenState extends State<PlayListScreen> {
     );
   }
 
-  void deletedPlayList() {
+  onOkButtonPressed(BuildContext contxt) {
+    final palyListNameValidate = nameController.text.trim();
+    // log('$palyListNameValidate values in plaulisdy');
+    if (palyListNameValidate.isEmpty) {
+      ScaffoldMessenger.of(contxt).showSnackBar(const SnackBar(
+          backgroundColor: Color.fromARGB(255, 206, 14, 0),
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text("Name cannot be null"),
+          duration: Duration(seconds: 1)));
+      return;
+    }
+    if (palyListNameValidate == 'favourite') {
+      ScaffoldMessenger.of(contxt).showSnackBar(const SnackBar(
+          backgroundColor: Color.fromARGB(255, 206, 14, 0),
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text("Enter valid Name"),
+          duration: Duration(seconds: 1)));
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Color.fromARGB(255, 49, 185, 11),
+        margin: EdgeInsets.all(30),
+        behavior: SnackBarBehavior.floating,
+        content: Center(
+          heightFactor: 1.0,
+          child: Text(
+            "Added Succesfully",
+          ),
+        ),
+        duration: Duration(seconds: 1),
+        shape: StadiumBorder(),
+        elevation: 100,
+      ),
+    );
+    Navigator.pop(context, 'ok');
+    // final playlisvalue = PlaylistName(
+    //   playlistName: palyListNameValidate,
+    // );
+    final playlistvalue = PlaylistName(
+      
+      playlistName: palyListNameValidate
+    
+    );
+    playlistDb.add(playlistvalue);
+    // final key=playlistDb.get()
+//     playlistDb.add(playlistvalue);
+//     log('$playlistvalue hdfshaklfhl');
+//  playlist= playlistDb.keys.toList();
+ }
+
+  void deletedPlayList(int index) {
     showDialog(
       context: context,
       builder: (ctx) {
@@ -213,6 +270,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
             ),
             ElevatedButton(
               onPressed: () {
+                playlistDb.deleteAt(index);
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
@@ -238,4 +296,5 @@ class _PlayListScreenState extends State<PlayListScreen> {
       },
     );
   }
+ 
 }

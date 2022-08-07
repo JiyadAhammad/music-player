@@ -1,6 +1,8 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/dbmodel/dbfunction.dart';
+
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/navbar/navbar.dart';
@@ -66,8 +68,9 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
             return Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: ListView.builder(
-                itemCount: favouritelist.length,
+                itemCount: favouriteDb.values.length,
                 itemBuilder: (BuildContext context, int index) {
+                  Favourite? favaudioDb = favouriteDb.getAt(index);
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -86,14 +89,17 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                       ),
                       child: ListTile(
                         onTap: () {
+                          List<String> result;
+                          result = getList(favouritelist.values.toList());
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: ((context) => MusicPlaySceeen(
-                                    allSongs: fullsonglist,
+                                songId: result[index].toString(),
+                                    // allSongs: fullsonglist,
                                     index: index,
-                                    songId:
-                                        fullsonglist[index].metas.id.toString(),
-                                    audioPlayer: audioPlayer,
+                                    // songId:
+                                    //     fullsonglist[index].metas.id.toString(),
+                                    // audioPlayer: audioPlayer,
                                   )),
                             ),
                           );
@@ -107,7 +113,7 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                         title: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
-                            fullsonglist[index].metas.title!,
+                            favaudioDb!.favouriteAudio!.trim().toString(),
                             style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -161,93 +167,17 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
             );
           },
         ),
-        // body: Padding(
-        //   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        //   child: ListView.builder(
-        //     itemCount: 3,
-        //     itemBuilder: (BuildContext context, int index) {
-        //       return Card(
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.circular(20),
-        //           side: const BorderSide(
-        //             color: Colors.white54,
-        //             width: 2.0,
-        //           ),
-        //         ),
-        //         color: Colors.transparent,
-        //         elevation: 0,
-        //         child: Container(
-        //           height: 75,
-        //           decoration: BoxDecoration(
-        //             color: Colors.transparent,
-        //             borderRadius: BorderRadius.circular(20),
-        //           ),
-        //           child: ListTile(
-        //             onTap: () {
-        //               Navigator.of(context).push(
-        //                 MaterialPageRoute(
-        //                   builder: ((context) =>
-        //                        MusicPlaySceeen()),
-        //                 ),
-        //               );
-        //             },
-        //             leading: const CircleAvatar(
-        //               child: Icon(
-        //                 Icons.music_note,
-        //                 color: Colors.white,
-        //               ),
-        //             ),
-        //             title: SingleChildScrollView(
-        //               scrollDirection: Axis.horizontal,
-        //               child: Text(
-        //                 fullsonglist[index].metas.title!,
-        //                 style: const TextStyle(
-        //                   color: Colors.white,
-        //                   fontWeight: FontWeight.bold,
-        //                   fontSize: 20,
-        //                 ),
-        //               ),
-        //             ),
-        //             subtitle: SingleChildScrollView(
-        //               scrollDirection: Axis.horizontal,
-        //               child: Text(
-        //                 "<artist name ${index + 1}>",
-        //                 style: const TextStyle(
-        //                   color: Colors.white,
-        //                   fontSize: 16,
-        //                 ),
-        //               ),
-        //             ),
-        //             trailing: IconButton(
-        //               onPressed: () {
-        //                 ScaffoldMessenger.of(context).showSnackBar(
-        //                   const SnackBar(
-        //                     backgroundColor: Colors.red,
-        //                     margin: EdgeInsets.all(20),
-        //                     behavior: SnackBarBehavior.floating,
-        //                     content: Center(
-        //                         heightFactor: 1.0,
-        //                         child: Text(
-        //                           "Succesfully removed",
-        //                         )),
-        //                     duration: Duration(seconds: 1),
-        //                     shape: StadiumBorder(),
-        //                     elevation: 100,
-        //                   ),
-        //                 );
-        //               },
-        //               icon: const Icon(
-        //                 Icons.remove_circle,
-        //                 color: Colors.white,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ),
+       
       ),
     );
   }
-}
+  
+  List<String> getList(List<Favourite> list) {
+    List<String>? audioPath = [];
+    for (Favourite obj in list) {
+      audioPath.add(obj.favouriteAudio!);
+    }
+    return audioPath;
+  }
+  }
+

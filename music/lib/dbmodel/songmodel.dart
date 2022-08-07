@@ -17,20 +17,29 @@ class Songs extends HiveObject {
     required this.path,
     required this.songtitle,
     required this.songartist,
-    
   });
-  
 }
 
 @HiveType(typeId: 2)
-class Favourite extends HiveObject {
+class Favourite {
   @HiveField(0)
-  int? id;
-
-  @HiveField(1)
   final String? favouriteAudio;
 
   Favourite({
     this.favouriteAudio,
+  });
+}
+
+@HiveType(typeId: 3)
+class PlaylistName extends HiveObject {
+  @HiveField(0)
+  int? id;
+
+  @HiveField(1)
+  String? playlistName;
+
+  PlaylistName({
+    this.id,
+    this.playlistName,
   });
 }

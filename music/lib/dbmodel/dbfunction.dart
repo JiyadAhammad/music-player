@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/screen/homescreen.dart';
-import 'package:music/screen/splashscreen.dart';
 
 import '../main.dart';
 
@@ -27,55 +26,5 @@ Future<void> getAllSongsDetails() async {
   musicValueNotifier.notifyListeners();
 }
 
-addToFavourite(path) async {
-  // final id = await favouriteDb.add(path);
-  // musicValueNotifier.value.add(path);
-  // final favouriteDbdata = Favourite(favouriteAudio: path);
-  // favouriteDb.put(id, favouriteDbdata);
-  // musicValueNotifier.notifyListeners();
 
-  List<Favourite> favList = favouriteDb.values.toList();
 
-// log("$fullsonglist this is full songlist ");
-  List<Favourite> result =
-      favList.where((checking) => checking.favouriteAudio == path).toList();
-
-  if (result.isEmpty) {
-    var favobj = Favourite(favouriteAudio: path.toString());
-
-    await favouriteDb.add(favobj);
-    // path.id=id;
-    log(result.toString());
-  } else {
-    boolfav = true;
-  }
-}
-
-getsnackbar({
-  required context,
-}) {
-  if (boolfav == true) {
-    showsnackbar = SnackBar(
-        content: const Text(
-          'Already added in favourites',
-        ),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {},
-        ));
-  } else {
-    showsnackbar = SnackBar(
-        content: const Text(
-          'Added',
-        ),
-        action: SnackBarAction(
-          label: 'OK',
-          onPressed: () {},
-        ));
-  }
-  ScaffoldMessenger.of(context).showSnackBar(showsnackbar);
-}
-
-deleteFromFavourite(int id) async {
-  favouriteDb.delete(id);
-}

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/function/searchdelagete.dart';
+import 'package:music/main.dart';
 import 'package:music/navdrawer/navdrawer.dart';
 import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
@@ -131,8 +134,9 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: fullsonglist.length,
+                itemCount: songslist.length,
                 itemBuilder: (BuildContext context, int index) {
+                  Songs? audio = box.getAt(index);
                   // final songdata = songslist[index];
                   return Card(
                     shape: RoundedRectangleBorder(
@@ -162,15 +166,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         //     );
                         //   },
                         onTap: (() {
-                          audioPlayer.playlistPlayAtIndex(index);
+                          // audioPlayer.playlistPlayAtIndex(index);
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (ctx) => MusicPlaySceeen(
-                                allSongs: fullsonglist,
-                                index: index,
-                                songId: fullsonglist[index].metas.id.toString(),
-                                audioPlayer: audioPlayer,
-                                // path:musicpath
+                                // allSongs: fullsonglist,
+                                // index: index,
+                                // songId: fullsonglist[index].metas.id.toString(),
+                                // audioPlayer: audioPlayer,
+                                // // path:musicpath
                               ),
                             ),
                           );
@@ -227,69 +231,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
 
-                        trailing: PopupMenuButton(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15.0),
-                            ),
-                          ),
-                          color: Colors.black,
-                          itemBuilder: (context) {
-                            return [
-                              PopupMenuItem(
-                                onTap: () async {
-                                  // favouriteAudiodb.add(fullsonglist)
-                                },
-                                value: 'favourites',
-                                child: Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      'Add to favorite',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              PopupMenuItem(
-                                onTap: (() {}),
-                                value: 'playlist',
-                                child: Row(
-                                  children: const [
-                                    Icon(
-                                      Icons.queue_music,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      'Add to playlist',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ];
-                          },
-                          onSelected: (value) {
-                            if (value == 'favourites') {
-                              addToFavourite(musicpath );
-                              
-                              getsnackbar(context: context);
-                            }
-                            if (value == 'playlist') {
-                              // return getPLopupaddvideos(context: context, path: path);
-                            }
-                          },
-                          icon: const Icon(
-                            Icons.more_vert,
-                            color: Colors.white,
-                          ),
+                        trailing: popup(
+                          path: audio!.songtitle,
+                          context: context,
                         ),
                       ),
                     ),
@@ -310,4 +254,171 @@ class _HomeScreenState extends State<HomeScreen> {
     audioPlayer.dispose();
     isDisposed = true;
   }
+
+  Widget popup({required path, required context}) {
+    return PopupMenuButton(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
+      color: Colors.black,
+      onSelected: (value) {
+        if (value == 'Fav') {
+          addToFavourite(path: path);
+          getsnackbar(context: context);
+        }
+        // if (value == 'Play') {
+        //   return getPLopupaddvideos(context: context, path: path);
+        // }
+      },
+      icon: const Icon(
+        Icons.more_vert,
+        color: Colors.white,
+      ),
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          onTap: () async {
+            // favouriteAudiodb.add(fullsonglist)
+          },
+          value: 'Fav',
+          child: Row(
+            children: const [
+              Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+              Text(
+                'Add to favorite',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+        PopupMenuItem(
+          onTap: (() {}),
+          value: 'playlist',
+          child: Row(
+            children: const [
+              Icon(
+                Icons.queue_music,
+                color: Colors.white,
+              ),
+              Text(
+                'Add to playlist',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }
+
+addToFavourite({required path}) async {
+  List<Favourite> favList = favouriteDb.values.toList();
+  List<Favourite> result =
+      favList.where((checking) => checking.favouriteAudio == path).toList();
+  if (result.isEmpty) {
+    var favobj = Favourite(favouriteAudio: path);
+    favouriteDb.add(favobj);
+    // path.id=id;
+    log(result.toString());
+  } else {
+    boolfav = true;
+  }
+}
+
+getsnackbar({
+  required context,
+}) {
+  if (boolfav == true) {
+    showsnackbar = SnackBar(
+        content: const Text(
+          'Already added in favourites',
+        ),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
+        ));
+  } else {
+    showsnackbar = SnackBar(
+        content: const Text(
+          'Added',
+        ),
+        action: SnackBarAction(
+          label: 'OK',
+          onPressed: () {},
+        ));
+  }
+  ScaffoldMessenger.of(context).showSnackBar(showsnackbar);
+}
+// PopupMenuButton(
+//                           shape: const RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.all(
+//                               Radius.circular(15.0),
+//                             ),
+//                           ),
+//                           color: Colors.black,
+//                           itemBuilder: (context) {
+//                             return [
+//                               PopupMenuItem(
+//                                 onTap: () async {
+//                                   // favouriteAudiodb.add(fullsonglist)
+//                                 },
+//                                 value: 'favourites',
+//                                 child: Row(
+//                                   children: const [
+//                                     Icon(
+//                                       Icons.favorite,
+//                                       color: Colors.white,
+//                                     ),
+//                                     Text(
+//                                       'Add to favorite',
+//                                       style: TextStyle(
+//                                         color: Colors.white,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                               PopupMenuItem(
+//                                 onTap: (() {}),
+//                                 value: 'playlist',
+//                                 child: Row(
+//                                   children: const [
+//                                     Icon(
+//                                       Icons.queue_music,
+//                                       color: Colors.white,
+//                                     ),
+//                                     Text(
+//                                       'Add to playlist',
+//                                       style: TextStyle(
+//                                         color: Colors.white,
+//                                       ),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ];
+//                           },
+//                           onSelected: (value) {
+//                             if (value == 'favourites') {
+                           
+//                               addToFavourite(audio!.path );
+//                               getsnackbar(context: context);
+//                             }
+//                             if (value == 'playlist') {
+//                               // return getPLopupaddvideos(context: context, path: path);
+//                             }
+//                           },
+//                           icon: const Icon(
+//                             Icons.more_vert,
+//                             color: Colors.white,
+//                           ),
+//                         ),

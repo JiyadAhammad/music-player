@@ -473,7 +473,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                     crossAxisCount: 2,
                                     childAspectRatio: 4 / 3,
                                   ),
-                                  itemCount: listofitemsgrid.length,
+                                  itemCount: 0,
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     return Padding(
@@ -490,9 +490,9 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                           ),
                                           color: Colors.transparent,
                                         ),
-                                        child: Center(
+                                        child:const Center(
                                           child: Text(
-                                            listofitemsgrid[index],
+                                            '',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 20,
