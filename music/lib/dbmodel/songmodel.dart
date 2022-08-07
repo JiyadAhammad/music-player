@@ -43,3 +43,17 @@ class PlaylistName extends HiveObject {
     this.playlistName,
   });
 }
+
+@HiveType(typeId: 4)
+class PlaylistData extends HiveObject {
+  @HiveField(0)
+  String? playlistName;
+
+  @HiveField(1)
+  String? playlistAudio;
+
+  PlaylistData({
+    this.playlistName,
+    this.playlistAudio,
+  });
+}
