@@ -221,59 +221,12 @@ class _PlayListScreenState extends State<PlayListScreen> {
           ),
           child: FloatingActionButton(
             onPressed: () {
-              showDialog(
-      context: context,
-      builder: (context) => Form(
-        key: _formKey,
-        child: AlertDialog(
-          title: const Text("Edit Playlist"),
-          content: TextFormField(
-            controller: nameController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Playlist Name',
-            ),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return "Enter Playlist Name";
-              } else if (checkPlaylistExists(value).isNotEmpty) {
-                return "Playlist already exists";
-              }
-            },
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  // editPlayDB(
-                  //   oldValue: playName!,
-                  //   newValue: nameController.text.trim(),
-                  // );
-                  Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      backgroundColor: Colors.green,
-                      margin: EdgeInsets.all(20),
-                      behavior: SnackBarBehavior.floating,
-                      content: Text("Playlist Name Updated"),
-                      duration: Duration(seconds: 1)));
-                  return;
-                  // const snackBar =
-                  //     SnackBar(content: Text("Playlist Name Updated"));
-                }
-              },
-              child: const Text(
-                "Update",
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
               // showDialog(
               //   context: context,
-              //   builder: (ctx) {
-              //     return AlertDialog(
-              //       title: const Text('Playlist Name'),
+              //   builder: (context) => Form(
+              //     key: _formKey,
+              //     child: AlertDialog(
+              //       title: const Text("Edit Playlist"),
               //       content: TextFormField(
               //         controller: nameController,
               //         decoration: const InputDecoration(
@@ -281,27 +234,75 @@ class _PlayListScreenState extends State<PlayListScreen> {
               //           labelText: 'Playlist Name',
               //         ),
               //         validator: (value) {
-              //           if (value == null || value.isEmpty) {
-              //             return 'Please enter some text';
+              //           if (value!.isEmpty) {
+              //             return "Enter Playlist Name";
+              //           } else if (checkPlaylistExists(value).isNotEmpty) {
+              //             return "Playlist already exists";
               //           }
-              //           return null;
               //         },
               //       ),
               //       actions: [
               //         TextButton(
-              //           onPressed: () => Navigator.pop(context, 'Cancel'),
-              //           child: const Text('Cancel'),
-              //         ),
-              //         ElevatedButton(
               //           onPressed: () {
-              //             onOkButtonPressed(context);
+              //             if (_formKey.currentState!.validate()) {
+              //               // editPlayDB(
+              //               //   oldValue: playName!,
+              //               //   newValue: nameController.text.trim(),
+              //               // );
+              //               Navigator.pop(context);
+              //               ScaffoldMessenger.of(context).showSnackBar(
+              //                   const SnackBar(
+              //                       backgroundColor: Colors.green,
+              //                       margin: EdgeInsets.all(20),
+              //                       behavior: SnackBarBehavior.floating,
+              //                       content: Text("Playlist Name Updated"),
+              //                       duration: Duration(seconds: 1)));
+              //               return;
+              //               // const snackBar =
+              //               //     SnackBar(content: Text("Playlist Name Updated"));
+              //             }
               //           },
-              //           child: const Text('OK'),
+              //           child: const Text(
+              //             "Update",
+              //           ),
               //         ),
               //       ],
-              //     );
-              //   },
+              //     ),
+              //   ),
               // );
+              showDialog(
+                context: context,
+                builder: (ctx) {
+                  return AlertDialog(
+                    title: const Text('Playlist Name'),
+                    content: TextFormField(
+                      controller: nameController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Playlist Name',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          onOkButtonPressed(context);
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             backgroundColor: Colors.transparent,
             elevation: 0.0,
@@ -394,15 +395,16 @@ class _PlayListScreenState extends State<PlayListScreen> {
                     newValue: nameController.text.trim(),
                   );
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
                       backgroundColor: Colors.green,
                       margin: EdgeInsets.all(20),
                       behavior: SnackBarBehavior.floating,
                       content: Text("Playlist Name Updated"),
-                      duration: Duration(seconds: 1)));
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
                   return;
-                  // const snackBar =
-                  //     SnackBar(content: Text("Playlist Name Updated"));
                 }
               },
               child: const Text(
