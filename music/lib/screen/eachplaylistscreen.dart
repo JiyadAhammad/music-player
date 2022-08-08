@@ -73,6 +73,8 @@ class _EachPlayListState extends State<EachPlayList> {
                 // itemCount: playlistdataDb.values.length,
                 itemBuilder: (BuildContext context, int index) {
                   PlaylistData? playlistdatainDb = playlistdataDb.getAt(index);
+                        log("${playlistdatainDb} dsfgagsdgdgdgd");
+
                   if (playlistdatainDb!.playlistName.toString() ==
                       widget.plalistnameId) {
                     // return PLonevideotile(

@@ -130,6 +130,7 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                             ),
                           ),
                         ),
+                        // trailing: Icon(Icons.abc,color: Colors.white,),
                         trailing: deleteFav(index: index),
                         // trailing: IconButton(
                         //   onPressed: () {
@@ -181,6 +182,11 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
 
   deleteFav({required index}) {
     return PopupMenuButton(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(15.0),
+        ),
+      ),
       onSelected: (value) {
         favouriteDb.deleteAt(index);
       },
@@ -191,20 +197,22 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
       color: Colors.black,
       itemBuilder: (context) => [
         PopupMenuItem(
-            value: 'Fav',
-            child: Row(
-              children: const [
-                Icon(
-                  Icons.remove_circle_outline,
-                  color: Colors.red,
+          value: 'Fav',
+          child: Row(
+            children: const [
+              Icon(
+                Icons.remove_circle_outline,
+                color: Colors.red,
+              ),
+              Text(
+                "Remove",
+                style: TextStyle(
+                  color: Colors.white,
                 ),
-                SizedBox(width: 5),
-                Text(
-                  "Remove",
-                  style: TextStyle(color: Colors.white),
-                )
-              ],
-            ))
+              )
+            ],
+          ),
+        )
       ],
     );
   }

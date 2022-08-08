@@ -687,4 +687,11 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
 //   void deletedPlayList(int index) {
     
 //   }
+ @override
+  void dispose() {
+    bool isDisposed = false;
+    super.dispose();
+    audioPlayer.dispose();
+    isDisposed = true;
+  }
 }

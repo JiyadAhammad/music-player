@@ -251,13 +251,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    bool isDisposed = false;
-    super.dispose();
-    audioPlayer.dispose();
-    isDisposed = true;
-  }
+  // @override
+  // void dispose() {
+  //   bool isDisposed = false;
+  //   super.dispose();
+  //   audioPlayer.dispose();
+  //   isDisposed = true;
+  // }
 
   Widget popup({required path, required context}) {
     return PopupMenuButton(
