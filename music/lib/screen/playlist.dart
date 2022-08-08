@@ -255,3 +255,11 @@ class _PlayListScreenState extends State<PlayListScreen> {
 //   }
  
 }
+// class AddPlaylistname extends StatelessWidget {
+//   const AddPlaylistname({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

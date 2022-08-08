@@ -1,9 +1,14 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:marquee/marquee.dart';
+import 'package:music/dbmodel/songmodel.dart';
+import 'package:music/main.dart';
 import 'package:music/navbar/navbar.dart';
+import 'package:music/screen/homescreen.dart';
 import 'package:music/screen/playlist.dart';
 import 'package:music/screen/splashscreen.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class MusicPlaySceeen extends StatefulWidget {
   List<Audio>? allSongs = [];
@@ -28,6 +33,7 @@ class MusicPlaySceeen extends StatefulWidget {
 
 class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     with SingleTickerProviderStateMixin {
+      
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
   bool isRepeat = false;
   Color color = const Color.fromARGB(255, 235, 139, 171);
@@ -384,8 +390,14 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                     size: 30,
                   ),
                 ),
+                
                 IconButton(
-                  onPressed: () {},
+                  
+                  onPressed: () {
+                    Songs? audio = box.getAt(widget.index!);
+                    addToFavourite(path: audio!.songtitle);
+                    getsnackbar(context: context);
+                  },
                   icon: const Icon(
                     Icons.favorite,
                     color: Colors.white,
@@ -428,12 +440,14 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                     size: 30,
                                   ),
                                   onPressed: () {
+
                                     showDialog(
                                       context: context,
                                       builder: (ctx) {
                                         return AlertDialog(
                                           title: const Text('Playlist Name'),
                                           content: TextFormField(
+                                            controller: nameController,
                                             decoration: const InputDecoration(
                                               border: OutlineInputBorder(),
                                               labelText: 'Playlist Name',
@@ -446,15 +460,17 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                               return null;
                                             },
                                           ),
-                                          actions: <Widget>[
+                                          actions: [
                                             TextButton(
+                                              
                                               onPressed: () => Navigator.pop(
                                                   context, 'Cancel'),
                                               child: const Text('Cancel'),
                                             ),
                                             ElevatedButton(
                                               onPressed: () {
-                                                Navigator.pop(context, 'ok');
+                                                onOkButtonPressed(context);
+                                                
                                               },
                                               child: const Text('OK'),
                                             ),
@@ -466,41 +482,48 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                 ),
                               ),
                               Expanded(
-                                child: GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    childAspectRatio: 4 / 3,
-                                  ),
-                                  itemCount: 0,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          15, 10, 15, 10),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                          border: Border.all(
-                                            color: Colors.white54,
-                                            style: BorderStyle.solid,
-                                            width: 2.5,
+                                child: ValueListenableBuilder(
+                                  valueListenable: playlistDb.listenable(),
+
+                                  builder: (BuildContext context, Box<PlaylistName> value, Widget? child) {  
+                                  return GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 4 / 3,
+                                    ),
+                                    itemCount: value.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                          PlaylistName? nameplaylist = playlistDb.getAt(index);
+                                      return Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            15, 10, 15, 10),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            border: Border.all(
+                                              color: Colors.white54,
+                                              style: BorderStyle.solid,
+                                              width: 2.5,
+                                            ),
+                                            color: Colors.transparent,
                                           ),
-                                          color: Colors.transparent,
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            '',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20,
+                                          child:  Center(
+                                            child: Text(
+                                              nameplaylist!.playlistName.toString(),
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
+                                      );
+                                    },
+                                  );
+                      },
                                 ),
                               ),
                             ],
@@ -593,4 +616,60 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
       ),
     );
   }
+  onOkButtonPressed(BuildContext contxt) {
+    final palyListNameValidate = nameController.text.trim();
+    // log('$palyListNameValidate values in plaulisdy');
+    if (palyListNameValidate.isEmpty) {
+      ScaffoldMessenger.of(contxt).showSnackBar(const SnackBar(
+          backgroundColor: Color.fromARGB(255, 206, 14, 0),
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text("Name cannot be null"),
+          duration: Duration(seconds: 1)));
+      return;
+    }
+    if (palyListNameValidate == 'favourite') {
+      ScaffoldMessenger.of(contxt).showSnackBar(const SnackBar(
+          backgroundColor: Color.fromARGB(255, 206, 14, 0),
+          margin: EdgeInsets.all(20),
+          behavior: SnackBarBehavior.floating,
+          content: Text("Enter valid Name"),
+          duration: Duration(seconds: 1)));
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        backgroundColor: Color.fromARGB(255, 49, 185, 11),
+        margin: EdgeInsets.all(30),
+        behavior: SnackBarBehavior.floating,
+        content: Center(
+          heightFactor: 1.0,
+          child: Text(
+            "Added Succesfully",
+          ),
+        ),
+        duration: Duration(seconds: 1),
+        shape: StadiumBorder(),
+        elevation: 100,
+      ),
+    );
+    Navigator.pop(context, 'ok');
+    // final playlisvalue = PlaylistName(
+    //   playlistName: palyListNameValidate,
+    // );
+    final playlistvalue = PlaylistName(
+      
+      playlistName: palyListNameValidate
+    
+    );
+    playlistDb.add(playlistvalue);
+    // final key=playlistDb.get()
+//     playlistDb.add(playlistvalue);
+//     log('$playlistvalue hdfshaklfhl');
+//  playlist= playlistDb.keys.toList();
+ }
+
+//   void deletedPlayList(int index) {
+    
+//   }
 }
