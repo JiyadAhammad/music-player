@@ -16,6 +16,7 @@ class MusicPlaySceeen extends StatefulWidget {
   final String? songId;
   AssetsAudioPlayer? audioPlayer;
   List<Audio>? music;
+  final path;
 
   // final songpath;
   MusicPlaySceeen({
@@ -24,7 +25,7 @@ class MusicPlaySceeen extends StatefulWidget {
     this.index,
     this.songId,
     this.audioPlayer,
-    this.music,
+    this.music, this.path,
   }) : super(key: key);
 
   @override
@@ -499,23 +500,37 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                       return Padding(
                                         padding: const EdgeInsets.fromLTRB(
                                             15, 10, 15, 10),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            border: Border.all(
-                                              color: Colors.white54,
-                                              style: BorderStyle.solid,
-                                              width: 2.5,
+                                        child: InkWell(
+                                          onTap: () {
+                              PlaylistData object = PlaylistData(
+                                  playlistAudio: widget.path,
+                                  playlistName: nameplaylist.toString());
+                              playlistdataDb.add(object);
+                              print(playlistdataDb.length);
+                              Navigator.pop(context);
+
+                              // ScaffoldMessenger.of(context).showSnackBar( getSnackBarTwo(context: context));
+
+                              // <><><><><><><><><><><><><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                            },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              border: Border.all(
+                                                color: Colors.white54,
+                                                style: BorderStyle.solid,
+                                                width: 2.5,
+                                              ),
+                                              color: Colors.transparent,
                                             ),
-                                            color: Colors.transparent,
-                                          ),
-                                          child:  Center(
-                                            child: Text(
-                                              nameplaylist!.playlistName.toString(),
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20,
+                                            child:  Center(
+                                              child: Text(
+                                                nameplaylist!.playlistName.toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20,
+                                                ),
                                               ),
                                             ),
                                           ),

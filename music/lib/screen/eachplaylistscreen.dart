@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/dbmodel/songmodel.dart';
@@ -8,7 +10,12 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:music/screen/widget/delete_playlist.dart';
 
 class EachPlayList extends StatefulWidget {
-  const EachPlayList({Key? key}) : super(key: key);
+  final plalistnameId;
+
+  EachPlayList({
+    Key? key,
+    this.plalistnameId,
+  }) : super(key: key);
 
   @override
   State<EachPlayList> createState() => _EachPlayListState();
@@ -17,6 +24,7 @@ class EachPlayList extends StatefulWidget {
 class _EachPlayListState extends State<EachPlayList> {
   @override
   Widget build(BuildContext context) {
+    // log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>${widget.plalistnameId}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -54,98 +62,107 @@ class _EachPlayListState extends State<EachPlayList> {
           //   )
           // ],
         ),
-        body:ValueListenableBuilder(
+        body: ValueListenableBuilder(
           valueListenable: playlistdataDb.listenable(),
-          builder: (BuildContext context, Box<PlaylistData> playlistdatalist, Widget? child) {
-            return  Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-          child: ListView.builder(
-            itemCount: playlistdataDb.values.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  side: const BorderSide(
-                    color: Colors.white54,
-                    width: 2.0,
-                  ),
-                ),
-                color: Colors.transparent,
-                elevation: 0,
-                child: Container(
-                  height: 75,
-                  decoration: BoxDecoration(
+          builder: (BuildContext context, Box<PlaylistData> playlistdatalist,
+              Widget? child) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              child: ListView.builder(
+                itemCount: playlistdatalist.length,
+                // itemCount: playlistdataDb.values.length,
+                itemBuilder: (BuildContext context, int index) {
+                  PlaylistData? playlistdatainDb = playlistdataDb.getAt(index);
+                  if (playlistdatainDb!.playlistName.toString() ==
+                      widget.plalistnameId) {
+                    // return PLonevideotile(
+                    //     playlistvideoname: playlistdatainDb.PLvideopath,
+                    //     index: index);
+                  }
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: const BorderSide(
+                        color: Colors.white54,
+                        width: 2.0,
+                      ),
+                    ),
                     color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: ((context) =>
-                               MusicPlaySceeen()),
-                        ),
-                      );
-                    },
-                    leading: const CircleAvatar(
-                      child: Icon(
-                        Icons.music_note,
-                        color: Colors.white,
+                    elevation: 0,
+                    child: Container(
+                      height: 75,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                    ),
-                    title: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        "Song Name  ${index + 1}",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    subtitle: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Text(
-                        "<artist name ${index + 1}>",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    trailing: PopupMenuButton(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(15.0),
-                        ),
-                      ),
-                      color: Colors.black,
-                      itemBuilder: (context) {
-                        return [
-                          const PopupMenuItem(
-                            value: 'add to playlist',
-                            child: Text(
-                              'Remove from playlist',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) => MusicPlaySceeen()),
                             ),
-                          )
-                        ];
-                      },
-                      onSelected: (String value) {},
-                      icon: const Icon(
-                        Icons.more_vert,
-                        color: Colors.white,
+                          );
+                        },
+                        leading: const CircleAvatar(
+                          child: Icon(
+                            Icons.music_note,
+                            color: Colors.white,
+                          ),
+                        ),
+                        title: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            fullsonglist[index].metas.title!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        subtitle: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Text(
+                            fullsonglist[index].metas.title!,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        trailing: removePlaylistAudio(index: index),
+                        // trailing: PopupMenuButton(
+                        //   shape: const RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.all(
+                        //       Radius.circular(15.0),
+                        //     ),
+                        //   ),
+                        //   color: Colors.black,
+                        //   itemBuilder: (context) {
+                        //     return [
+                        //       const PopupMenuItem(
+                        //         value: 'removeplaylist',
+                        //         child: Text(
+                        //           'Remove from playlist',
+                        //           style: TextStyle(
+                        //             color: Colors.white,
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ];
+                        //   },
+                        //   onSelected: (String value) {},
+                        //   icon: const Icon(
+                        //     Icons.more_vert,
+                        //     color: Colors.white,
+                        //   ),
+                        // ),
                       ),
                     ),
-                  ),
-                ),
-              );
-            },
-          ),
-        );
+                  );
+                },
+              ),
+            );
           },
         ),
         floatingActionButton: Container(
@@ -184,65 +201,79 @@ class _EachPlayListState extends State<EachPlayList> {
                       ),
                     ),
                     child: ValueListenableBuilder(
-                      valueListenable:  musicValueNotifier,
-                      builder: (BuildContext context, List<Songs> songslist, Widget? child) {
+                      valueListenable: musicValueNotifier,
+                      builder: (BuildContext context, List<Songs> songslist,
+                          Widget? child) {
                         return ListView.builder(
-                        itemCount: songslist.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ListTile(
-                            onTap: () {},
-                            leading: const CircleAvatar(
-                              child: Icon(
-                                Icons.music_note,
-                                color: Colors.white,
-                              ),
-                            ),
-                            title: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Text(
-                                fullsonglist[index].metas.title!,
-                                style: const TextStyle(
+                          itemCount: songslist.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return ListTile(
+                              onTap: () {},
+                              leading: const CircleAvatar(
+                                child: Icon(
+                                  Icons.music_note,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
                                 ),
                               ),
-                            ),
-                            subtitle: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Text(
-                                fullsonglist[index].metas.artist!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
+                              title: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  fullsonglist[index].metas.title!,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ),
-                            ),
-                            trailing: CircleAvatar(
-                              backgroundColor: Colors.black,
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  // size: 30,
+                              subtitle: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  fullsonglist[index].metas.artist!,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
                                 ),
-                                onPressed: () {
-                                  final datainplaylist = PlaylistData(
-                                    playlistAudio: songslist[index].songtitle
-                                  );
-                                },
                               ),
-                            ),
-                          );
-                        },
-                      );
+                              trailing: CircleAvatar(
+                                backgroundColor: Colors.black,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    // size: 30,
+                                  ),
+                                  onPressed: () {
+                                    log(widget.plalistnameId);
+                                    var name = box.get(playlistDb);
+
+                                    final datainPlyalist =PlaylistData(
+                                      playlistAudio: songslist[index].songtitle,
+                                      playlistName: widget.plalistnameId
+                                    );
+                                    playlistdataDb.add(datainPlyalist);
+                                    // final name = playlistDb.getAt(index);
+                                    // PlaylistData datainplaylist = PlaylistData(
+                                    //     playlistAudio:
+                                    //         songslist[index].songtitle,
+                                    //     playlistName:widget.plalistnameId);
+                                    // playlistdataDb.add(datainplaylist);
+                                    // log(widget.plalistnameId);
+                                    //   final datainplaylist = PlaylistData(
+                                    //     playlistAudio: songslist[index].songtitle
+                                    //   );
+
+                                    //  log(name!.playlistName.toString());
+                                    playlistdataDb.put(widget.plalistnameId,datainPlyalist);
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        );
                       },
                     ),
-                            
-                          
-                        
-                      
-                    
                   );
                 },
               );
@@ -259,5 +290,33 @@ class _EachPlayListState extends State<EachPlayList> {
     );
   }
 
- 
+  removePlaylistAudio({required index}) {
+    return PopupMenuButton(
+      onSelected: (value) {
+        playlistdataDb.deleteAt(index);
+      },
+      icon: const Icon(
+        Icons.more_vert,
+        color: Colors.white,
+      ),
+      color: Colors.black,
+      itemBuilder: (context) => [
+        PopupMenuItem(
+            value: 'playlist',
+            child: Row(
+              children: const [
+                Icon(
+                  Icons.remove_circle_outline,
+                  color: Colors.red,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  "Remove from Playlist",
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ))
+      ],
+    );
+  }
 }
