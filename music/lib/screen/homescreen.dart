@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
           getsnackbar(context: context);
         }
         if (value == 'playlist') {
-          getPLopupaddvideos(context: context, path: path);
+          getPLopupaddAudio(context: context, path: path);
         }
       },
       icon: const Icon(
@@ -323,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  getPLopupaddvideos({required context, required path}) {
+  getPLopupaddAudio({required context, required path}) {
     GlobalKey<FormState> formkey = GlobalKey();
     showModalBottomSheet(
       context: context,
@@ -371,10 +371,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               labelText: 'Playlist Name',
                             ),
                             validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
+                              if (value!.isEmpty) {
+                                return "Invalid the Folder name is empty!";
+                              } else if (getplaylistsatus(
+                                  playlistpath: value)) {
+                                return "Already exist";
                               }
-                              return null;
                             },
                           ),
                           actions: [
@@ -413,16 +415,27 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                           child: InkWell(
                             onTap: () {
+                              // final datainPlyalist = PlaylistData(
+                              //     playlistAudio:
+                              //         fullsonglist[index].metas.title,
+                              //     playlistName: palyListNameValidate);
+                              // addToPlaylist(datainPlyalist);
+                              // Navigator.pop(context);
                               PlaylistData object = PlaylistData(
-                                  playlistAudio: path,
-                                  playlistName: nameplaylist.toString());
-                              playlistdataDb.add(object);
-                              print(playlistdataDb.length);
-                              Navigator.pop(context);
+                      playlistAudio: path, playlistName: nameplaylist!.playlistName);
+                      addToPlaylist(object);
+                      // playlistdataDb.add(object);
+                      log("${playlistdataDb.length}");
+                      Navigator.pop(context);
+
+                              // PlaylistData object = PlaylistData(
+                              //     playlistAudio: path,
+                              //     playlistName: nameplaylist.toString());
+                              // playlistdataDb.add(object);
+                              // print(playlistdataDb.length);
+                              // Navigator.pop(context);
 
                               // ScaffoldMessenger.of(context).showSnackBar( getSnackBarTwo(context: context));
-
-                              // <><><><><><><><><><><><><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -457,134 +470,6 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-  // getPLopupaddvideos({required context, required path}) {
-  //   GlobalKey<FormState> formkey = GlobalKey();
-  //   final controller = TextEditingController();
-  //   return showDialog(
-  //       context: context,
-  //       builder: (ctx1) {
-  //         return Form(
-  //           key: formkey,
-  //           child: AlertDialog(
-  //             title: const Text(
-  //               "Add audio to Playlist",
-  //             ),
-  //             content: SizedBox(
-  //               height: 300,
-  //               child: Column(
-  //                 children: [
-  //                   TextFormField(
-  //                     autovalidateMode: AutovalidateMode.onUserInteraction,
-  //                     controller: controller,
-  //                     decoration: const InputDecoration(
-  //                       border: OutlineInputBorder(),
-  //                     ),
-  //                     // validator: (value) {
-  //                     //   if (value!.isEmpty) {
-  //                     //     return "Invalid the Folder name is empty!";
-  //                     //   } else if (getplaylistsatus(playlistpath: value)) {
-  //                     //     return "Already exist";
-  //                     //   }
-  //                     // },
-  //                   ),
-  //                   TextButton.icon(
-  //                       onPressed: () {
-  //                         if (formkey.currentState!.validate()) {
-  //                           PlaylistName objplaylist =
-  //                               PlaylistName(playlistName: controller.text);
-  //                           playlistDb.add(objplaylist);
-  //                           // Navigator.pop(context);
-
-  //                           // ScaffoldMessenger.of(context)
-  //                           //     .showSnackBar(getSnackBarOne(context: context));
-  //                           // log("Added");
-  //                         }
-  //                       },
-  //                       icon: Icon(Icons.add),
-  //                       label: Text("Add")),
-  //                   Expanded(
-  //                     child: SizedBox(
-  //                       height: 300,
-  //                       width: 300,
-  //                       child: ValueListenableBuilder(
-  //                         valueListenable: playlistDb.listenable(),
-  //                         builder: (BuildContext context,
-  //                                 Box<PlaylistName> listenplaylist,
-  //                                 Widget? child) =>
-  //                             GridView.builder(
-  //                           gridDelegate:
-  //                               const SliverGridDelegateWithFixedCrossAxisCount(
-  //                             crossAxisCount: 2,
-  //                             childAspectRatio: 4 / 3,
-  //                           ),
-  //                           itemCount: listenplaylist.length,
-  //                           itemBuilder: (BuildContext context, int index) {
-  //                            PlaylistName? playlistnameDb = playlistDb.getAt(index);
-  //                             return Padding(
-  //                               padding:
-  //                                   const EdgeInsets.fromLTRB(15, 10, 15, 10),
-  //                               child: InkWell(
-  //                                 onTap: () {
-  //                                   PlaylistData object = PlaylistData(
-  //                                       playlistAudio: path,
-  //                                       playlistName: playlistnameDb.toString());
-  //                                   playlistdataDb.add(object);
-  //                                   // print(playlistdataDb.length);
-  //                                   // Navigator.pop(context);
-
-  //                                   // ScaffoldMessenger.of(context).showSnackBar( getSnackBarTwo(context: context));
-
-  //                                   // <><><><><><><><><><><><><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  //                                 },
-  //                                 child: Container(
-  //                                   decoration: BoxDecoration(
-  //                                     borderRadius: BorderRadius.circular(15),
-  //                                     border: Border.all(
-  //                                       color: Colors.white54,
-  //                                       style: BorderStyle.solid,
-  //                                       width: 2.5,
-  //                                     ),
-  //                                     color: Colors.transparent,
-  //                                   ),
-  //                                   child: Center(
-  //                                     child: Text(
-  //                                       playlistnameDb!.playlistName.toString(),
-  //                                       style: const TextStyle(
-  //                                         color: Colors.white,
-  //                                         fontSize: 20,
-  //                                       ),
-  //                                     ),
-  //                                   ),
-  //                                 ),
-  //                               ),
-  //                             );
-  //                           },
-  //                         ),
-  //                         // ? emptyDisplay("Videos")
-  //                         //  ListView.builder(
-  //                         //   shrinkWrap: true,
-  //                         //   itemCount: playlistDb.values.length,
-  //                         //   itemBuilder:
-  //                         //       (BuildContext context, int index) {
-  //                         //     PlaylistName? playlistobj =
-  //                         //         playlistDb.getAt(index);
-  //                         //     return PopPlaylistFolder(
-  //                         //       folderName: playlistobj!,
-  //                         //       index: index,
-  //                         //       videoPath: path,
-  //                         //     );
-  //                         //   },
-  //                         // ),
-  //                       ),
-  //                     ),
-  //                   )
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         );
-  //       });
-  // }
 
   onOkButtonPressed(BuildContext contxt) {
     final palyListNameValidate = nameController.text.trim();
@@ -633,6 +518,31 @@ class _HomeScreenState extends State<HomeScreen> {
 //     playlistDb.add(playlistvalue);
 //     log('$playlistvalue hdfshaklfhl');
 //  playlist= playlistDb.keys.toList();
+  }
+
+  addToPlaylist(PlaylistData datainPlyalist) {
+    List<PlaylistData> currentList = playlistdataDb.values.toList();
+    var contains = currentList.where((element) =>
+        element.playlistName == datainPlyalist.playlistName &&
+        element.playlistAudio == datainPlyalist.playlistAudio);
+    if (contains.isNotEmpty) {
+      return false;
+    } else {
+      playlistdataDb.add(datainPlyalist);
+      return true;
+    }
+  }
+
+  getplaylistsatus({required String playlistpath}) {
+    List<PlaylistData> textplaylist = playlistdataDb.values.toList();
+    List<PlaylistData> result = textplaylist
+        .where((checking) => checking.playlistName == playlistpath)
+        .toList();
+    if (result.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
 

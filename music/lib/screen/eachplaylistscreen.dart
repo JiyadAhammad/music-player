@@ -8,7 +8,7 @@ import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/screen/widget/delete_playlist.dart';
-
+// final playlistnaemidvalue = widget. plalistnameId;
 class EachPlayList extends StatefulWidget {
   final plalistnameId;
 
@@ -140,7 +140,7 @@ class _EachPlayListState extends State<EachPlayList> {
                                     subtitle: SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Text(
-                                        fullsonglist[index].metas.title!,
+                                        '<${playlsitdatainDb.playlistName!}>',
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -263,14 +263,15 @@ class _EachPlayListState extends State<EachPlayList> {
                                     // size: 30,
                                   ),
                                   onPressed: () {
-                                    log(widget.plalistnameId);
+                                    // log(widget.plalistnameId);
                                     var name = box.get(playlistDb);
 
                                     final datainPlyalist = PlaylistData(
                                         playlistAudio:
                                             songslist[index].songtitle,
                                         playlistName: widget.plalistnameId);
-                                    playlistdataDb.add(datainPlyalist);
+                                        addToPlaylist(datainPlyalist);
+                                    // playlistdataDb.add(datainPlyalist);
                                     // final name = playlistDb.getAt(index);
                                     // PlaylistData datainplaylist = PlaylistData(
                                     //     playlistAudio:
@@ -283,8 +284,8 @@ class _EachPlayListState extends State<EachPlayList> {
                                     //   );
 
                                     //  log(name!.playlistName.toString());
-                                    playlistdataDb.put(
-                                        widget.plalistnameId, datainPlyalist);
+                                    // playlistdataDb.put(
+                                    //     widget.plalistnameId, datainPlyalist);
                                   },
                                 ),
                               ),
@@ -321,21 +322,35 @@ class _EachPlayListState extends State<EachPlayList> {
       color: Colors.black,
       itemBuilder: (context) => [
         PopupMenuItem(
-            value: 'playlist',
-            child: Row(
-              children: const [
-                Icon(
-                  Icons.remove_circle_outline,
-                  color: Colors.red,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  "Remove from Playlist",
-                  style: TextStyle(color: Colors.white),
-                )
-              ],
-            ))
+          value: 'playlist',
+          child: Row(
+            children: const [
+              Icon(
+                Icons.remove_circle_outline,
+                color: Colors.red,
+              ),
+              SizedBox(width: 5),
+              Text(
+                "Remove from Playlist",
+                style: TextStyle(color: Colors.white),
+              )
+            ],
+          ),
+        ),
       ],
     );
+  }
+  
+   addToPlaylist(PlaylistData datainPlyalist) {
+    List<PlaylistData> currentList = playlistdataDb.values.toList();
+  var contains = currentList.where((element) =>
+      element.playlistName == datainPlyalist.playlistName &&
+      element.playlistAudio == datainPlyalist.playlistAudio);
+  if (contains.isNotEmpty) {
+    return false;
+  } else {
+    playlistdataDb.add(datainPlyalist);
+    return true;
+  }
   }
 }

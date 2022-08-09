@@ -120,11 +120,11 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                             ),
                           ),
                         ),
-                        subtitle: SingleChildScrollView(
+                        subtitle: const SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Text(
-                            fullsonglist[index].metas.artist!,
-                            style: const TextStyle(
+                            '<Favourite>',
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),

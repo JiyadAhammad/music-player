@@ -20,7 +20,7 @@ final GlobalKey<FormState> _formKey = GlobalKey();
 //   'Sleep',
 //   'Gym',
 // ];
-
+var palyListNameValidate; 
 final nameController = TextEditingController();
 
 class PlayListScreen extends StatefulWidget {
@@ -317,7 +317,7 @@ class _PlayListScreenState extends State<PlayListScreen> {
   }
 
   onOkButtonPressed(BuildContext contxt) {
-    final palyListNameValidate = nameController.text.trim();
+     palyListNameValidate = nameController.text.trim();
     // log('$palyListNameValidate values in plaulisdy');
     if (palyListNameValidate.isEmpty) {
       ScaffoldMessenger.of(contxt).showSnackBar(const SnackBar(
