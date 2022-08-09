@@ -8,6 +8,7 @@ import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/screen/widget/delete_playlist.dart';
+
 // final playlistnaemidvalue = widget. plalistnameId;
 class EachPlayList extends StatefulWidget {
   final plalistnameId;
@@ -147,7 +148,10 @@ class _EachPlayListState extends State<EachPlayList> {
                                         ),
                                       ),
                                     ),
-                                    trailing: removePlaylistAudio(index: index),
+                                    trailing: SizedBox(
+                                      width: 25,
+                                        child:
+                                            removePlaylistAudio(index: index)),
                                     // trailing: PopupMenuButton(
                                     //   shape: const RoundedRectangleBorder(
                                     //     borderRadius: BorderRadius.all(
@@ -270,7 +274,7 @@ class _EachPlayListState extends State<EachPlayList> {
                                         playlistAudio:
                                             songslist[index].songtitle,
                                         playlistName: widget.plalistnameId);
-                                        addToPlaylist(datainPlyalist);
+                                    addToPlaylist(datainPlyalist);
                                     // playlistdataDb.add(datainPlyalist);
                                     // final name = playlistDb.getAt(index);
                                     // PlaylistData datainplaylist = PlaylistData(
@@ -310,8 +314,9 @@ class _EachPlayListState extends State<EachPlayList> {
     );
   }
 
-  removePlaylistAudio({required index}) {
+  Widget removePlaylistAudio({required index}) {
     return PopupMenuButton(
+      padding: EdgeInsets.zero,
       onSelected: (value) {
         playlistdataDb.deleteAt(index);
       },
@@ -340,17 +345,17 @@ class _EachPlayListState extends State<EachPlayList> {
       ],
     );
   }
-  
-   addToPlaylist(PlaylistData datainPlyalist) {
+
+  addToPlaylist(PlaylistData datainPlyalist) {
     List<PlaylistData> currentList = playlistdataDb.values.toList();
-  var contains = currentList.where((element) =>
-      element.playlistName == datainPlyalist.playlistName &&
-      element.playlistAudio == datainPlyalist.playlistAudio);
-  if (contains.isNotEmpty) {
-    return false;
-  } else {
-    playlistdataDb.add(datainPlyalist);
-    return true;
-  }
+    var contains = currentList.where((element) =>
+        element.playlistName == datainPlyalist.playlistName &&
+        element.playlistAudio == datainPlyalist.playlistAudio);
+    if (contains.isNotEmpty) {
+      return false;
+    } else {
+      playlistdataDb.add(datainPlyalist);
+      return true;
+    }
   }
 }

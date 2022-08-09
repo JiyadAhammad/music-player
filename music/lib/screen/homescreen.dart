@@ -235,9 +235,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
 
-                        trailing: popup(
-                          path: audio!.songtitle,
-                          context: context,
+                        trailing: SizedBox(
+                          width: 25,
+                          child: popup(
+                            path: audio!.songtitle,
+                            context: context,
+                          ),
                         ),
                       ),
                     ),
@@ -261,6 +264,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget popup({required path, required context}) {
     return PopupMenuButton(
+      padding: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(15.0),

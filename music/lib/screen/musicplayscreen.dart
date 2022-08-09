@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -502,12 +504,19 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                             15, 10, 15, 10),
                                         child: InkWell(
                                           onTap: () {
-                              PlaylistData object = PlaylistData(
-                                  playlistAudio: widget.path,
-                                  playlistName: nameplaylist.toString());
-                              playlistdataDb.add(object);
-                              print(playlistdataDb.length);
-                              Navigator.pop(context);
+                                            PlaylistData object = PlaylistData(
+                      playlistAudio: widget.path, playlistName: nameplaylist!.playlistName);
+                      addToPlaylist(object);
+                      // playlistdataDb.add(object);
+                      // log("${playlistdataDb.length}");
+                      Navigator.pop(context);
+
+                              // PlaylistData object = PlaylistData(
+                              //     playlistAudio: widget.path,
+                              //     playlistName: nameplaylist.toString());
+                              // playlistdataDb.add(object);
+                              // print(playlistdataDb.length);
+                              // Navigator.pop(context);
 
                               // ScaffoldMessenger.of(context).showSnackBar( getSnackBarTwo(context: context));
 
@@ -693,5 +702,18 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     super.dispose();
     audioPlayer.dispose();
     isDisposed = true;
+  }
+  
+  addToPlaylist(PlaylistData datainPlyalist) {
+    List<PlaylistData> currentList = playlistdataDb.values.toList();
+    var contains = currentList.where((element) =>
+        element.playlistName == datainPlyalist.playlistName &&
+        element.playlistAudio == datainPlyalist.playlistAudio);
+    if (contains.isNotEmpty) {
+      return false;
+    } else {
+      playlistdataDb.add(datainPlyalist);
+      return true;
+    }
   }
 }

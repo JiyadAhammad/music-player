@@ -87,6 +87,7 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ListTile(
+                  
                         onTap: () {
                           List<String> result;
                           result = getList(favouritelist.values.toList());
@@ -131,7 +132,9 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                           ),
                         ),
                         // trailing: Icon(Icons.abc,color: Colors.white,),
-                        trailing: deleteFav(index: index),
+                        trailing: SizedBox(
+                          width: 25,
+                          child: deleteFav(index: index)),
                         // trailing: IconButton(
                         //   onPressed: () {
                         //     favouriteDb.deleteAt(index);
@@ -180,8 +183,9 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
     return audioPath;
   }
 
-  deleteFav({required index}) {
+  Widget deleteFav({required index}) {
     return PopupMenuButton(
+      padding: EdgeInsets.all(0),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
           Radius.circular(15.0),
