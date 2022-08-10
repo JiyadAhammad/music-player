@@ -27,7 +27,8 @@ class MusicPlaySceeen extends StatefulWidget {
     this.index,
     this.songId,
     this.audioPlayer,
-    this.music, this.path,
+    this.music,
+    this.path,
   }) : super(key: key);
 
   @override
@@ -36,7 +37,6 @@ class MusicPlaySceeen extends StatefulWidget {
 
 class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     with SingleTickerProviderStateMixin {
-      
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
   bool isRepeat = false;
   Color color = const Color.fromARGB(255, 235, 139, 171);
@@ -198,13 +198,13 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
           elevation: 0,
           leading: IconButton(
             onPressed: () {
+              isMusicPlaying = true;
               // Navigator.pop(context);
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: ((context) => NavBar(
-                      // index: widget.index,
-                      // title: fullsonglist,
-
+                        index: widget.index,
+                        title: fullsonglist,
                       )),
                 ),
               );
@@ -393,9 +393,8 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                     size: 30,
                   ),
                 ),
-                
+
                 IconButton(
-                  
                   onPressed: () {
                     Songs? audio = box.getAt(widget.index!);
                     addToFavourite(path: audio!.songtitle);
@@ -443,7 +442,6 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                     size: 30,
                                   ),
                                   onPressed: () {
-
                                     showDialog(
                                       context: context,
                                       builder: (ctx) {
@@ -465,7 +463,6 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                           ),
                                           actions: [
                                             TextButton(
-                                              
                                               onPressed: () => Navigator.pop(
                                                   context, 'Cancel'),
                                               child: const Text('Cancel'),
@@ -473,7 +470,6 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                                             ElevatedButton(
                                               onPressed: () {
                                                 onOkButtonPressed(context);
-                                                
                                               },
                                               child: const Text('OK'),
                                             ),
@@ -487,67 +483,74 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                               Expanded(
                                 child: ValueListenableBuilder(
                                   valueListenable: playlistDb.listenable(),
+                                  builder: (BuildContext context,
+                                      Box<PlaylistName> value, Widget? child) {
+                                    return GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 4 / 3,
+                                      ),
+                                      itemCount: value.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        PlaylistName? nameplaylist =
+                                            playlistDb.getAt(index);
+                                        return Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              15, 10, 15, 10),
+                                          child: InkWell(
+                                            onTap: () {
+                                              PlaylistData object =
+                                                  PlaylistData(
+                                                      playlistAudio:
+                                                          widget.path,
+                                                      playlistName:
+                                                          nameplaylist!
+                                                              .playlistName);
+                                              addToPlaylist(object);
+                                              // playlistdataDb.add(object);
+                                              // log("${playlistdataDb.length}");
+                                              Navigator.pop(context);
 
-                                  builder: (BuildContext context, Box<PlaylistName> value, Widget? child) {  
-                                  return GridView.builder(
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 4 / 3,
-                                    ),
-                                    itemCount: value.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                          PlaylistName? nameplaylist = playlistDb.getAt(index);
-                                      return Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            15, 10, 15, 10),
-                                        child: InkWell(
-                                          onTap: () {
-                                            PlaylistData object = PlaylistData(
-                      playlistAudio: widget.path, playlistName: nameplaylist!.playlistName);
-                      addToPlaylist(object);
-                      // playlistdataDb.add(object);
-                      // log("${playlistdataDb.length}");
-                      Navigator.pop(context);
+                                              // PlaylistData object = PlaylistData(
+                                              //     playlistAudio: widget.path,
+                                              //     playlistName: nameplaylist.toString());
+                                              // playlistdataDb.add(object);
+                                              // print(playlistdataDb.length);
+                                              // Navigator.pop(context);
 
-                              // PlaylistData object = PlaylistData(
-                              //     playlistAudio: widget.path,
-                              //     playlistName: nameplaylist.toString());
-                              // playlistdataDb.add(object);
-                              // print(playlistdataDb.length);
-                              // Navigator.pop(context);
+                                              // ScaffoldMessenger.of(context).showSnackBar( getSnackBarTwo(context: context));
 
-                              // ScaffoldMessenger.of(context).showSnackBar( getSnackBarTwo(context: context));
-
-                              // <><><><><><><><><><><><><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-                            },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              border: Border.all(
-                                                color: Colors.white54,
-                                                style: BorderStyle.solid,
-                                                width: 2.5,
+                                              // <><><><><><><><><><><><><>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                border: Border.all(
+                                                  color: Colors.white54,
+                                                  style: BorderStyle.solid,
+                                                  width: 2.5,
+                                                ),
+                                                color: Colors.transparent,
                                               ),
-                                              color: Colors.transparent,
-                                            ),
-                                            child:  Center(
-                                              child: Text(
-                                                nameplaylist!.playlistName.toString(),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 20,
+                                              child: Center(
+                                                child: Text(
+                                                  nameplaylist!.playlistName
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20,
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                      },
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ),
                             ],
@@ -640,6 +643,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
       ),
     );
   }
+
   onOkButtonPressed(BuildContext contxt) {
     final palyListNameValidate = nameController.text.trim();
     // log('$palyListNameValidate values in plaulisdy');
@@ -681,29 +685,25 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     // final playlisvalue = PlaylistName(
     //   playlistName: palyListNameValidate,
     // );
-    final playlistvalue = PlaylistName(
-      
-      playlistName: palyListNameValidate
-    
-    );
+    final playlistvalue = PlaylistName(playlistName: palyListNameValidate);
     playlistDb.add(playlistvalue);
     // final key=playlistDb.get()
 //     playlistDb.add(playlistvalue);
 //     log('$playlistvalue hdfshaklfhl');
 //  playlist= playlistDb.keys.toList();
- }
+  }
 
 //   void deletedPlayList(int index) {
-    
+
 //   }
- @override
+  @override
   void dispose() {
     bool isDisposed = false;
     super.dispose();
     audioPlayer.dispose();
     isDisposed = true;
   }
-  
+
   addToPlaylist(PlaylistData datainPlyalist) {
     List<PlaylistData> currentList = playlistdataDb.values.toList();
     var contains = currentList.where((element) =>

@@ -20,7 +20,7 @@ final GlobalKey<FormState> _formKey = GlobalKey();
 //   'Sleep',
 //   'Gym',
 // ];
-var palyListNameValidate; 
+var palyListNameValidate =''; 
 final nameController = TextEditingController();
 
 class PlayListScreen extends StatefulWidget {

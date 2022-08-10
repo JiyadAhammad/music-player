@@ -46,14 +46,6 @@ class MyApp extends StatelessWidget {
           home: const SplashScreen(),
         );
       },
-      // designSize: const Size(392.7, 781.1),
-
-      // child: MaterialApp(
-      //   debugShowCheckedModeBanner: false,
-      //   title: 'Music',
-      //   theme: ThemeData(primarySwatch: Colors.deepPurple),
-      //   home: const SplashScreen(),
-      // ),
     );
   }
 }

@@ -8,7 +8,6 @@ import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/function/searchdelagete.dart';
 import 'package:music/main.dart';
 import 'package:music/navdrawer/navdrawer.dart';
-import 'package:music/screen/eachplaylistscreen.dart';
 import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/playlist.dart';
 import 'package:music/screen/splashscreen.dart';

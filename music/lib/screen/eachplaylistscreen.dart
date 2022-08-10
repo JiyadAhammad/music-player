@@ -7,15 +7,13 @@ import 'package:music/main.dart';
 import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:music/screen/widget/delete_playlist.dart';
 
-// final playlistnaemidvalue = widget. plalistnameId;
 class EachPlayList extends StatefulWidget {
   final plalistnameId;
 
   EachPlayList({
     Key? key,
-    this.plalistnameId,
+    required this.plalistnameId,
   }) : super(key: key);
 
   @override
@@ -150,34 +148,10 @@ class _EachPlayListState extends State<EachPlayList> {
                                     ),
                                     trailing: SizedBox(
                                       width: 25,
-                                        child:
-                                            removePlaylistAudio(index: index)),
-                                    // trailing: PopupMenuButton(
-                                    //   shape: const RoundedRectangleBorder(
-                                    //     borderRadius: BorderRadius.all(
-                                    //       Radius.circular(15.0),
-                                    //     ),
-                                    //   ),
-                                    //   color: Colors.black,
-                                    //   itemBuilder: (context) {
-                                    //     return [
-                                    //       const PopupMenuItem(
-                                    //         value: 'removeplaylist',
-                                    //         child: Text(
-                                    //           'Remove from playlist',
-                                    //           style: TextStyle(
-                                    //             color: Colors.white,
-                                    //           ),
-                                    //         ),
-                                    //       )
-                                    //     ];
-                                    //   },
-                                    //   onSelected: (String value) {},
-                                    //   icon: const Icon(
-                                    //     Icons.more_vert,
-                                    //     color: Colors.white,
-                                    //   ),
-                                    // ),
+                                      child: removePlaylistAudio(
+                                        index: index,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               )
@@ -248,16 +222,16 @@ class _EachPlayListState extends State<EachPlayList> {
                                   ),
                                 ),
                               ),
-                              subtitle: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Text(
-                                  fullsonglist[index].metas.artist!,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ),
+                              // subtitle: SingleChildScrollView(
+                              //   scrollDirection: Axis.horizontal,
+                              //   child: Text(
+                              //     fullsonglist[index].metas.artist!,
+                              //     style: const TextStyle(
+                              //       color: Colors.white,
+                              //       fontSize: 16,
+                              //     ),
+                              //   ),
+                              // ),
                               trailing: CircleAvatar(
                                 backgroundColor: Colors.black,
                                 child: IconButton(

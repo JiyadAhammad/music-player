@@ -1,12 +1,11 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:music/dbmodel/dbfunction.dart';
-
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/main.dart';
 import 'package:music/navbar/navbar.dart';
-import 'package:music/screen/homescreen.dart';
 import 'package:music/screen/musicplayscreen.dart';
 import 'package:music/screen/splashscreen.dart';
 
@@ -18,6 +17,8 @@ class FavouriteMusicScreen extends StatefulWidget {
 }
 
 class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
+  List<Audio> favSong = [];
+  // List<dynamic> audioinfavourite = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,22 +88,80 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ListTile(
-                  
                         onTap: () {
-                          List<String> result;
-                          result = getList(favouritelist.values.toList());
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: ((context) => MusicPlaySceeen(
-                                    songId: result[index].toString(),
-                                    // allSongs: fullsonglist,
-                                    index: index,
-                                    // songId:
-                                    //     fullsonglist[index].metas.id.toString(),
-                                    // audioPlayer: audioPlayer,
-                                  )),
-                            ),
-                          );
+                           List<dynamic> audioinfavourite;
+                           audioinfavourite = getList(favouritelist.values.toList());
+                          // audioinfavourite =
+                          //     getList(favouritelist.values.toList());
+                          // log("${audioinfavourite[index]}    before loop");
+                          // log("${favaudioDb!.favouriteAudio}db");
+                          for (var item in audioinfavourite) {
+                            log("message in satrting loop");
+                            favSong.add(
+                              Audio.file(
+                                audioinfavourite[item],
+                                metas: Metas(
+                                  id:musicId[item].toString() ,
+                                  title:musicTitles[item],
+                                  artist: musicArtist[item],
+                                ),
+                              ),
+                            );
+                            log("$favSong songs in audio inside loop");
+                            // log("$audioinfavourite indide loop");
+                          }
+                          // log("${favSong} songs in audio ouside loop");
+                          // log("$audioinfavourite after loop");
+                          // final audioinfavourite = favaudioDb.getAt(index);
+                          // favSong=getList();
+                          // for (var item in audioinfavourite) {
+                          //   favSong.add(
+                          //     Audio.file(
+                          //       item.path,
+                          //       metas: Metas(
+                          //         id: item.musicId.toString(),
+                          //         title: item.songtitle,
+                          //         artist: item.songartist,
+                          //       ),
+                          //     ),
+                          //   );
+                          // }
+                          // for (var i = 0; i < ; i++) {
+                          //   favSong.add(Audio.file(
+                          //     (favouritelist.toString() ),
+                          //     metas: Metas(
+                          //       id: musicId[i].toString(),
+                          //       title: musicTitles[i],
+                          //       artist: musicArtist[i],
+                          //     ),
+                          //   ));
+                          // }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: ((context) => MusicPlaySceeen(
+                          //           allSongs: favSong,
+                          //           index: index,
+                          //           songId: favSong[index].metas.title,
+                          //         )),
+                          //   ),
+                          // );
+
+                          
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: ((context) => MusicPlaySceeen(
+                          //       songId: result[index],
+                          //       index: index,
+                          //           // songId: result[index],
+                          //           // allSongs: fullsonglist,
+                          //           // index: index,
+                          //           // songId:
+                          //           //     fullsonglist[index].metas.id.toString(),
+                          //           // audioPlayer: audioPlayer,
+                          //         )),
+                          //   ),
+                          // );
                         },
                         leading: const CircleAvatar(
                           child: Icon(
@@ -132,9 +191,8 @@ class _FavouriteMusicScreenState extends State<FavouriteMusicScreen> {
                           ),
                         ),
                         // trailing: Icon(Icons.abc,color: Colors.white,),
-                        trailing: SizedBox(
-                          width: 25,
-                          child: deleteFav(index: index)),
+                        trailing:
+                            SizedBox(width: 25, child: deleteFav(index: index)),
                         // trailing: IconButton(
                         //   onPressed: () {
                         //     favouriteDb.deleteAt(index);

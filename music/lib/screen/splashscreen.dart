@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/dbmodel/dbfunction.dart';
 import 'package:music/dbmodel/songmodel.dart';
 import 'package:music/main.dart';
@@ -68,42 +66,41 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 150,
+                    ),
 
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                 const SizedBox(
-                    height: 150,
-                  ),
-
-                 const Text(
-                    'jMUSIC',
-                    style: TextStyle(
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
-                 const SizedBox(
-                    height: 10,
-                  ),
-                  // ignore: avoid_unnecessary_containers
-                  Container(
-                    child: Image.asset('assets/img/splash.png'),
-                  ),
-                 const SizedBox(
-                    height: 30,
-                  ),
-                 const Text(
-                    'Feel the Music',
-                    style: TextStyle(fontSize: 30, color: Colors.white),
-                  ),
-                ],
+                    const Text(
+                      'jMUSIC',
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    // ignore: avoid_unnecessary_containers
+                    Container(
+                      child: Image.asset('assets/img/splash.png'),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    const Text(
+                      'Feel the Music',
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.white, size: 70.0)
-          ],
+              LoadingAnimationWidget.staggeredDotsWave(
+                  color: Colors.white, size: 70.0)
+            ],
             // children: [
             //   const Text(
             //     'jMUSIC',
@@ -123,8 +120,6 @@ class _SplashScreenState extends State<SplashScreen> {
             //     ),
             //   ),
             // ],
-
-
           ),
         ),
       ),
@@ -135,8 +130,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _platform.invokeMethod('search').then((value) {
       final res = value as Map<Object?, Object?>;
       onSuccess(res);
-    }).onError((error, stackTrace) {
-    });
+    }).onError((error, stackTrace) {});
   }
 
   void convertingFromMap(value) {
@@ -165,6 +159,7 @@ class _SplashScreenState extends State<SplashScreen> {
       splashFetch();
     }
   }
+
   Directory? dir;
 
   Future<bool> _requestPermission(Permission permission) async {
@@ -199,14 +194,10 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  
-
   onSuccess(audioListFromStorage) async {
     convertingFromMap(audioListFromStorage);
 
-    setState(() {
-      
-    });
+    setState(() {});
 
     // log('$audioListFromStorage    anything here' );
 
@@ -218,36 +209,32 @@ class _SplashScreenState extends State<SplashScreen> {
     // addMusicList(data);
     for (var i = 0; i < musicpath.length; i++) {
       final data = Songs(
-        id: musicId[i],
-        path: musicpath[i], 
-        songtitle: musicTitles[i], 
-        songartist: musicArtist[i]);
+          id: musicId[i],
+          path: musicpath[i],
+          songtitle: musicTitles[i],
+          songartist: musicArtist[i]);
 
+      await box.put(i, data);
+      musicValueNotifier.value.add(data);
+      musicValueNotifier.notifyListeners();
 
-        
-        await box.put(i,data);
-        musicValueNotifier.value.add(data);
-        musicValueNotifier.notifyListeners();
-
-
-        // log('${data.id } this is id');
-        // log('${data.path } this is path');
-        // log('${data.songtitle} this is songtitle');
-        // log('${data.songartist} this is songartist');
+      // log('${data.id } this is id');
+      // log('${data.path } this is path');
+      // log('${data.songtitle} this is songtitle');
+      // log('${data.songartist} this is songartist');
     }
-    
-
 
     for (var i = 0; i < musicpath.length; i++) {
-      fullsonglist.add(Audio.file(
-        musicpath[i],
-        metas: Metas(
-          id: musicId[i].toString(),
-          title: musicTitles[i],
-          artist: musicArtist[i],
+      fullsonglist.add(
+        Audio.file(
+          musicpath[i],
+          metas: Metas(
+            id: musicId[i].toString(),
+            title: musicTitles[i],
+            artist: musicArtist[i],
+          ),
         ),
-      ));
+      );
     }
   }
-  
 }
