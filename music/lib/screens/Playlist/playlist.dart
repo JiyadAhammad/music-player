@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:music/screens/Playlist/createplaylist.dart';
 import 'package:music/screens/eachplaylistscreen/eachplaylistscreen.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
@@ -103,98 +104,103 @@ class PlayListScreen extends StatelessWidget {
                             //   ),
                             // );
                           },
-                          child: Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15).r,
-                                  border: Border.all(
-                                    color: Colors.white54,
-                                    style: BorderStyle.solid,
-                                    width: 2.5,
-                                  ),
-                                  color: Colors.transparent,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    playlistName[index].toString(),
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.sp,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              PopupMenuButton(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    const Radius.circular(15.0).r,
-                                  ),
-                                ),
-                                color: Colors.black,
-                                icon: const Icon(
-                                  Icons.more_vert,
-                                  color: Colors.white,
-                                ),
-                                itemBuilder: (_) => <PopupMenuItem<String>>[
-                                  PopupMenuItem<String>(
-                                    onTap: () {},
-                                    value: 'rename',
-                                    child: Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
+                          child: playlistName[index] != "mymusic" &&
+                                  playlistName[index] != "favourites"
+                              ? Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(15).r,
+                                        border: Border.all(
+                                          color: Colors.white54,
+                                          style: BorderStyle.solid,
+                                          width: 2.5,
                                         ),
-                                        Text(
-                                          ' Edit playlist',
+                                        color: Colors.transparent,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          playlistName[index].toString(),
                                           style: TextStyle(
                                             color: Colors.white,
+                                            fontSize: 20.sp,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    PopupMenuButton(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          const Radius.circular(15.0).r,
+                                        ),
+                                      ),
+                                      color: Colors.black,
+                                      icon: const Icon(
+                                        Icons.more_vert,
+                                        color: Colors.white,
+                                      ),
+                                      itemBuilder: (_) =>
+                                          <PopupMenuItem<String>>[
+                                        PopupMenuItem<String>(
+                                          onTap: () {},
+                                          value: 'rename',
+                                          child: Row(
+                                            children: const [
+                                              Icon(
+                                                Icons.edit,
+                                                color: Colors.white,
+                                              ),
+                                              Text(
+                                                ' Edit playlist',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        PopupMenuItem<String>(
+                                          onTap: () {},
+                                          value: 'delete',
+                                          child: Row(
+                                            children: const [
+                                              Icon(
+                                                Icons.delete,
+                                                color: Colors.white,
+                                              ),
+                                              Text(
+                                                ' Delete playlist ',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
+                                      onSelected: (selected) {
+                                        if (selected == 'delete') {
+                                          // deletePlaylist(
+                                          // context: context
+                                          // );
+                                        } else if (selected == 'rename') {
+                                          // playlistEdit(
+                                          //   context: context,
+                                          //   // context: context,
+                                          //   playName: playlistnameDb.playlistName,
+                                          // );
+                                        }
+                                      },
                                     ),
-                                  ),
-                                  PopupMenuItem<String>(
-                                    onTap: () {},
-                                    value: 'delete',
-                                    child: Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.delete,
-                                          color: Colors.white,
-                                        ),
-                                        Text(
-                                          ' Delete playlist ',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                                onSelected: (selected) {
-                                  if (selected == 'delete') {
-                                    // deletePlaylist(
-                                    // context: context
-                                    // );
-                                  } else if (selected == 'rename') {
-                                    // playlistEdit(
-                                    //   context: context,
-                                    //   // context: context,
-                                    //   playName: playlistnameDb.playlistName,
-                                    // );
-                                  }
-                                },
-                              ),
-                              // popupMenuButtonSelected(
-                              //   playlistfile: playlistnameDb,
-                              //   index: index,
-                              // )
-                            ],
-                          ),
+                                    // popupMenuButtonSelected(
+                                    //   playlistfile: playlistnameDb,
+                                    //   index: index,
+                                    // )
+                                  ],
+                                )
+                              : const SizedBox(),
                         ),
                       );
                     },
@@ -214,6 +220,11 @@ class PlayListScreen extends StatelessWidget {
           ),
           child: FloatingActionButton(
             onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const CreatePlaylist();
+                  });
               // popupshowDialogbox(context: context);
             },
             backgroundColor: Colors.transparent,
