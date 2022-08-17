@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/screens/Playlist/createplaylist.dart';
+import 'package:music/screens/Playlist/widget.dart';
 import 'package:music/screens/eachplaylistscreen/eachplaylistscreen.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
@@ -82,31 +83,33 @@ class PlayListScreen extends StatelessWidget {
                     itemCount: playlistName.length,
                     itemBuilder: (context, index) {
                       var playlistSongs = box.get(playlistName[index]);
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: ((context) => EachPlayList(
-                                      playlistName: playlistName[index],
-                                    )),
-                              ),
-                            );
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (ctx) {
-                            //       return EachPlayList(
-                            //         playlistName: playlistnameDb!.playlistName!,
-                            //         playlistnameId: playlistnameDb.id,
-                            //       );
-                            //     },
-                            //   ),
-                            // );
-                          },
-                          child: playlistName[index] != "mymusic" &&
-                                  playlistName[index] != "favourites"
-                              ? Stack(
+                      return playlistName[index] != "mymusic" &&
+                              playlistName[index] != "favourites"
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: ((context) => EachPlayList(
+                                            playlistnameId: playlistName[index],
+                                          )),
+                                    ),
+                                  );
+                                },
+                                // Navigator.of(context).push(
+                                //   MaterialPageRoute(
+                                //     builder: (ctx) {
+                                //       return EachPlayList(
+                                //         playlistName: playlistnameDb!.playlistName!,
+                                //         playlistnameId: playlistnameDb.id,
+                                //       );
+                                //     },
+                                //   ),
+                                // );
+
+                                child: Stack(
                                   alignment: Alignment.bottomRight,
                                   children: [
                                     Container(
@@ -182,15 +185,27 @@ class PlayListScreen extends StatelessWidget {
                                       ],
                                       onSelected: (selected) {
                                         if (selected == 'delete') {
-                                          // deletePlaylist(
-                                          // context: context
-                                          // );
-                                        } else if (selected == 'rename') {
-                                          // playlistEdit(
-                                          //   context: context,
-                                          //   // context: context,
-                                          //   playName: playlistnameDb.playlistName,
-                                          // );
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return deletePlaylist(
+                                                  context: context,
+                                                  index: index,
+                                                  playlistsName: playlistName);
+                                            },
+                                          );
+                                        }
+                                        if (selected == 'rename') {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return UpdatePlaylist(
+                                                context: context,
+                                                playlistName:
+                                                    playlistName[index],
+                                              );
+                                            },
+                                          );
                                         }
                                       },
                                     ),
@@ -199,10 +214,10 @@ class PlayListScreen extends StatelessWidget {
                                     //   index: index,
                                     // )
                                   ],
-                                )
-                              : const SizedBox(),
-                        ),
-                      );
+                                ),
+                              ),
+                            )
+                          : const SizedBox();
                     },
                   );
           },

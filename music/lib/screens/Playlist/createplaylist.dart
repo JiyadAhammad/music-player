@@ -37,15 +37,16 @@ class CreatePlaylist extends StatelessWidget {
               }
               return null;
             },
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
             decoration: InputDecoration(
               focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.deepPurple, width: 5.w)),
               // fillColor: textblack,
               hintText: 'Playlist Name',
-              hintStyle: TextStyle(color: Colors.blueGrey),
+              hintStyle: const TextStyle(color: Colors.blueGrey),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black, width: 5.0.w),
+                borderSide:
+                    BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
               ),
             )),
       ),
@@ -53,7 +54,7 @@ class CreatePlaylist extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10).r,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
                 child: Text("Cancel",
@@ -64,13 +65,27 @@ class CreatePlaylist extends StatelessWidget {
               ),
 
               // add playlist from db
-              TextButton(
-                child: Text("Create",
-                    style: TextStyle(color: Colors.black, fontSize: 16.sp)),
+              ElevatedButton(
+                child: Text("Create", style: TextStyle(fontSize: 16.sp)),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     box.put(title, playlist);
                     Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        shape: const StadiumBorder(),
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.black,
+                        // margin: EdgeInsets.all(20),
+                        margin: const EdgeInsets.all(10).r,
+                        content: const Center(
+                          heightFactor: 1.0,
+                          child: Text(
+                            "Playlist Added",
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 },
               )

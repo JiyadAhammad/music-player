@@ -1,159 +1,163 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:jmusic/function/dbfunctions.dart';
-// import 'package:jmusic/hivedb/musicdb.dart';
-// import 'package:jmusic/main.dart';
-// import 'package:jmusic/screens/Playlist/playlist.dart';
-// import 'package:path/path.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/screens/Playlist/playlist.dart';
+import 'package:music/screens/splashscreen/splashscreen.dart';
 
-// final GlobalKey<FormState> _formKey = GlobalKey();
+Widget UpdatePlaylist({required playlistName, required context}) {
+  String? title;
+  return AlertDialog(
+    backgroundColor: Colors.white,
+    alignment: Alignment.center,
+    title: const Center(
+        child: Text(
+      "Edit Playlist Name",
+      style: TextStyle(color: Colors.black),
+    )),
 
-// onOkButtonPressed({context}) {
-//   palyListNameValidate = nameController.text.trim();
-//   // log('$palyListNameValidate values in plaulisdy');
-//   if (palyListNameValidate.isEmpty) {
-//     // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-//     //     backgroundColor: Color.fromARGB(255, 206, 14, 0),
-//     //     margin: EdgeInsets.all(20),
-//     //     behavior: SnackBarBehavior.floating,
-//     //     content: Text("Name cannot be null"),
-//     //     duration: Duration(seconds: 1)));
-//     return "Enter Playlist Name";
-//   }
-//   if (palyListNameValidate == 'favourite') {
-//     // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-//     //     backgroundColor: Color.fromARGB(255, 206, 14, 0),
-//     //     margin: EdgeInsets.all(20),
-//     //     behavior: SnackBarBehavior.floating,
-//     //     content: Text("Enter valid Name"),
-//     //     duration: Duration(seconds: 1)));
-//     return "Enter valid Name";
-//   }
-//   ScaffoldMessenger.of(context).showSnackBar(
-//     const SnackBar(
-//       backgroundColor: Color.fromARGB(255, 49, 185, 11),
-//       margin: EdgeInsets.all(30),
-//       behavior: SnackBarBehavior.floating,
-//       content: Center(
-//         heightFactor: 1.0,
-//         child: Text(
-//           "Added Succesfully",
-//         ),
-//       ),
-//       duration: Duration(seconds: 1),
-//       shape: StadiumBorder(),
-//       elevation: 100,
-//     ),
-//   );
-//   //
+    // form validation
+    content: Form(
+      key: formKey,
+      child: TextFormField(
+          initialValue: playlistName,
+          style: TextStyle(color: Colors.black),
+          onChanged: (value) {
+            title = value.trim();
+          },
+          validator: (value) {
+            List keys = box.keys.toList();
+            if (value!.trim() == "") {
+              return "Name Required";
+            }
 
-//   Navigator.pop(context, 'ok');
-//   // final playlisvalue = PlaylistName(
-//   //   playlistName: palyListNameValidate,
-//   // );
-//   addtoPlaylist();
-// }
+            return null;
+          },
+          // style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple, width: 5.w)),
+            // fillColor: textblack,
+            hintText: 'Playlist Name',
+            hintStyle: const TextStyle(color: Colors.blueGrey),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
+            ),
+          )),
+    ),
+    actions: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10).r,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              child: Text("Cancel",
+                  style: TextStyle(color: Colors.black, fontSize: 16.sp)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
 
-// playlistEdit({required BuildContext context, String? playName}) {
-//   showDialog(
-//     context: context,
-//     builder: (context) => Form(
-//       key: _formKey,
-//       child: AlertDialog(
-//         title: const Text("Edit Playlist"),
-//         content: TextFormField(
-//           controller: nameController,
-//           decoration: const InputDecoration(
-//             border: OutlineInputBorder(),
-//             labelText: 'Playlist Name',
-//           ),
-//           validator: (value) {
-//             if (value!.isEmpty) {
-//               return "Enter Playlist Name";
-//             } else if (checkPlaylistExists(value).isNotEmpty) {
-//               return "Playlist already exists";
-//             }
+            // add playlist from db
+            ElevatedButton(
+              child: Text("update", style: TextStyle(fontSize: 16.sp)),
+              onPressed: () {
+                if (formKey.currentState!.validate()) {
+                  List? curentPlaylistName = box.get(playlistName);
+                  box.put(title, curentPlaylistName!);
+                  box.delete(playlistName);
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      shape: const StadiumBorder(),
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.black,
+                      // margin: EdgeInsets.all(20),
+                      margin: const EdgeInsets.all(10).r,
+                      content: const Center(
+                        heightFactor: 1.0,
+                        child: Text(
+                          "Updated Succesfully",
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              },
+            )
+          ],
+        ),
+      ),
+    ],
+  );
+}
 
-//           },
-//         ),
-//         actions: [
-//           TextButton(
-//             onPressed: () {
-//               if (_formKey.currentState!.validate()) {
-//                 editPlayDB(
-//                   oldValue: playName!,
-//                   newValue: nameController.text.trim(),
-//                 );
-//                 Navigator.pop(context);
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   const SnackBar(
-//                     backgroundColor: Colors.green,
-//                     margin: EdgeInsets.all(20),
-//                     behavior: SnackBarBehavior.floating,
-//                     content: Text("Playlist Name Updated"),
-//                     duration: Duration(seconds: 1),
-//                   ),
-//                 );
-//                 return;
-//               }
-//             },
-//             child: const Text(
-//               "Update",
-//             ),
-//           ),
-//         ],
-//       ),
-//     ),
-//   );
-// }
-// widget deletePlaylist({context}) {
-//   return showDialog(
-//     builder: (BuildContext context) {
-//       return AlertDialog(
-//         backgroundColor: darkBlue,
-//         title: const Center(
-//           child: Text(
-//             "Remove this Playlist",
-//             style: TextStyle(color: Colors.white),
-//           ),
-//         ),
-//         content: Padding(
-//           padding: const EdgeInsets.only(top: 8.0).r,
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: const [
-//               Text("Are You Confirm ",
-//                   style: TextStyle(color: Colors.yellowAccent)),
-//             ],
-//           ),
-//         ),
-//         actions: [
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 20).r,
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 TextButton(
-//                   child: Text("Cancel",
-//                       style: TextStyle(color: textWhite, fontSize: 18.sp)),
-//                   onPressed: () {
-//                     Navigator.of(context).pop();
-//                   },
-//                 ),
-//                 TextButton(
-//                   child: Text("Yes",
-//                       style: TextStyle(color: textWhite, fontSize: 18.sp)),
-//                   onPressed: () {
-//                     Navigator.pop(context);
-//                     box.delete(playlistsName[index]);
+Widget deletePlaylist(
+    {required context, required playlistsName, required index}) {
+  return AlertDialog(
+    backgroundColor: Colors.black,
+    title: const Center(
+      child: Text(
+        "ALERT !!",
+        style: TextStyle(color: Colors.red),
+      ),
+    ),
+    content: Padding(
+      padding: const EdgeInsets.only(top: 8.0).r,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Do you want to delete",
+            style: TextStyle(color: Colors.white, fontSize: 20.sp),
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 1).r,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              child: Text(
+                "Cancel",
+                style: TextStyle(color: Colors.white, fontSize: 18.sp),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text("Yes",
+                  style: TextStyle(color: Colors.white, fontSize: 18.sp)),
+              onPressed: () {
+                Navigator.pop(context);
+                box.delete(playlistsName[index]);
 
-//                     playlistsName = box.keys.toList();
-//                   },
-//                 )
-//               ],
-//             ),
-//           ),
-//         ],
-//       );
-//     },
-//   );
-// }
+                playlistsName = box.keys.toList();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    shape: const StadiumBorder(),
+                    behavior: SnackBarBehavior.floating,
+                    backgroundColor: Colors.black,
+                    // margin: EdgeInsets.all(20),
+                    margin: const EdgeInsets.all(10).r,
+                    content: const Center(
+                      heightFactor: 1.0,
+                      child: Text(
+                        "delete Succesfully",
+                      ),
+                    ),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      ),
+    ],
+  );
+}
