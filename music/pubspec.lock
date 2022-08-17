@@ -230,6 +230,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  flutter_rating_bar:
+    dependency: transitive
+    description:
+      name: flutter_rating_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.1"
   flutter_screenutil:
     dependency: "direct main"
     description:
@@ -295,7 +302,7 @@ packages:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.4"
+    version: "0.13.5"
   http_multi_server:
     dependency: transitive
     description:
@@ -310,13 +317,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-  id3:
-    dependency: transitive
-    description:
-      name: id3
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   io:
     dependency: transitive
     description:
@@ -394,27 +394,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  on_audio_query:
-    dependency: "direct dev"
-    description:
-      name: on_audio_query
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.6.1"
-  on_audio_query_platform_interface:
-    dependency: transitive
-    description:
-      name: on_audio_query_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.4.0"
-  on_audio_query_web:
-    dependency: transitive
-    description:
-      name: on_audio_query_web
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.2+2"
   package_config:
     dependency: transitive
     description:
@@ -555,6 +534,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+  rate_my_app:
+    dependency: "direct main"
+    description:
+      name: rate_my_app
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.3"
   rxdart:
     dependency: transitive
     description:
@@ -604,6 +590,62 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  shared_preferences:
+    dependency: transitive
+    description:
+      name: shared_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.15"
+  shared_preferences_android:
+    dependency: transitive
+    description:
+      name: shared_preferences_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.12"
+  shared_preferences_ios:
+    dependency: transitive
+    description:
+      name: shared_preferences_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  shared_preferences_linux:
+    dependency: transitive
+    description:
+      name: shared_preferences_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  shared_preferences_macos:
+    dependency: transitive
+    description:
+      name: shared_preferences_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  shared_preferences_platform_interface:
+    dependency: transitive
+    description:
+      name: shared_preferences_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
+  shared_preferences_web:
+    dependency: transitive
+    description:
+      name: shared_preferences_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
+  shared_preferences_windows:
+    dependency: transitive
+    description:
+      name: shared_preferences_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
   shelf:
     dependency: transitive
     description:

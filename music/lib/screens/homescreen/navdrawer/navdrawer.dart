@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share_plus/share_plus.dart';
-
 
 class Navdrawer extends StatefulWidget {
   const Navdrawer({Key? key}) : super(key: key);
@@ -36,20 +38,19 @@ class _NavdrawerState extends State<Navdrawer> {
                 ),
               ),
             ),
-             ListTile(
-              onTap:() async {
-                await Share.share("Thanks for sharing",
-                subject: 'hai');
-              },
-              leading:const Icon(
+            ListTile(
+              onTap: (() {
+                Share.share('halo');
+              }),
+              leading: const Icon(
                 Icons.share,
                 color: Colors.white,
               ),
-              title:const Text(
+              title: const Text(
                 'Share',
                 style: TextStyle(color: Colors.white),
               ),
-              trailing:const Icon(
+              trailing: const Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
                 size: 18,
@@ -65,25 +66,49 @@ class _NavdrawerState extends State<Navdrawer> {
                 style: TextStyle(color: Colors.white),
               ),
               trailing: Switch(
-                value: true,
+                value: isSwitched,
                 onChanged: (value) {
-                  // setState(
-                  //   () {
-                  //     isSwitched = value;
-                  //   },
-                  // );
+                  setState(
+                    () {
+                      isSwitched = value;
+                    },
+                  );
                 },
                 activeTrackColor: Colors.white,
                 activeColor: const Color(0xFF911BEE),
               ),
             ),
-            const ListTile(
-              leading: Icon(
+            ListTile(
+              onTap: (() {
+                RateMyApp rateMyApp = RateMyApp(
+                  preferencesPrefix: 'rateMyApp_pro',
+                  minDays: 3,
+                  minLaunches: 7,
+                  remindDays: 2,
+                  remindLaunches: 5,
+                );
+              }),
+              leading: const Icon(
                 Icons.star_border_rounded,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 'Rate us',
+                style: TextStyle(color: Colors.white),
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+                size: 18,
+              ),
+            ),
+            const ListTile(
+              leading: Icon(
+                Icons.lock,
+                color: Colors.white,
+              ),
+              title: Text(
+                'Privacy policy',
                 style: TextStyle(color: Colors.white),
               ),
               trailing: Icon(
@@ -94,61 +119,10 @@ class _NavdrawerState extends State<Navdrawer> {
             ),
             ListTile(
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          AlertDialog(
-                            title: const Text(
-                              'Privacy policy',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            content: const Text(
-                              ''' HAI,
-      I'm JIYAD AHAMMAD, who creted the music player . the player is completly free of cost.
-      Here i relive the privacy policy of this app.''',
-                            ),
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('I Accept'),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
-              leading: const Icon(
-                Icons.lock,
-                color: Colors.white,
-              ),
-              title: const Text(
-                'Privacy policy',
-                style: TextStyle(color: Colors.white),
-              ),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                color: Colors.white,
-                size: 18,
-              ),
-            ),
-            ListTile(
-              onTap: () {
                 showAboutDialog(
                   context: context,
                   applicationIcon: const Icon(Icons.music_note),
-                  applicationName: "jmusic",
+                  applicationName: "music",
                   applicationVersion: "2.4.2",
                 );
               },

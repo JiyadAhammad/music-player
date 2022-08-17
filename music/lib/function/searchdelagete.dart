@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:music/screen/musicplayscreen.dart';
-import 'package:music/screen/splashscreen.dart';
+import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
+import 'package:music/screens/splashscreen/splashscreen.dart';
+import 'package:music/widget/openplayer.dart';
+
 
 class MySearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-          onPressed: () {
-            if (query.isEmpty) {
-              close(context, null);
-            } else {
-              query = '';
-            }
-          },
-          icon: const Icon(
-            Icons.clear,
-          ))
+        onPressed: () {
+          if (query.isEmpty) {
+            close(
+              context,
+              null,
+            );
+          } else {
+            query = ' ';
+          }
+        },
+        icon: const Icon(
+          Icons.clear,
+        ),
+      )
     ];
   }
 
@@ -25,10 +31,14 @@ class MySearch extends SearchDelegate {
   ThemeData appBarTheme(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return theme.copyWith(
-      textTheme: const TextTheme(displayMedium: TextStyle(color: Colors.white)),
+      textTheme: const TextTheme(
+        displayMedium: TextStyle(
+          color: Colors.white,
+        ),
+      ),
       hintColor: Colors.white,
       appBarTheme: const AppBarTheme(
-        color: Colors.black,
+        color: Color.fromARGB(255, 38, 231, 238),
       ),
       inputDecorationTheme: searchFieldDecorationTheme ??
           const InputDecorationTheme(
@@ -66,7 +76,7 @@ class MySearch extends SearchDelegate {
 // search element
   @override
   Widget buildSuggestions(BuildContext context) {
-    final searched = fullsonglist
+    final searched = fullSongs
         .toList()
         .where(
           (element) => element.metas.title!.toLowerCase().contains(
@@ -80,30 +90,51 @@ class MySearch extends SearchDelegate {
       body: searched.isEmpty
           ? const Center(
               child: Text(
-                "No Songs Found!",
-                style: TextStyle(color: Colors.green),
+                "No Search Result !",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             )
           : Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15, vertical: 15).r,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 15,
+              ).r,
               child: ListView.separated(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15).r),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15).r,
+                      ),
                       child: ListTile(
-                        onTap: () {
-                          Navigator.of(context).push(
+                        onTap: (() async {
+                          Navigator.pop(context);
+                          await Openplayer(
+                            fullSongs: searched,
+                            index: index,
+                            songId: int.parse(
+                              searched[index].metas.id!,
+                            ).toString(),
+                          ).openAssetPlayer(
+                            index: index,
+                            songs: searched,
+                          );
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(
+                            context,
                             MaterialPageRoute(
-                              builder: ((context) => MusicPlaySceeen()),
+                              builder: ((context) => MusicPlaySceeen(
+                                    allSongs: fullSongs,
+                                    index: index,
+                                    songId: searched.toString(),
+                                  )),
                             ),
                           );
-                        },
-
+                        }),
                         title: Padding(
                           padding: const EdgeInsets.only(
                             left: 5.0,
@@ -124,25 +155,20 @@ class MySearch extends SearchDelegate {
                             left: 7.0,
                           ).r,
                           child: Text(
-                            fullsonglist[index].metas.artist!,
+                            fullSongs[index].metas.artist!,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               color: Colors.grey,
                             ),
                           ),
                         ),
-                        // trailing: IconButton(
-                        //   onPressed: () {},
-                        //   icon: Icon(
-                        //     Icons.play_arrow,
-                        //     size: 25.sp,
-                        //     color: Colors.white,
-                        //   ),
-                        // ),
                       ),
                     );
                   },
-                  separatorBuilder: (context, index) {
+                  separatorBuilder: (
+                    context,
+                    index,
+                  ) {
                     return SizedBox(
                       height: 10.h,
                     );
