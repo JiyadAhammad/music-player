@@ -217,7 +217,10 @@ class PlayListScreen extends StatelessWidget {
                                 ),
                               ),
                             )
-                          : const SizedBox();
+                          : const SizedBox(
+                            height: 0,
+                            width: 0,
+                          );
                     },
                   );
           },

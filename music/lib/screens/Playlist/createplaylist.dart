@@ -73,6 +73,7 @@ class CreatePlaylist extends StatelessWidget {
                     Navigator.pop(context);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
+                        duration: const Duration(seconds: 1),
                         shape: const StadiumBorder(),
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.black,

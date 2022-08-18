@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/function/favouriteicon.dart';
+import 'package:music/screens/favouritescreen/favouritescreen.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
 import 'package:music/screens/nowplayingscreen/widget.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
@@ -12,7 +13,7 @@ import 'package:music/screens/splashscreen/splashscreen.dart';
 class MusicPlaySceeen extends StatefulWidget {
   List<Audio>? allSongs = [];
   int? index;
-  String? songId;
+  final String? songId;
   MusicPlaySceeen({Key? key, this.songId, this.allSongs, this.index})
       : super(key: key);
 
@@ -41,6 +42,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
   bool pressed = true;
   @override
   Widget build(BuildContext context) {
+    final playlistName = databaseSongs(dbSongs, widget.songId!);
     // log(dbsongs.toString());
     return Container(
       decoration: const BoxDecoration(
@@ -157,6 +159,10 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                         ),
                         IconButton(
                           onPressed: () {
+                            playlistshowbottomsheet(
+                              context: context,
+                              playlistName: playlistName,
+                            );
                             // addtoPlaylistinNowpalying(context: context);
                           },
                           icon: Icon(

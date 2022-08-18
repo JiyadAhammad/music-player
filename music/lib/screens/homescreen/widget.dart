@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/screens/favouritescreen/favouritescreen.dart';
+import 'package:music/screens/nowplayingscreen/widget.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 
 List? favourites = box.get("favourites");
@@ -15,14 +16,6 @@ Widget popup({required songId, required context}) {
       ),
     ),
     color: Colors.black,
-    // onSelected: (value) {
-    //   if (value == 'Fav') {
-    //     FavouriteIcon(songId: songId);
-    //   }
-    //   if (value == 'playlist') {
-    //     getPLopupaddAudio(context: context, path: songId);
-    //   }
-    // },
     icon: const Icon(
       Icons.more_vert,
       color: Colors.white,
@@ -64,6 +57,18 @@ Widget popup({required songId, required context}) {
         ),
       ),
     ],
+    onSelected: (value) {
+      if (value == 1) {
+        playlistshowbottomsheet(
+          context: context,
+          playlistName: temp,
+        );
+        // showModalBottomSheet(
+        //     context: context, builder: (BuildContext context) {
+        //       return AddtoPlaylist(song: temp,);
+        //     });
+      }
+    },
   );
 }
 

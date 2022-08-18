@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/hivedb/musicdb.dart';
+import 'package:music/screens/favouritescreen/widget.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
 import 'package:music/screens/homescreen/widget.dart';
 import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
@@ -62,6 +63,7 @@ class FavouriteMusicScreen extends StatelessWidget {
           valueListenable: box.listenable(),
           builder: (context, favouritelist, child) {
             final favouritesSongs = box.get("favourites");
+            // log(favouritesSongs![3]);
             return favouritesSongs!.isEmpty
                 ? SizedBox(
                     child: Center(
@@ -252,7 +254,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                               ),
                               trailing: SizedBox(
                                 width: 25,
-                                child: popup(
+                                child: favpopup(
                                     songId:
                                         favouritesSongs[index].id.toString(),
                                     context: context),

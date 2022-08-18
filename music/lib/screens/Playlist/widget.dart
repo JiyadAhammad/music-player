@@ -70,6 +70,7 @@ Widget UpdatePlaylist({required playlistName, required context}) {
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      duration: const Duration(seconds: 1),
                       shape: const StadiumBorder(),
                       behavior: SnackBarBehavior.floating,
                       backgroundColor: Colors.black,
@@ -140,6 +141,7 @@ Widget deletePlaylist(
                 playlistsName = box.keys.toList();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
+                    duration: const Duration(seconds: 1),
                     shape: const StadiumBorder(),
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: Colors.black,

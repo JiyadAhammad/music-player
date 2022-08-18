@@ -7,9 +7,9 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.example.music_sample.MusicModalList
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.example.music_sample.MusicModalList
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -288,7 +288,7 @@ class MainActivity : FlutterActivity() {
                 val gsonPretty = GsonBuilder().setPrettyPrinting().create()
                 val tut = templistclass
                 val jsonTut: String = gson.toJson(tut)
-                println(jsonTut)
+                // println(jsonTut)
 
                 //        val jsonTutPretty: String = gsonPretty.toJson(tut)
                 //        println(jsonTutPretty)
