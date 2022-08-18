@@ -197,8 +197,9 @@ class AddsongsToPlaylist extends StatelessWidget {
                           child: Icon(
                             Icons.delete,
                             size: 30.sp,
-                            color: Colors.red,
+                            color: Colors.white,
                           ),
+                          
                         ),
                       ),
 

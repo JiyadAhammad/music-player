@@ -61,7 +61,8 @@ Widget popup({required songId, required context}) {
       if (value == 1) {
         playlistshowbottomsheet(
           context: context,
-          playlistName: temp,
+          playlistNames: temp,
+          currentplaysong: temp
         );
         // showModalBottomSheet(
         //     context: context, builder: (BuildContext context) {

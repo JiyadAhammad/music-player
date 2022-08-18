@@ -3,6 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/hivedb/musicdb.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 
+List playlists = [];
+
+List<dynamic>? playlistSongs = [];
+
 class CreatePlaylist extends StatelessWidget {
   const CreatePlaylist({Key? key}) : super(key: key);
 
