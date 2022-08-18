@@ -14,8 +14,12 @@ class MusicPlaySceeen extends StatefulWidget {
   List<Audio>? allSongs = [];
   int? index;
   final String? songId;
-  MusicPlaySceeen({Key? key, this.songId, this.allSongs, this.index})
-      : super(key: key);
+  MusicPlaySceeen({
+    Key? key,
+    this.songId,
+    this.allSongs,
+    this.index,
+  }) : super(key: key);
 
   @override
   State<MusicPlaySceeen> createState() => _MusicPlaySceeenState();
@@ -37,9 +41,8 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     animationController.repeat();
   }
 
-  bool isShuffle = false;
   bool isRepeate = false;
-  bool pressed = true;
+
   @override
   Widget build(BuildContext context) {
     final playlistName = databaseSongs(dbSongs, widget.songId!);
@@ -74,8 +77,8 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
         body: audioPlayer.builderCurrent(
           builder: (context, Playing? playing) {
             final myAudio = find(widget.allSongs!, playing!.audio.audio.path);
-             final currentSong = dbSongs.firstWhere((element) =>
-              element.id.toString() == myAudio.metas.id.toString());
+            final currentSong = dbSongs.firstWhere((element) =>
+                element.id.toString() == myAudio.metas.id.toString());
             // final currentsong = dbsongs!.firstWhere((e)=>e.id.toString() == myAudio.metas.id.toString());
             // log(currentsong.toString());
             return Padding(
@@ -162,10 +165,9 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
                         IconButton(
                           onPressed: () {
                             playlistshowbottomsheet(
-                              context: context,
-                              playlistNames: playlistName,
-                              currentplaysong:currentSong
-                            );
+                                context: context,
+                                playlistNames: playlistName,
+                                currentplaysong: currentSong);
                             // addtoPlaylistinNowpalying(context: context);
                           },
                           icon: Icon(
