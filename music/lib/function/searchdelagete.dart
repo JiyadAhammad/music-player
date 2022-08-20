@@ -124,16 +124,16 @@ class MySearch extends SearchDelegate {
                             songs: searched,
                           );
                           // ignore: use_build_context_synchronously
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: ((context) => MusicPlaySceeen(
-                                    allSongs: fullSongs,
-                                    index: index,
-                                    songId: searched.toString(),
-                                  )),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: ((context) => MusicPlaySceeen(
+                          //           allSongs: fullSongs,
+                          //           index: index,
+                          //           songId: searched.toString(),
+                          //         )),
+                          //   ),
+                          // );
                         }),
                         title: Padding(
                           padding: const EdgeInsets.only(
