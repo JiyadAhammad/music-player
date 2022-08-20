@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/hivedb/musicdb.dart';
+import 'package:music/screens/eachplaylistscreen/widget.dart';
+import 'package:music/screens/favouritescreen/addtofavoutie.dart';
 import 'package:music/screens/favouritescreen/widget.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
 import 'package:music/screens/homescreen/widget.dart';
@@ -58,6 +60,25 @@ class FavouriteMusicScreen extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_back,
               )),
+              // actions: [
+              //   IconButton(onPressed: (){
+              //     showModalBottomSheet(
+              //   shape: RoundedRectangleBorder(
+              //       borderRadius: BorderRadius.vertical(
+              //           top: const Radius.circular(25).r)),
+              //   backgroundColor: Colors.deepPurple,
+              //   context: context,
+              //   builder: (ctx) {
+              //     return SizedBox(
+              //       height: 350.h,
+              //       child: Addtofavourite(
+              //         // playListName: playlistnameId,
+              //       ),
+              //     );
+              //   },
+              // );
+              //   }, icon: Icon(Icons.add))
+              // ],
         ),
         body: ValueListenableBuilder(
           valueListenable: box.listenable(),
