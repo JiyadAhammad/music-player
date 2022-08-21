@@ -60,25 +60,25 @@ class FavouriteMusicScreen extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_back,
               )),
-              // actions: [
-              //   IconButton(onPressed: (){
-              //     showModalBottomSheet(
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.vertical(
-              //           top: const Radius.circular(25).r)),
-              //   backgroundColor: Colors.deepPurple,
-              //   context: context,
-              //   builder: (ctx) {
-              //     return SizedBox(
-              //       height: 350.h,
-              //       child: Addtofavourite(
-              //         // playListName: playlistnameId,
-              //       ),
-              //     );
-              //   },
-              // );
-              //   }, icon: Icon(Icons.add))
-              // ],
+              actions: [
+                IconButton(onPressed: (){
+                  showModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                        top: const Radius.circular(25).r)),
+                backgroundColor: Colors.deepPurple,
+                context: context,
+                builder: (ctx) {
+                  return SizedBox(
+                    height: 350.h,
+                    child: Addtofavourite(
+                      // playListName: playlistnameId,
+                    ),
+                  );
+                },
+              );
+                }, icon: Icon(Icons.add))
+              ],
         ),
         body: ValueListenableBuilder(
           valueListenable: box.listenable(),
