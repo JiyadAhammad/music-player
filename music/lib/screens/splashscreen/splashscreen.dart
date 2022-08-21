@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
 
                     Text(
-                      'jMUSIC',
+                      'ΜΟΥΣΙΚΗ',
                       style: TextStyle(
                           fontSize: 40.sp,
                           fontWeight: FontWeight.bold,

@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
         // extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: const Text('jMUSIC'),
+          title: const Text('ΜΟΥΣΙΚΗ'),
           centerTitle: true,
           elevation: 0,
           actions: [
@@ -115,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                           child: Marquee(
                             blankSpace: 50.w.h,
                             startAfter: Duration.zero,
-                            velocity: 50,
+                            velocity: 20,
                             // text: songdata.songtitle!,
                             text: fullSongs[index].metas.title!,
                             style: TextStyle(

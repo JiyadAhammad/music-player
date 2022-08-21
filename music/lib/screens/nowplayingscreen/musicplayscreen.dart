@@ -60,7 +60,7 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          title: const Text('NowPlaying'),
+          title: const Text('ΜΟΥΣΙΚΗ playing'),
           centerTitle: true,
           elevation: 0,
           leading: IconButton(

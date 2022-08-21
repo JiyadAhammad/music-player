@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/widget/ratemyapp.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -30,11 +29,11 @@ class _NavdrawerState extends State<Navdrawer> {
         backgroundColor: Colors.transparent,
         child: ListView(
           children: <Widget>[
-             DrawerHeader(
+            DrawerHeader(
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Text(
-                  'jMusic',
+                  'ΜΟΥΣΙΚΗ',
                   style: TextStyle(color: Colors.white, fontSize: 50.sp),
                 ),
               ),
@@ -51,7 +50,7 @@ class _NavdrawerState extends State<Navdrawer> {
                 'Share',
                 style: TextStyle(color: Colors.white),
               ),
-              trailing:  Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
                 size: 18.sp,
@@ -81,13 +80,12 @@ class _NavdrawerState extends State<Navdrawer> {
             ),
             ListTile(
               onTap: (() {
-                RateMyApp rateMyApp = RateMyApp(
-                  preferencesPrefix: 'rateMyApp_pro',
-                  minDays: 3,
-                  minLaunches: 7,
-                  remindDays: 2,
-                  remindLaunches: 5,
-                );
+                // rateMyApp(context);
+                showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      return const RatemyApp();
+                    });
               }),
               leading: const Icon(
                 Icons.star_border_rounded,
@@ -97,7 +95,7 @@ class _NavdrawerState extends State<Navdrawer> {
                 'Rate us',
                 style: TextStyle(color: Colors.white),
               ),
-              trailing:  Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
                 size: 18.sp,
@@ -119,13 +117,13 @@ class _NavdrawerState extends State<Navdrawer> {
                       ),
                       content: const SingleChildScrollView(
                         child: Text(
-                          '''       Jiyad Ahammad built the jmusic app as a Free app. This SERVICE is provided by Jiyad Ahammad at no cost and is intended for use as is.
+                          '''       Jiyad Ahammad built the ΜΟΥΣΙΚΗ app as a Free app. This SERVICE is provided by Jiyad Ahammad at no cost and is intended for use as is.
                       
       This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
                       
       If you choose to use my Service, then you agree to the collection and use of information in relation to this policy. The Personal Information that I collect is used for providing and improving the Service. I will not use or share your information with anyone except as described in this Privacy Policy.
                       
-      The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at jmusic unless otherwise defined in this Privacy Policy.
+      The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which are accessible at ΜΟΥΣΙΚΗ unless otherwise defined in this Privacy Policy.
       
       Information Collection and Use
       
@@ -201,7 +199,7 @@ class _NavdrawerState extends State<Navdrawer> {
                 'Privacy policy',
                 style: TextStyle(color: Colors.white),
               ),
-              trailing:  Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
                 size: 18.sp,
@@ -212,11 +210,13 @@ class _NavdrawerState extends State<Navdrawer> {
                 showAboutDialog(
                     context: context,
                     applicationIcon: const Icon(Icons.music_note),
-                    applicationName: "jmusic",
+                    applicationName: "ΜΟΥΣΙΚΗ",
                     applicationVersion: "1.0.0+1",
                     children: [
                       const Text(
-                          'jMusic is an Offline Music Player created by JIYAD AHAMMAD',style: TextStyle(fontSize: 18),),
+                        'ΜΟΥΣΙΚΗ is an Offline Music Player created by JIYAD AHAMMAD',
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ]);
               },
               leading: const Icon(
@@ -227,7 +227,7 @@ class _NavdrawerState extends State<Navdrawer> {
                 'About',
                 style: TextStyle(color: Colors.white),
               ),
-              trailing:  Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
                 size: 18.sp,
@@ -242,7 +242,7 @@ class _NavdrawerState extends State<Navdrawer> {
                 'Exit',
                 style: TextStyle(color: Colors.white),
               ),
-              trailing:  Icon(
+              trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: Colors.white,
                 size: 18.sp,
