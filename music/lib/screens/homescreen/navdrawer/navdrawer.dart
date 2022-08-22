@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/screens/splashscreen/splashscreen.dart';
 import 'package:music/widget/ratemyapp.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Navdrawer extends StatefulWidget {
-  const Navdrawer({Key? key}) : super(key: key);
+  bool isSwitched = false;
+  Navdrawer({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<Navdrawer> createState() => _NavdrawerState();
 }
 
 class _NavdrawerState extends State<Navdrawer> {
-  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,11 +69,12 @@ class _NavdrawerState extends State<Navdrawer> {
                 style: TextStyle(color: Colors.white),
               ),
               trailing: Switch(
-                value: true,
+                value: widget.isSwitched,
                 onChanged: (value) {
                   setState(
                     () {
-                      isSwitched = true;
+                      widget.isSwitched = value;
+                      audioPlayer.showNotification = value;
                     },
                   );
                 },
@@ -209,13 +213,19 @@ class _NavdrawerState extends State<Navdrawer> {
               onTap: () {
                 showAboutDialog(
                     context: context,
-                    applicationIcon: const Icon(Icons.music_note),
+                    applicationIcon: const CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.white,
+                      backgroundImage:
+                          // Image.file("music/assets/img/luncher icon.png")
+                          AssetImage('assets/img/lunchericon.png'),
+                    ),
                     applicationName: "ΜΟΥΣΙΚΗ",
                     applicationVersion: "1.0.0+1",
                     children: [
-                      const Text(
+                      Text(
                         'ΜΟΥΣΙΚΗ is an Offline Music Player created by JIYAD AHAMMAD',
-                        style: TextStyle(fontSize: 18),
+                        style: TextStyle(fontSize: 18.sp),
                       ),
                     ]);
               },

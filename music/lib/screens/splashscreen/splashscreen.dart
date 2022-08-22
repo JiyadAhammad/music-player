@@ -136,22 +136,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }).onError((error, stackTrace) {});
   }
 
-  // void convertingFromMap(Map value) async {
-  //   final tempTitle = value['title'] as List<Object?>;
-  //   log('aaaaaaaaaanandhuannnn $tempTitle');
-  //   mTitle = tempTitle.map((e) => e.toString()).toList();
-  //   log("........................${mTitle.length}");
-
-  //   final tempPath = value['path'] as List<Object?>;
-  //   log('aaaaaaaaaanandhuannnn $tempPath');
-  //   mPath = tempPath.map((e) => e.toString()).toList();
-  //   log("........................${mPath.length}");
-
-  //   final tempArtist = value['artist'] as List<Object?>;
-  //   log('aaaaaaaaaanandhuannnn $tempTitle');
-  //   mArtist = tempArtist.map((e) => e.toString()).toList();
-  //   log("........................$mArtist");
-  //   log("........................${mArtist.length}");
+  
 
   //   final tempAlbum = value['album'] as List<Object?>;
   //   log('aaaaaaaaaanandhuannnn $tempAlbum');

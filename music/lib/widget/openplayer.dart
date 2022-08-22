@@ -15,7 +15,7 @@ class Openplayer {
   openAssetPlayer({List<Audio>? songs, required int index}) async {
     audioPlayer.open(
       Playlist(audios: songs, startIndex: index),
-      showNotification: notify == null || notify == true ? true : false,
+      // showNotification: notify == null || notify == true ? true : false,
       notificationSettings: const NotificationSettings(
         stopEnabled: false,
       ),

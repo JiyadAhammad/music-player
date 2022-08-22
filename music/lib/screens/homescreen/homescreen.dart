@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        drawer: const Navdrawer(),
+        drawer: Navdrawer(),
         // extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -144,9 +144,8 @@ class HomeScreen extends StatelessWidget {
                         trailing: SizedBox(
                           width: 25,
                           child: popup(
-                            songId: fullSongs[index].metas.id.toString(),
-                            context: context
-                          ),
+                              songId: fullSongs[index].metas.id.toString(),
+                              context: context),
                         ),
                       ),
                     ),
