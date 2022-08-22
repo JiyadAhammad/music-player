@@ -98,16 +98,7 @@ class PlayListScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (ctx) {
-                                //       return EachPlayList(
-                                //         playlistName: playlistnameDb!.playlistName!,
-                                //         playlistnameId: playlistnameDb.id,
-                                //       );
-                                //     },
-                                //   ),
-                                // );
+                               
 
                                 child: Stack(
                                   alignment: Alignment.bottomRight,
@@ -209,10 +200,7 @@ class PlayListScreen extends StatelessWidget {
                                         }
                                       },
                                     ),
-                                    // popupMenuButtonSelected(
-                                    //   playlistfile: playlistnameDb,
-                                    //   index: index,
-                                    // )
+                                   
                                   ],
                                 ),
                               ),
@@ -243,7 +231,7 @@ class PlayListScreen extends StatelessWidget {
                   builder: (BuildContext context) {
                     return const CreatePlaylist();
                   });
-              // popupshowDialogbox(context: context);
+             
             },
             backgroundColor: Colors.transparent,
             elevation: 0.0,

@@ -5,11 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:marquee/marquee.dart';
 import 'package:music/hivedb/musicdb.dart';
-import 'package:music/screens/eachplaylistscreen/widget.dart';
 import 'package:music/screens/favouritescreen/addtofavoutie.dart';
 import 'package:music/screens/favouritescreen/widget.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
-import 'package:music/screens/homescreen/widget.dart';
 import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 import 'package:music/widget/openplayer.dart';
@@ -60,31 +58,32 @@ class FavouriteMusicScreen extends StatelessWidget {
               icon: const Icon(
                 Icons.arrow_back,
               )),
-              actions: [
-                IconButton(onPressed: (){
-                  showModalBottomSheet(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                        top: const Radius.circular(25).r)),
-                backgroundColor: Colors.deepPurple,
-                context: context,
-                builder: (ctx) {
-                  return SizedBox(
-                    height: 350.h,
-                    child: Addtofavourite(
-                      // playListName: playlistnameId,
-                    ),
-                  );
-                },
-              );
-                }, icon: Icon(Icons.add))
-              ],
+          actions: [
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                          top: const Radius.circular(25).r)),
+                  backgroundColor: Colors.deepPurple,
+                  context: context,
+                  builder: (ctx) {
+                    return SizedBox(
+                      height: 350.h,
+                      child: const Addtofavourite(),
+                    );
+                  },
+                );
+              },
+              icon: const Icon(Icons.add),
+            )
+          ],
         ),
         body: ValueListenableBuilder(
           valueListenable: box.listenable(),
           builder: (context, favouritelist, child) {
             final favouritesSongs = box.get("favourites");
-            // log(favouritesSongs![3]);
+
             return favouritesSongs!.isEmpty
                 ? SizedBox(
                     child: Center(
@@ -153,95 +152,6 @@ class FavouriteMusicScreen extends StatelessWidget {
                                 );
                                 log("$favSong favourite song");
                               },
-                              // onTap: () {
-                              // var soong = favaudioDb!.favouriteAudio;
-                              // log("$soong ><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
-                              // for (var i = 0; i < soong!.length; i++) {
-                              //   favSong.add(
-                              //     Audio.file(
-                              //       soong,
-                              //       metas: Metas(
-                              //         id: favaudioDb.id.toString(),
-                              //         title: favaudioDb.songname,
-                              //         artist: favaudioDb.artist,
-                              //       ),
-                              //     ),
-                              //   );
-                              // }
-                              // for (var i = 0; i < favouritelist.length; i++) {
-                              //   favSong.add(
-                              //     Audio.file(
-                              //       favdata!.toString(),
-                              //       metas: Metas(
-                              //         id: favdata.id.toString(),
-                              //         title: favdata.songname,
-                              //         artist: favdata.artist,
-                              //       ),
-                              //     ),
-                              //   );
-                              //   log(favdata.id.toString());
-                              // }
-                              // Iterable<dynamic> iterable = favaudioDb! as Iterable;
-                              // for (var item in favrate ) {
-                              //   favSong.add(
-                              //     Audio.file(
-                              //       favaudioDb.toString(),
-                              //       metas: Metas(
-                              //         id: favaudioDb!.id.toString(),
-                              //         artist: favaudioDb.artist,
-                              //         title: favaudioDb.songname,
-                              //       ),
-                              //     ),
-                              //   );
-                              //   log("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<${favSong[index].metas.id}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                              // }
-                              // for (var i = 0;
-                              //     i < favouritelist.values.length;
-                              //     i++) {
-                              //   favSong.add(
-                              //     Audio.file(favaudioDb.toString(),
-                              //         metas: Metas(
-                              //           id: favaudioDb!.favouriteAudio.toString(),
-                              //           title: favaudioDb.songname,
-                              //           artist: favaudioDb.artist,
-                              //         )),
-                              //   );
-                              // }
-                              // for (var item in favrate) {
-                              //   favSong.add(Audio.file(item.favouriteAudio.toString(),),)
-
-                              // }
-                              //   for (var item in favouritesSongs) {
-                              //     favSong.add(
-                              //       Audio.file(
-                              //         item.songurl,
-                              //         metas: Metas(
-                              //           id: item.id.toString(),
-                              //           artist: item.artist,
-                              //           title: item.songname,
-                              //         ),
-                              //       ),
-                              //     );
-                              //   }
-                              //   Openplayer(
-                              //     fullSongs: favSong,
-                              //     index: index,
-                              //     songId: favSong[index].metas.id.toString(),
-                              //   ).openAssetPlayer(
-                              //     index: index,
-                              //     songs: favSong,
-                              //   );
-                              //   Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: ((context) => MusicPlaySceeen(
-                              //             allSongs: favSong,
-                              //             index: index,
-                              //             songId: favSong[index].metas.id!,
-                              //           )),
-                              //     ),
-                              //   );
-                              // },
                               leading: const CircleAvatar(
                                 child: Icon(
                                   Icons.music_note,
@@ -296,13 +206,3 @@ class FavouriteMusicScreen extends StatelessWidget {
 Songs databaseSongs(List<Songs> songs, String id) {
   return songs.firstWhere((element) => element.id.toString().contains(id));
 }
-// favouritesSongs!.isEmpty
-//                 ? const SizedBox(
-//                     child: Center(
-//                       child: Text(
-//                         'no favourites songs',
-//                         style: TextStyle(color: Colors.green),
-//                       ),
-//                     ),
-//                   )
-//                 :

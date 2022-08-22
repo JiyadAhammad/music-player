@@ -120,69 +120,11 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void searchInStorage() {
     _platform.invokeMethod('search').then((value) {
-      // print(value.toString());
       final res = value as String;
-
-      // final valueMap = jsonDecode(_res);
-      // // final a = MusicListData.fromJson(valueMap);
-      // List songlist = valueMap;
-      // final songlist2 = songlist.map((e) {
-      //   return MusicListData.fromJson(e);
-      // }).toList();
-
-      // log('res3 valueeeeeeeee  ${songlist2[1].duration}');
 
       onSuccess(res);
     }).onError((error, stackTrace) {});
   }
-
-  
-
-  //   final tempAlbum = value['album'] as List<Object?>;
-  //   log('aaaaaaaaaanandhuannnn $tempAlbum');
-  //   malbum = tempAlbum.map((e) => e.toString()).toList();
-  //   log("..................albumMMMMM......$malbum");
-  //   log("........................${mArtist.length}");
-  //   final tempAlbumImage = value['image'] as List<Object?>;
-  //   log('aaaaaaaaaanandhuannnn $tempTitle');
-  //   malbumImage = tempAlbumImage.map((e) => e.toString()).toList();
-  //   log("..........imageeeeeeee..............$malbumImage");
-  //   log("........................${malbumImage.length}");
-  //   final mDurationtemp = value['duration'] as List<Object?>;
-  //   List<String> mDurationtemp2 =
-  //       mDurationtemp.map((e) => e.toString()).toList();
-  //   log("........................$malbumImage");
-  //   log("........................${malbumImage.length}");
-  //   List<int> durationtemp = mDurationtemp2.map((e) => int.parse(e)).toList();
-  //   final mIdTemp = value['id'] as List<Object?>;
-  //   List<String> mId2 = mIdTemp.map((e) => e.toString()).toList();
-  //   mId = mId2.map((e) => int.parse(e)).toList();
-
-  //   for (var i = 0; i < mDurationtemp.length; i++) {
-  //     String mDuration1 =
-  //         _printDuration(Duration(milliseconds: durationtemp[i]));
-  //     mDuration.add(mDuration1);
-  //   }
-  //   log('durationnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn${mDuration.toString()}');
-  //   for (int i = 0; i < mPath.length; i++) {
-  //     final data = MusicModel(
-  //         id: mId[i].toString(),
-  //         title: mTitle[i],
-  //         path: mPath[i],
-  //         album: malbum[i],
-  //         duration: mDuration[i]);
-  //     // addMusicList(data);
-
-  //     await allSongsDb.put(i, data);
-  //     musicValueNotifier.value.add(data);
-  //     musicValueNotifier.notifyListeners();
-
-  //     log('db path >>>>>>>>>>>>>>>>>>>>>>${data.path}');
-  //     log('db title >>>>>>>>>>>>>>>>>>>>>>${data.title}');
-  //     log('db album >>>>>>>>>>>>>>>>>>>>>>${data.album}');
-  //     log('db duration >>>>>>>>>>>>>>>>>>>>>>${data.duration}');
-  //   }
-  // }
 
   String _printDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
@@ -201,11 +143,6 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  // fetchAudiosFromStorage() async {
-  //   List<String> query = [".mp3"];
-  //   searchInStorage(query, onSuccess, (p0) {});
-  // }
-
   Future<bool> _requestPermission(Permission isPermission) async {
     const store = Permission.storage;
     const access = Permission.accessMediaLocation;
@@ -217,7 +154,7 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       // print('object');
       var result = await store.request();
-      print('result $result');
+
       var oneresult = await access.request();
       log('permission request ');
 
@@ -233,29 +170,13 @@ class _SplashScreenState extends State<SplashScreen> {
       }
       // }
 
-      // Future<void> _getDocuments() async {
-      //   MethodChannel _methodChannel =
-      //       MethodChannel('search_files_in_storage/search');
-      //   List<dynamic> documentList = [""];
-      //   try {
-      //     documentList = await _methodChannel.invokeMethod("Documents");
-      //   } on PlatformException catch (e) {
-      //     print("exceptiong");
-      //   }
-      //   documentList.forEach((document) {
-      //     print("Document: $document"); // seach in Logcat "Document"
-      //   });
     }
   }
 
   @override
   void initState() {
-    // play(assetsAudioPlayer);
     splashFetch();
 
-    // print('started');
-
-    // TODO: implement initState
     super.initState();
   }
 
@@ -283,11 +204,9 @@ class _SplashScreenState extends State<SplashScreen> {
               artist: music.artist!,
             ))
         .toList();
-    // log("$allSongs al songs fetched");
+
     box.put('mymusic', allSongs);
     dbSongs = box.get('mymusic') as List<Songs>;
-
-    // log("$dbSongs all songs");
 
     for (var element in dbSongs) {
       fullSongs.add(
@@ -302,35 +221,6 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
 
-    // log('res3 valueeeeeeeee  ${songlist2[1].duration}>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<><><><><><><><><><><><>');
-    // convertingFromMap(audioListFromStorage);
-
-    // final box = await Hive.openBox<MusicModel>('music_db');
-    // for (int i = 0; i < mPath.length; i++) {
-    //   final data =  MusicModel(
-    //     id: 1 ,
-    //     title: "aaa" ,
-    //     path: "mPath[i]" ,
-    //     album: "malbum[i] ",
-    //     duration: "mDuration[i]" ,
-    //   );
-
-    //  await  box.add(data);
-    //   log(box.toString());
-    //   box.close();
-    // }
-
-    // await getAllMusicList();
-
-    // final data = MusicModel(
-    //   path: allAudios,
-    // );
-    // // addMusicList(data);
-    // log('db for data..............??????????????$data');
-
-    // await getAllMusicList();
-    //   dbSongs = musicValueNotifier.value[1].path!;
-// log("message");
     for (var i = 0; i < songlist2.length; i++) {
       finalSongList.add(
         Audio.file(
@@ -341,12 +231,6 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
       );
-      // log('inside for loop ................${fullSongs.toString()}');
     }
-    // log("hai ouside");
-
-    //   log('allvideos ${dbSongs.toString()}');
-    //   // log('an${a.toString()}');
-    // }
   }
 }

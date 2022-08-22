@@ -199,20 +199,8 @@ class AddsongsToPlaylist extends StatelessWidget {
                             size: 30.sp,
                             color: Colors.white,
                           ),
-                          
                         ),
                       ),
-
-                // trailing: IconButton(
-                //   onPressed: () {},
-                //   icon: CircleAvatar(
-                //     child: Icon(
-                //       Icons.add,
-                //       color: Colors.white,
-                //       size: 30.sp,
-                //     ),
-                //   ),
-                // ),
               ),
             );
           },

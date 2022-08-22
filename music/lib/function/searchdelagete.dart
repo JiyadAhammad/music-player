@@ -4,7 +4,6 @@ import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 import 'package:music/widget/openplayer.dart';
 
-
 class MySearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -123,17 +122,6 @@ class MySearch extends SearchDelegate {
                             index: index,
                             songs: searched,
                           );
-                          // ignore: use_build_context_synchronously
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: ((context) => MusicPlaySceeen(
-                          //           allSongs: fullSongs,
-                          //           index: index,
-                          //           songId: searched.toString(),
-                          //         )),
-                          //   ),
-                          // );
                         }),
                         title: Padding(
                           padding: const EdgeInsets.only(

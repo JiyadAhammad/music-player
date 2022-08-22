@@ -8,7 +8,8 @@ class PlaylistItem extends StatelessWidget {
   List playlists = [];
   List<dynamic>? playlistSongs = [];
   final countsong;
-   PlaylistItem({Key? key,required this.song,required this.countsong}) : super(key: key);
+  PlaylistItem({Key? key, required this.song, required this.countsong})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class PlaylistItem extends StatelessWidget {
         ...playlists
             .map(
               (playlistName) => playlistName != "mymusic" &&
-                      playlistName != "favourites" 
+                      playlistName != "favourites"
                   ? Container(
                       decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -43,7 +44,7 @@ class PlaylistItem extends StatelessWidget {
                                 // backgroundColor: darkBlue,
                                 content: Text(
                                   song.songname! + 'Added to Playlist',
-                                  style:const TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             );
@@ -52,12 +53,12 @@ class PlaylistItem extends StatelessWidget {
                             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(
                               song.songname! + 'is Already in Playlist.',
-                              style:const TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             )));
                           }
                         },
                         leading: Padding(
-                          padding:const EdgeInsets.only(left: 6.0, top: 6).r,
+                          padding: const EdgeInsets.only(left: 6.0, top: 6).r,
                           child: Icon(
                             Icons.queue_music_rounded,
                             color: Colors.white,
@@ -67,18 +68,20 @@ class PlaylistItem extends StatelessWidget {
 
                         // playlist name
                         title: Padding(
-                          padding:
-                            const  EdgeInsets.only(left: 3.0, bottom: 3, top: 5).r,
+                          padding: const EdgeInsets.only(
+                                  left: 3.0, bottom: 3, top: 5)
+                              .r,
                           child: Text(
                             playlistName.toString(),
-                            style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18.sp),
                           ),
                         ),
                         subtitle: Padding(
-                          padding:const EdgeInsets.only(left: 3.0).r,
+                          padding: const EdgeInsets.only(left: 3.0).r,
                           child: Text(
                             countsong,
-                            style:const TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),

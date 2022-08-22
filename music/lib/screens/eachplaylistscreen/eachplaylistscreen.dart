@@ -23,8 +23,6 @@ class EachPlayList extends StatelessWidget {
   List<Audio> playPlaylist = [];
   @override
   Widget build(BuildContext context) {
-    // log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$playlistName>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-    log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>$playlistnameId>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
     playlistSongs = box.get(playlistnameId)!.cast<Songs>();
     return Container(
       decoration: BoxDecoration(
@@ -72,19 +70,7 @@ class EachPlayList extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                     child: ListView.builder(
                       itemCount: playlistSongs.length,
-                      // itemCount: playlistdataDb.values.length,
                       itemBuilder: (BuildContext context, int index) {
-                        // PlaylistData? playlsitdatainDb =
-                        //     playlistdatalist.getAt(index);
-                        // PlaylistData? playlistdatainDb = playlistdataDb.getAt(index);
-                        // log("${playlistdatainDb} dsfgagsdgdgdgd");
-
-                        // if (playlistdatainDb!.playlistName.toString() ==
-                        //     widget.plalistnameId) {
-                        //   // return PLonevideotile(
-                        //   //     playlistvideoname: playlistdatainDb.PLvideopath,
-                        //   //     index: index);
-                        // }
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
@@ -157,17 +143,6 @@ class EachPlayList extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // title: SingleChildScrollView(
-                                //   scrollDirection: Axis.horizontal,
-                                //   child: Text(
-                                //     playlistSongs[index].songname!,
-                                //     style: const TextStyle(
-                                //       color: Colors.white,
-                                //       fontWeight: FontWeight.bold,
-                                //       fontSize: 20,
-                                //     ),
-                                //   ),
-                                // ),
                                 subtitle: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Padding(
@@ -186,16 +161,6 @@ class EachPlayList extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                // subtitle: SingleChildScrollView(
-                                //   scrollDirection: Axis.horizontal,
-                                //   child: Text(
-                                //     playlistSongs[index].artist!,
-                                //     style: const TextStyle(
-                                //       color: Colors.white,
-                                //       fontSize: 16,
-                                //     ),
-                                //   ),
-                                // ),
                                 trailing: SizedBox(
                                   width: 30,
                                   child: IconButton(
@@ -242,8 +207,6 @@ class EachPlayList extends StatelessWidget {
                   );
                 },
               );
-              //
-              // popupbottomSheet(context: context);
             },
             backgroundColor: Colors.transparent,
             elevation: 0.0,

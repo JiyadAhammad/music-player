@@ -70,9 +70,6 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: dbSongs.length,
                 itemBuilder: (BuildContext context, int index) {
-                  // Songs? audio = box.getAt(index);
-                  // log('${audio!.path} songs is here');
-                  // final songdata = songslist[index];
                   return Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20).r,
@@ -99,12 +96,8 @@ class HomeScreen extends StatelessWidget {
                             index: index,
                             songs: fullSongs,
                           );
-                          // log(
-                          //   fullSongs[index].metas.id.toString(),
-                          // );
                         }),
                         leading: const CircleAvatar(
-                          // child:
                           child: Icon(
                             Icons.music_note,
                             color: Colors.white,
@@ -116,7 +109,6 @@ class HomeScreen extends StatelessWidget {
                             blankSpace: 50.w.h,
                             startAfter: Duration.zero,
                             velocity: 20,
-                            // text: songdata.songtitle!,
                             text: fullSongs[index].metas.title!,
                             style: TextStyle(
                               overflow: TextOverflow.ellipsis,
@@ -132,7 +124,6 @@ class HomeScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.only(left: 2.0, bottom: 5).r,
                             child: Text(
-                              // songdata.songartist!,
                               fullSongs[index].metas.artist!.toLowerCase(),
                               style: const TextStyle(
                                 color: Colors.white,
