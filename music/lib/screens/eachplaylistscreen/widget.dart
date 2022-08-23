@@ -125,6 +125,8 @@
 //   );
 // }
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -142,6 +144,7 @@ class AddsongsToPlaylist extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // log("checking");
     playlistSongs = box.get(playListName)!.cast<Songs>();
     return ValueListenableBuilder(
       valueListenable: box.listenable(),

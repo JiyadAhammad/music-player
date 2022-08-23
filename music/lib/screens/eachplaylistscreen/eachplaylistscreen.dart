@@ -101,6 +101,7 @@ class EachPlayList extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ListTile(
+                              
                               onTap: () {
                                 Openplayer(
                                   fullSongs: playPlaylist,
