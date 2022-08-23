@@ -221,16 +221,16 @@ class _SplashScreenState extends State<SplashScreen> {
       );
     }
 
-    for (var i = 0; i < songlist2.length; i++) {
-      finalSongList.add(
-        Audio.file(
-          songlist2[i].path!,
-          metas: Metas(
-            title: songlist2[i].title,
-            artist: songlist2[i].albums,
-          ),
-        ),
-      );
-    }
+    // for (var i = 0; i < songlist2.length; i++) {
+    //   finalSongList.add(
+    //     Audio.file(
+    //       songlist2[i].path!,
+    //       metas: Metas(
+    //         title: songlist2[i].title,
+    //         artist: songlist2[i].albums,
+    //       ),
+    //     ),
+    //   );
+    // }
   }
 }

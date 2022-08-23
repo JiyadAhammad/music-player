@@ -20,7 +20,7 @@ class EachPlayList extends StatelessWidget {
   }) : super(key: key);
 
   List<Songs> playlistSongs = [];
-  List<Audio> playPlaylist = [];
+
   @override
   Widget build(BuildContext context) {
     playlistSongs = box.get(playlistnameId)!.cast<Songs>();
@@ -57,6 +57,19 @@ class EachPlayList extends StatelessWidget {
           valueListenable: box.listenable(),
           builder: (BuildContext context, playlistdatalist, Widget? child) {
             playlistSongs = box.get(playlistnameId)!.cast<Songs>();
+            List<Audio> playPlaylist = [];
+            for (var item in playlistSongs) {
+              playPlaylist.add(
+                Audio.file(
+                  item.path!,
+                  metas: Metas(
+                    id: item.id.toString(),
+                    artist: item.artist,
+                    title: item.songname,
+                  ),
+                ),
+              );
+            }
             return playlistSongs.isEmpty
                 ? Center(
                     child: SizedBox(
@@ -88,91 +101,90 @@ class EachPlayList extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ListTile(
-                                onTap: () {
-                                  for (var item in playlistSongs) {
-                                    playPlaylist.add(
-                                      Audio.file(
-                                        item.path!,
-                                        metas: Metas(
-                                          id: item.id.toString(),
-                                          artist: item.artist,
-                                          title: item.songname,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  Openplayer(
-                                    fullSongs: playPlaylist,
-                                    index: index,
-                                    songId:
-                                        playPlaylist[index].metas.id.toString(),
-                                  ).openAssetPlayer(
-                                      index: index, songs: playPlaylist);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: ((context) => MusicPlaySceeen(
-                                            allSongs: playPlaylist,
-                                            index: index,
-                                            songId:
-                                                playPlaylist[index].metas.id!,
-                                          )),
+                              onTap: () {
+                                Openplayer(
+                                  fullSongs: playPlaylist,
+                                  index: index,
+                                  songId:
+                                      playPlaylist[index].metas.id.toString(),
+                                ).openAssetPlayer(
+                                    index: index, songs: playPlaylist);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MusicPlaySceeen(
+                                      allSongs: playPlaylist,
+                                      index: index,
+                                      songId: playPlaylist[index].metas.id!,
                                     ),
-                                  );
-                                  log("$playPlaylist favourite song");
-                                },
-                                leading: const CircleAvatar(
-                                  child: Icon(
-                                    Icons.music_note,
+                                  ),
+                                );
+                                log("$playPlaylist favourite song");
+                              },
+                              leading: const CircleAvatar(
+                                child: Icon(
+                                  Icons.music_note,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              title: Padding(
+                                padding: const EdgeInsets.only(
+                                        left: 5.0, bottom: 3, top: 3)
+                                    .r,
+                                child: Text(
+                                  playlistSongs[index].songname!,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.sp,
+                                  ),
+                                ),
+                              ),
+                              // title: SizedBox(
+                              //   height: 40.h,
+                              //   child: Marquee(
+                              //     blankSpace: 50.w.h,
+                              //     startAfter: Duration.zero,
+                              //     velocity: 50,
+                              //     // text: songdata.songtitle!,
+                              //     text: playlistSongs[index].songname!,
+                              //     style: TextStyle(
+                              //       overflow: TextOverflow.ellipsis,
+                              //       color: Colors.white,
+                              //       fontWeight: FontWeight.bold,
+                              //       fontSize: 20.sp,
+                              //     ),
+                              //   ),
+                              // ),
+                              subtitle: Padding(
+                                padding: const EdgeInsets.only(
+                                        top: 3.0, left: 2.0, bottom: 5)
+                                    .r,
+                                child: Text(
+                                  // songdata.songartist!,
+                                  playlistSongs[index].artist!.toLowerCase(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              trailing: SizedBox(
+                                width: 30,
+                                child: IconButton(
+                                  onPressed: () {
+                                    playlistSongs.removeAt(index);
+                                    box.put(playlistnameId, playlistSongs);
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
                                     color: Colors.white,
                                   ),
                                 ),
-                                title: SizedBox(
-                                  height: 40.h,
-                                  child: Marquee(
-                                    blankSpace: 50.w.h,
-                                    startAfter: Duration.zero,
-                                    velocity: 50,
-                                    // text: songdata.songtitle!,
-                                    text: playlistSongs[index].songname!,
-                                    style: TextStyle(
-                                      overflow: TextOverflow.ellipsis,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20.sp,
-                                    ),
-                                  ),
-                                ),
-                                subtitle: SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                            left: 2.0, bottom: 5)
-                                        .r,
-                                    child: Text(
-                                      // songdata.songartist!,
-                                      playlistSongs[index]
-                                          .artist!
-                                          .toLowerCase(),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                trailing: SizedBox(
-                                  width: 30,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        playlistSongs.removeAt(index);
-                                        box.put(playlistnameId, playlistSongs);
-                                      },
-                                      icon: const Icon(
-                                        Icons.delete,
-                                        color: Colors.white,
-                                      )),
-                                )),
+                              ),
+                            ),
                           ),
                         );
                       },

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 import 'package:music/widget/ratemyapp.dart';
-import 'package:rate_my_app/rate_my_app.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Navdrawer extends StatefulWidget {

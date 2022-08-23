@@ -103,32 +103,42 @@ class HomeScreen extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                        title: SizedBox(
-                          height: 40.h,
-                          child: Marquee(
-                            blankSpace: 50.w.h,
-                            startAfter: Duration.zero,
-                            velocity: 20,
-                            text: fullSongs[index].metas.title!,
+                        title: Padding(
+                          padding: const EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
+                          child: Text(
+                            fullSongs[index].metas.title!,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20.sp,
                             ),
                           ),
                         ),
-                        subtitle: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 2.0, bottom: 5).r,
-                            child: Text(
-                              fullSongs[index].metas.artist!.toLowerCase(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                        // title: SizedBox(
+                        //   height: 40.h,
+                        //   child: Marquee(
+                        //     blankSpace: 50.w.h,
+                        //     startAfter: Duration.zero,
+                        //     velocity: 20,
+                        //     text: fullSongs[index].metas.title!,
+                        //     style: TextStyle(
+                        //       overflow: TextOverflow.ellipsis,
+                        //       color: Colors.white,
+                        //       fontWeight: FontWeight.bold,
+                        //       fontSize: 20.sp,
+                        //     ),
+                        //   ),
+                        // ),
+                        subtitle: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 3.0,left: 2.0, bottom: 5).r,
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            fullSongs[index].metas.artist!.toLowerCase(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
                             ),
                           ),
                         ),
