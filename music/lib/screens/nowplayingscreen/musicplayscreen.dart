@@ -42,7 +42,11 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
   }
 
   bool isRepeate = false;
-
+ @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final playlistName = databaseSongs(dbSongs, widget.songId!);
@@ -206,9 +210,5 @@ class _MusicPlaySceeenState extends State<MusicPlaySceeen>
     );
   }
 
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
+ 
 }
