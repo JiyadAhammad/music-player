@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:marquee/marquee.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/function/searchdelagete.dart';
 import 'package:music/screens/homescreen/navdrawer/navdrawer.dart';

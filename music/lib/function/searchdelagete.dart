@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 import 'package:music/widget/openplayer.dart';
 

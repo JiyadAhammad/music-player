@@ -7,13 +7,13 @@ import 'package:music/hivedb/musicdb.dart';
 import 'package:music/screens/favouritescreen/addtofavoutie.dart';
 import 'package:music/screens/favouritescreen/widget.dart';
 import 'package:music/screens/homescreen/navbar/navbar.dart';
-import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
+// import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/widget/openplayer.dart';
 
 class FavouriteMusicScreen extends StatelessWidget {
-  FavouriteMusicScreen({Key? key}) : super(key: key);
+ const FavouriteMusicScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -21,7 +21,7 @@ class _NavBarState extends State<NavBar> {
   int currentSelectedIndex = 1;
 
   List navbarpages = [
-    FavouriteMusicScreen(),
+    const FavouriteMusicScreen(),
     const HomeScreen(),
     const PlayListScreen()
   ];

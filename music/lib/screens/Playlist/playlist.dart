@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/screens/Playlist/createplaylist.dart';
 import 'package:music/screens/Playlist/widget.dart';
@@ -50,7 +49,7 @@ class PlayListScreen extends StatelessWidget {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) {
-                    return NavBar();
+                    return const NavBar();
                   },
                 ),
               );
@@ -82,7 +81,7 @@ class PlayListScreen extends StatelessWidget {
                     ),
                     itemCount: playlistName.length,
                     itemBuilder: (context, index) {
-                      var playlistSongs = box.get(playlistName[index]);
+                      // var playlistSongs = box.get(playlistName[index]);
                       return playlistName[index] != "mymusic" &&
                               playlistName[index] != "favourites"
                           ? Padding(
@@ -98,8 +97,6 @@ class PlayListScreen extends StatelessWidget {
                                     ),
                                   );
                                 },
-                               
-
                                 child: Stack(
                                   alignment: Alignment.bottomRight,
                                   children: [
@@ -200,15 +197,14 @@ class PlayListScreen extends StatelessWidget {
                                         }
                                       },
                                     ),
-                                   
                                   ],
                                 ),
                               ),
                             )
                           : const SizedBox(
-                            height: 0,
-                            width: 0,
-                          );
+                              height: 0,
+                              width: 0,
+                            );
                     },
                   );
           },
@@ -231,7 +227,6 @@ class PlayListScreen extends StatelessWidget {
                   builder: (BuildContext context) {
                     return const CreatePlaylist();
                   });
-             
             },
             backgroundColor: Colors.transparent,
             elevation: 0.0,

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:music/hivedb/musicdb.dart';
-import 'package:music/screens/favouritescreen/favouritescreen.dart';
-import 'package:music/screens/favouritescreen/widget.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 
 class Addtofavourite extends StatefulWidget {

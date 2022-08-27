@@ -20,7 +20,7 @@ Widget UpdatePlaylist({required playlistName, required context}) {
       key: formKey,
       child: TextFormField(
           initialValue: playlistName,
-          style: TextStyle(color: Colors.black),
+          style: const TextStyle(color: Colors.black),
           onChanged: (value) {
             title = value.trim();
           },

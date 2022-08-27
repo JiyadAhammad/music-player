@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/function/playlistitem.dart';
 import 'package:music/screens/Playlist/createplaylist.dart';
-import 'package:music/screens/Playlist/widget.dart';
-import 'package:music/screens/eachplaylistscreen/eachplaylistscreen.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
-import 'package:hive_flutter/adapters.dart';
 
 Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
   return Column(
