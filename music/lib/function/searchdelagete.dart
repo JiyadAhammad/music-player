@@ -63,11 +63,94 @@ class MySearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Center(
-      child: Text(
-        query,
-        style: const TextStyle(color: Colors.white),
-      ),
+    final searched = fullSongs
+        .toList()
+        .where(
+          (element) => element.metas.title!.toLowerCase().contains(
+                query.toLowerCase(),
+              ),
+        )
+        .toList();
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: searched.isEmpty
+          ? const Center(
+              child: Text(
+                "No Search Result !",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 15,
+              ).r,
+              child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15).r,
+                      ),
+                      child: ListTile(
+                        onTap: (() async {
+                          Navigator.pop(context);
+                          await Openplayer(
+                            fullSongs: searched,
+                            index: index,
+                            songId: int.parse(
+                              searched[index].metas.id!,
+                            ).toString(),
+                          ).openAssetPlayer(
+                            index: index,
+                            songs: searched,
+                          );
+                        }),
+                        title: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 5.0,
+                            bottom: 3,
+                            top: 3,
+                          ).r,
+                          child: Text(
+                            searched[index].metas.title!,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18.sp,
+                            ),
+                          ),
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 7.0,
+                          ).r,
+                          child: Text(
+                            fullSongs[index].metas.artist!,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (
+                    context,
+                    index,
+                  ) {
+                    return SizedBox(
+                      height: 10.h,
+                    );
+                  },
+                  itemCount: searched.length),
+            ),
     );
   }
 
