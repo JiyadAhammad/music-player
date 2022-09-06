@@ -42,7 +42,7 @@ class _NavdrawerState extends State<Navdrawer> {
             ),
             ListTile(
               onTap: (() {
-                Share.share('halo');
+                Share.share('https://play.google.com/store/apps/details?id=in.brototype.music');
               }),
               leading: const Icon(
                 Icons.share,
