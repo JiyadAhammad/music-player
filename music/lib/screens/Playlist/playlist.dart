@@ -63,6 +63,7 @@ class PlayListScreen extends StatelessWidget {
           valueListenable: box.listenable(),
           builder: (BuildContext context, playlistnameBox, Widget? child) {
             var playlistName = box.keys.toList();
+
             return playlistName.length == 2
                 ? Center(
                     child: Text(
@@ -79,132 +80,132 @@ class PlayListScreen extends StatelessWidget {
                       crossAxisCount: 2,
                       childAspectRatio: 4 / 3,
                     ),
-                    itemCount: playlistName.length,
+                    itemCount: playlistName.length - 2,
                     itemBuilder: (context, index) {
+                      playlistName.removeWhere(
+                          (element) => element.contains('favourites'));
+                      playlistName.removeWhere(
+                          (element) => element.contains('mymusic'));
                       // var playlistSongs = box.get(playlistName[index]);
-                      return playlistName[index] != "mymusic" &&
-                              playlistName[index] != "favourites"
-                          ? Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(15, 10, 15, 10),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: ((context) => EachPlayList(
-                                            playlistnameId: playlistName[index],
-                                          )),
+                      // return playlistName[index] != "mymusic" &&
+                      //         playlistName[index] != "favourites"
+                      return Padding(
+                        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: ((context) => EachPlayList(
+                                      playlistnameId: playlistName[index],
+                                    )),
+                              ),
+                            );
+                          },
+                          child: Stack(
+                            alignment: Alignment.bottomRight,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15).r,
+                                  border: Border.all(
+                                    color: Colors.white54,
+                                    style: BorderStyle.solid,
+                                    width: 2.5,
+                                  ),
+                                  color: Colors.transparent,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    playlistName[index].toString(),
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.sp,
                                     ),
-                                  );
-                                },
-                                child: Stack(
-                                  alignment: Alignment.bottomRight,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(15).r,
-                                        border: Border.all(
-                                          color: Colors.white54,
-                                          style: BorderStyle.solid,
-                                          width: 2.5,
+                                  ),
+                                ),
+                              ),
+                              PopupMenuButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    const Radius.circular(15.0).r,
+                                  ),
+                                ),
+                                color: Colors.black,
+                                icon: const Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                itemBuilder: (_) => <PopupMenuItem<String>>[
+                                  PopupMenuItem<String>(
+                                    onTap: () {},
+                                    value: 'rename',
+                                    child: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.edit,
+                                          color: Colors.white,
                                         ),
-                                        color: Colors.transparent,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          playlistName[index].toString(),
+                                        Text(
+                                          ' Edit playlist',
                                           style: TextStyle(
                                             color: Colors.white,
-                                            fontSize: 20.sp,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    PopupMenuButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          const Radius.circular(15.0).r,
-                                        ),
-                                      ),
-                                      color: Colors.black,
-                                      icon: const Icon(
-                                        Icons.more_vert,
-                                        color: Colors.white,
-                                      ),
-                                      itemBuilder: (_) =>
-                                          <PopupMenuItem<String>>[
-                                        PopupMenuItem<String>(
-                                          onTap: () {},
-                                          value: 'rename',
-                                          child: Row(
-                                            children: const [
-                                              Icon(
-                                                Icons.edit,
-                                                color: Colors.white,
-                                              ),
-                                              Text(
-                                                ' Edit playlist',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        PopupMenuItem<String>(
-                                          onTap: () {},
-                                          value: 'delete',
-                                          child: Row(
-                                            children: const [
-                                              Icon(
-                                                Icons.delete,
-                                                color: Colors.white,
-                                              ),
-                                              Text(
-                                                ' Delete playlist ',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ],
-                                      onSelected: (selected) {
-                                        if (selected == 'delete') {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return deletePlaylist(
-                                                  context: context,
-                                                  index: index,
-                                                  playlistsName: playlistName);
-                                            },
-                                          );
-                                        }
-                                        if (selected == 'rename') {
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return UpdatePlaylist(
-                                                context: context,
-                                                playlistName:
-                                                    playlistName[index],
-                                              );
-                                            },
-                                          );
-                                        }
-                                      },
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  PopupMenuItem<String>(
+                                    onTap: () {},
+                                    value: 'delete',
+                                    child: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.delete,
+                                          color: Colors.white,
+                                        ),
+                                        Text(
+                                          ' Delete playlist ',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                                onSelected: (selected) {
+                                  if (selected == 'delete') {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return deletePlaylist(
+                                            context: context,
+                                            index: index,
+                                            playlistsName: playlistName);
+                                      },
+                                    );
+                                  }
+                                  if (selected == 'rename') {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return UpdatePlaylist(
+                                          context: context,
+                                          playlistName: playlistName[index],
+                                        );
+                                      },
+                                    );
+                                  }
+                                },
                               ),
-                            )
-                          : const SizedBox(
-                              height: 0,
-                              width: 0,
-                            );
+                            ],
+                          ),
+                        ),
+                      );
+                      // : const SizedBox(
+                      //     height: 0,
+                      //     width: 0,
+                      //   );
                     },
                   );
           },

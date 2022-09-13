@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/screens/Playlist/playlist.dart';
 import 'package:music/screens/splashscreen/splashscreen.dart';
 
-Widget UpdatePlaylist({required playlistName, required context}) {
+Widget  UpdatePlaylist({required playlistName, required context}) {
   String? title;
   return AlertDialog(
     backgroundColor: Colors.white,
