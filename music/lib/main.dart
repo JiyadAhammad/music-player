@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music/hivedb/musicdb.dart';
-import 'package:music/screens/splashscreen/splashscreen.dart';
+import 'package:music/model/musicdb.dart';
+import 'package:music/view/splashscreen/splashscreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
