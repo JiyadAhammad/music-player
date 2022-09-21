@@ -4,6 +4,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:music/model/songfetch.dart';
@@ -26,7 +27,7 @@ class SplashScreen extends StatelessWidget {
   bool value = false;
   @override
   Widget build(BuildContext context) {
-    splashFetch(context);
+    splashFetch();
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -109,13 +110,12 @@ class SplashScreen extends StatelessWidget {
     ).onError((error, stackTrace) {});
   }
 
-  Future splashFetch(context) async {
+  Future splashFetch() async {
     if (await _requestPermission(Permission.storage)) {
       searchInStorage();
-
-      mSplash(context);
+      mSplash();
     } else {
-      splashFetch(context);
+      splashFetch();
     }
   }
 
@@ -156,12 +156,15 @@ class SplashScreen extends StatelessWidget {
   //   super.initState();
   // }
 
-  Future<void> mSplash(context) async {
+  Future<void> mSplash() async {
     await Future.delayed(const Duration(seconds: 5));
 
     // ignore: use_build_context_synchronously
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (ctx) =>  NavBar()),
+    // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(builder: (ctx) =>  NavBar()),
+    // );
+    Get.to(
+      () => NavBar(),
     );
   }
 

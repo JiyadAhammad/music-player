@@ -9,7 +9,6 @@ import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class Navdrawer extends StatelessWidget {
-  // bool isSwitched = false;
   const Navdrawer({Key? key}) : super(key: key);
 
   @override
@@ -90,7 +89,7 @@ class Navdrawer extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (ctx) {
-                    return const RatemyApp();
+                    return RatemyApp();
                   },
                 );
               }),
