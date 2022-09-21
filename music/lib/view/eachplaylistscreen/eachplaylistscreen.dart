@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/model/musicdb.dart';
+import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/eachplaylistscreen/widget.dart';
 import 'package:music/view/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
@@ -25,26 +26,27 @@ class EachPlayList extends StatelessWidget {
   Widget build(BuildContext context) {
     playlistSongs = box.get(playlistnameId)!.cast<Songs>();
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF911BEE),
-            Colors.black.withOpacity(0.94),
-            Colors.black,
-            Colors.black.withOpacity(0.94),
-            const Color(0xFF911BEE),
-          ],
-          stops: const [
-            0.01,
-            0.3,
-            0.5,
-            0.7,
-            1,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      decoration: backgrounColor(),
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     colors: [
+      //       const Color(0xFF911BEE),
+      //       Colors.black.withOpacity(0.94),
+      //       Colors.black,
+      //       Colors.black.withOpacity(0.94),
+      //       const Color(0xFF911BEE),
+      //     ],
+      //     stops: const [
+      //       0.01,
+      //       0.3,
+      //       0.5,
+      //       0.7,
+      //       1,
+      //     ],
+      //     begin: Alignment.topLeft,
+      //     end: Alignment.bottomRight,
+      //   ),
+      // ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -199,15 +201,16 @@ class EachPlayList extends StatelessWidget {
           },
         ),
         floatingActionButton: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            gradient: const RadialGradient(
-              colors: [
-                Color(0xFF911BEE),
-                Color(0xFF4D0089),
-              ],
-            ),
-          ),
+          decoration: floatingActionBGColor(),
+          // decoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(100),
+          //   gradient: const RadialGradient(
+          //     colors: [
+          //       Color(0xFF911BEE),
+          //       Color(0xFF4D0089),
+          //     ],
+          //   ),
+          // ),
           child: FloatingActionButton(
             onPressed: () {
               showModalBottomSheet(

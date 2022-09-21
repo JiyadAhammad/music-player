@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:music/view/homescreen/search/searchdelagete.dart';
 import 'package:music/view/homescreen/navdrawer/navdrawer.dart';
 import 'package:music/view/homescreen/widget.dart';
@@ -109,8 +108,9 @@ class HomeScreen extends StatelessWidget {
                     trailing: SizedBox(
                       width: 25,
                       child: popup(
-                          songId: fullSongs[index].metas.id.toString(),
-                          context: context),
+                        songId: fullSongs[index].metas.id.toString(),
+                        context: context,
+                      ),
                     ),
                   ),
                 ),

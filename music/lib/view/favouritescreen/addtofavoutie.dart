@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:get/get.dart';
+import 'package:music/controller/getx/music_controller.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-class Addtofavourite extends StatefulWidget {
+class Addtofavourite extends StatelessWidget {
   const Addtofavourite({Key? key}) : super(key: key);
 
-  @override
-  State<Addtofavourite> createState() => _AddtofavouriteState();
-}
-
-class _AddtofavouriteState extends State<Addtofavourite> {
   // List<Songs> songsinfav = [];
   @override
   Widget build(BuildContext context) {
@@ -18,9 +14,9 @@ class _AddtofavouriteState extends State<Addtofavourite> {
     // final temp = databaseSongs(dbSongs,);
     // songsinfav = box.get("favourites");
     final songinfav = box.get("favourites");
-    return ValueListenableBuilder(
-      valueListenable: box.listenable(),
-      builder: (BuildContext context, dynamic value, Widget? child) {
+    return GetBuilder<MusicController>(
+      init: MusicController(),
+      builder: (favouController) {
         return ListView.builder(
           itemCount: dbSongs.length,
           itemBuilder: (BuildContext context, int index) {
@@ -55,10 +51,11 @@ class _AddtofavouriteState extends State<Addtofavourite> {
                         .isEmpty
                     ? IconButton(
                         onPressed: () async {
-                          songinfav.add(dbSongs[index]);
-                          await box.put('favourites', songinfav);
+                          favouController.addToFavoutire(dbSongs[index]);
+                          // songinfav.add(dbSongs[index]);
+                          // await box.put('favourites', songinfav);
 
-                          setState(() {});
+                          // setState(() {});
                         },
                         icon: Icon(
                           Icons.add,
@@ -68,12 +65,12 @@ class _AddtofavouriteState extends State<Addtofavourite> {
                       )
                     : IconButton(
                         onPressed: () async {
-                          songinfav.removeWhere((elemet) =>
-                              elemet.id.toString() ==
-                              dbSongs[index].id.toString());
+                          favouController.removeFavouriteBottomSheet(
+                              songinfav, index);
+                          // musicController.removeFromFavourite(
+                          //     dbSongs[index].id.toString());
 
-                          await box.put('favourites', songinfav);
-                          setState(() {});
+                          // setState(() {});
                         },
                         icon: Icon(
                           Icons.delete,

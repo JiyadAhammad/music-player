@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:music/main.dart';
 import 'package:music/view/favouritescreen/favouritescreen.dart';
 import 'package:music/view/homescreen/widget.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
@@ -30,8 +31,9 @@ class FavPopup extends StatelessWidget {
                 .isEmpty
             ? PopupMenuItem(
                 onTap: () async {
-                  favourites!.add(temp);
-                  await box.put("favourites", favourites!);
+                  musicController.addToFavoutire(temp);
+                  // favourites!.add(temp);
+                  // await box.put("favourites", favourites!);
                 },
                 child: const Text(
                   "Add to Favourite",
@@ -40,10 +42,11 @@ class FavPopup extends StatelessWidget {
               )
             : PopupMenuItem(
                 onTap: () async {
-                  favourites!.removeWhere(
-                    (element) => element.id.toString() == temp.id.toString(),
-                  );
-                  box.put("favourites", favourites!);
+                  musicController.removeFromFavourite(temp);
+                  // favourites!.removeWhere(
+                  //   (element) => element.id.toString() == temp.id.toString(),
+                  // );
+                  // box.put("favourites", favourites!);
                 },
                 child: const Text(
                   'Remove From Favourites',

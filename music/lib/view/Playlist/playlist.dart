@@ -202,15 +202,7 @@ class PlayListScreen extends StatelessWidget {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         floatingActionButton: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            gradient: const RadialGradient(
-              colors: [
-                Color(0xFF911BEE),
-                Color(0xFF4D0089),
-              ],
-            ),
-          ),
+          decoration: floatingActionBGColor(),
           child: FloatingActionButton(
             onPressed: () {
               showDialog(
@@ -230,4 +222,16 @@ class PlayListScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+BoxDecoration floatingActionBGColor() {
+  return BoxDecoration(
+    borderRadius: BorderRadius.circular(100),
+    gradient: const RadialGradient(
+      colors: [
+        Color(0xFF911BEE),
+        Color(0xFF4D0089),
+      ],
+    ),
+  );
 }

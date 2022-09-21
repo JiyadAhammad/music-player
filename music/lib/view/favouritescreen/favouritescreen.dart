@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:music/controller/getx/music_controller.dart';
 import 'package:music/model/musicdb.dart';
 // import 'package:hive_flutter/adapters.dart';
 import 'package:music/view/favouritescreen/addtofavoutie.dart';
@@ -9,7 +11,6 @@ import 'package:music/view/favouritescreen/widget.dart';
 import 'package:music/view/homescreen/navbar/navbar.dart';
 // import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/view/widget/openplayer.dart';
 
 class FavouriteMusicScreen extends StatelessWidget {
@@ -18,26 +19,7 @@ class FavouriteMusicScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF911BEE),
-            Colors.black.withOpacity(0.94),
-            Colors.black,
-            Colors.black.withOpacity(0.94),
-            const Color(0xFF911BEE),
-          ],
-          stops: const [
-            0.01,
-            0.3,
-            0.5,
-            0.7,
-            1,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      decoration: backgrounColor(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -47,11 +29,14 @@ class FavouriteMusicScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) =>  NavBar()),
-                  ),
+                Get.to(
+                  () => NavBar(),
                 );
+                // Navigator.of(context).push(
+                //   MaterialPageRoute(
+                //     builder: ((context) => NavBar()),
+                //   ),
+                // );
               },
               icon: const Icon(
                 Icons.arrow_back,
@@ -61,8 +46,9 @@ class FavouriteMusicScreen extends StatelessWidget {
               onPressed: () {
                 showModalBottomSheet(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                          top: const Radius.circular(25).r)),
+                    borderRadius:
+                        BorderRadius.vertical(top: const Radius.circular(25).r),
+                  ),
                   backgroundColor: Colors.deepPurple,
                   context: context,
                   builder: (ctx) {
@@ -77,9 +63,9 @@ class FavouriteMusicScreen extends StatelessWidget {
             )
           ],
         ),
-        body: ValueListenableBuilder(
-          valueListenable: box.listenable(),
-          builder: (context, favouritelist, child) {
+        body: GetBuilder<MusicController>(
+          init: MusicController(),
+          builder: (favController) {
             final favouritesSongs = box.get("favourites");
             List<Audio> favSong = [];
 
@@ -161,21 +147,6 @@ class FavouriteMusicScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              // title: SizedBox(
-                              //   height: 40.h,
-                              //   child: Marquee(
-                              //     blankSpace: 50.w.h,
-                              //     startAfter: Duration.zero,
-                              //     velocity: 50,
-                              //     text: favouritesSongs[index].songname,
-                              //     style: TextStyle(
-                              //       overflow: TextOverflow.ellipsis,
-                              //       color: Colors.white,
-                              //       fontWeight: FontWeight.bold,
-                              //       fontSize: 20.sp,
-                              //     ),
-                              //   ),
-                              // ),
                               subtitle: Text(
                                 favouritesSongs[index].artist,
                                 overflow: TextOverflow.ellipsis,
