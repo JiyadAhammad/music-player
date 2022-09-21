@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-Widget  UpdatePlaylist({required playlistName, required context}) {
+Widget  updatePlaylist({required playlistName, required context}) {
   String? title;
   return AlertDialog(
     backgroundColor: Colors.white,
@@ -25,7 +24,7 @@ Widget  UpdatePlaylist({required playlistName, required context}) {
             title = value.trim();
           },
           validator: (value) {
-            List keys = box.keys.toList();
+            // List keys = box.keys.toList();
             if (value!.trim() == "") {
               return "Name Required";
             }

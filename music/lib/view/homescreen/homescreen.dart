@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        drawer: Navdrawer(),
+        drawer:const Navdrawer(),
         // extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(

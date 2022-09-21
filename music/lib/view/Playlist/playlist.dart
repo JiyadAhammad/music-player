@@ -189,7 +189,7 @@ class PlayListScreen extends StatelessWidget {
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return UpdatePlaylist(
+                                        return updatePlaylist(
                                           context: context,
                                           playlistName: playlistName[index],
                                         );

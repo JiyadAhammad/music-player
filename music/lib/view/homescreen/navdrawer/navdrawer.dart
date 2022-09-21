@@ -89,7 +89,7 @@ class Navdrawer extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (ctx) {
-                    return RatemyApp();
+                    return const RatemyApp();
                   },
                 );
               }),
