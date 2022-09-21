@@ -14,14 +14,7 @@ class Navdrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: RadialGradient(
-          colors: [
-            Color(0xFF911BEE),
-            Color(0xFF4D0089),
-          ],
-        ),
-      ),
+      decoration: backgroundColordrawer(),
       child: Drawer(
         backgroundColor: Colors.transparent,
         child: ListView(
@@ -38,7 +31,8 @@ class Navdrawer extends StatelessWidget {
             ListTile(
               onTap: (() {
                 Share.share(
-                    'https://play.google.com/store/apps/details?id=in.brototype.music');
+                  'https://play.google.com/store/apps/details?id=in.brototype.music',
+                );
               }),
               leading: const Icon(
                 Icons.share,
@@ -55,34 +49,35 @@ class Navdrawer extends StatelessWidget {
               ),
             ),
             GetBuilder<MusicController>(
-                init: MusicController(),
-                builder: (switchController) {
-                  return ListTile(
-                    leading: const Icon(
-                      Icons.notification_add,
-                      color: Colors.white,
-                    ),
-                    title: const Text(
-                      'Notification',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    trailing: Switch(
-                      value: switchController.isSwitched,
-                      onChanged: (value) {
-                        switchController.isSwitchedToggle(value);
-                        audioPlayer.showNotification = value;
-                        // setState(
-                        //   () {
-                        //     isSwitched = value;
-                        //     audioPlayer.showNotification = value;
-                        //   },
-                        // );
-                      },
-                      activeTrackColor: Colors.white,
-                      activeColor: const Color(0xFF911BEE),
-                    ),
-                  );
-                }),
+              init: MusicController(),
+              builder: (switchController) {
+                return ListTile(
+                  leading: const Icon(
+                    Icons.notification_add,
+                    color: Colors.white,
+                  ),
+                  title: const Text(
+                    'Notification',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  trailing: Switch(
+                    value: switchController.isSwitched,
+                    onChanged: (value) {
+                      switchController.isSwitchedToggle(value);
+                      audioPlayer.showNotification = value;
+                      // setState(
+                      //   () {
+                      //     isSwitched = value;
+                      //     audioPlayer.showNotification = value;
+                      //   },
+                      // );
+                    },
+                    activeTrackColor: Colors.white,
+                    activeColor: const Color(0xFF911BEE),
+                  ),
+                );
+              },
+            ),
             ListTile(
               onTap: (() {
                 // rateMyApp(context);
@@ -213,22 +208,23 @@ class Navdrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 showAboutDialog(
-                    context: context,
-                    applicationIcon: const CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Colors.white,
-                      backgroundImage:
-                          // Image.file("music/assets/img/luncher icon.png")
-                          AssetImage('assets/img/lunchericon.png'),
+                  context: context,
+                  applicationIcon: const CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.white,
+                    backgroundImage:
+                        // Image.file("music/assets/img/luncher icon.png")
+                        AssetImage('assets/img/lunchericon.png'),
+                  ),
+                  applicationName: "ΜΟΥΣΙΚΗ",
+                  applicationVersion: "1.0.0+1",
+                  children: [
+                    Text(
+                      'ΜΟΥΣΙΚΗ is an Offline Music Player created by JIYAD AHAMMAD',
+                      style: TextStyle(fontSize: 18.sp),
                     ),
-                    applicationName: "ΜΟΥΣΙΚΗ",
-                    applicationVersion: "1.0.0+1",
-                    children: [
-                      Text(
-                        'ΜΟΥΣΙΚΗ is an Offline Music Player created by JIYAD AHAMMAD',
-                        style: TextStyle(fontSize: 18.sp),
-                      ),
-                    ]);
+                  ],
+                );
               },
               leading: const Icon(
                 Icons.info,

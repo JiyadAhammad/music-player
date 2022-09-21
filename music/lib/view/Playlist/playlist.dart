@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:music/view/Playlist/createplaylist.dart';
 import 'package:music/view/Playlist/widget.dart';
@@ -17,26 +18,7 @@ class PlayListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF911BEE),
-            Colors.black.withOpacity(0.94),
-            Colors.black,
-            Colors.black.withOpacity(0.94),
-            const Color(0xFF911BEE),
-          ],
-          stops: const [
-            0.01,
-            0.3,
-            0.5,
-            0.7,
-            1,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      decoration: backgrounColor(),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -46,13 +28,16 @@ class PlayListScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (ctx) {
-                    return  NavBar();
-                  },
-                ),
+              Get.offAll(
+                () => NavBar(),
               );
+              // Navigator.of(context).pushReplacement(
+              //   MaterialPageRoute(
+              //     builder: (ctx) {
+              //       return NavBar();
+              //     },
+              //   ),
+              // );
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -93,13 +78,18 @@ class PlayListScreen extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                         child: InkWell(
                           onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: ((context) => EachPlayList(
-                                      playlistnameId: playlistName[index],
-                                    )),
+                            Get.to(
+                              () => EachPlayList(
+                                playlistnameId: playlistName[index],
                               ),
                             );
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: ((context) => EachPlayList(
+                            //           playlistnameId: playlistName[index],
+                            //         )),
+                            //   ),
+                            // );
                           },
                           child: Stack(
                             alignment: Alignment.bottomRight,

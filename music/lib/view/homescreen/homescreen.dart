@@ -17,28 +17,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            const Color(0xFF911BEE),
-            Colors.black.withOpacity(0.94),
-            Colors.black,
-            Colors.black.withOpacity(0.94),
-            const Color(0xFF911BEE),
-          ],
-          stops: const [
-            0.01,
-            0.3,
-            0.5,
-            0.7,
-            1,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      decoration: backgrounColor(),
       child: Scaffold(
-        drawer:const Navdrawer(),
+        drawer: const Navdrawer(),
         // extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: AppBar(
@@ -59,86 +40,83 @@ class HomeScreen extends StatelessWidget {
           ],
           backgroundColor: Colors.transparent,
         ),
-        body: ValueListenableBuilder(
-          valueListenable: box.listenable(),
-          builder: (context, songslist, child) {
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: dbSongs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20).r,
-                      side: const BorderSide(
-                        color: Colors.white54,
-                        width: 2.0,
-                      ),
-                    ),
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: dbSongs.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20).r,
+                  side: const BorderSide(
+                    color: Colors.white54,
+                    width: 2.0,
+                  ),
+                ),
+                color: Colors.transparent,
+                elevation: 0,
+                child: Container(
+                  height: 80.h,
+                  decoration: BoxDecoration(
                     color: Colors.transparent,
-                    elevation: 0,
-                    child: Container(
-                      height: 80.h,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(20).r,
+                    borderRadius: BorderRadius.circular(20).r,
+                  ),
+                  child: ListTile(
+                    onTap: (() async {
+                      await Openplayer(
+                        fullSongs: [],
+                        index: index,
+                        songId: fullSongs[index].metas.id.toString(),
+                      ).openAssetPlayer(
+                        index: index,
+                        songs: fullSongs,
+                      );
+                    }),
+                    leading: const CircleAvatar(
+                      child: Icon(
+                        Icons.music_note,
+                        color: Colors.white,
                       ),
-                      child: ListTile(
-                        onTap: (() async {
-                          await Openplayer(
-                            fullSongs: [],
-                            index: index,
-                            songId: fullSongs[index].metas.id.toString(),
-                          ).openAssetPlayer(
-                            index: index,
-                            songs: fullSongs,
-                          );
-                        }),
-                        leading: const CircleAvatar(
-                          child: Icon(
-                            Icons.music_note,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Padding(
-                          padding: const EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
-                          child: Text(
-                            fullSongs[index].metas.title!,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.sp,
-                            ),
-                          ),
-                        ),
-                        subtitle: Padding(
-                          padding:
-                              const EdgeInsets.only(top: 3.0,left: 2.0, bottom: 5).r,
-                          child: Text(
-                            overflow: TextOverflow.ellipsis,
-                            fullSongs[index].metas.artist!.toLowerCase(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        trailing: SizedBox(
-                          width: 25,
-                          child: popup(
-                              songId: fullSongs[index].metas.id.toString(),
-                              context: context),
+                    ),
+                    title: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 5.0, bottom: 3, top: 3).r,
+                      child: Text(
+                        fullSongs[index].metas.title!,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20.sp,
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
-            );
-          },
+                    subtitle: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 3.0, left: 2.0, bottom: 5)
+                              .r,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        fullSongs[index].metas.artist!.toLowerCase(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    trailing: SizedBox(
+                      width: 25,
+                      child: popup(
+                          songId: fullSongs[index].metas.id.toString(),
+                          context: context),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

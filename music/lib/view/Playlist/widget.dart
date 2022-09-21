@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-Widget  updatePlaylist({required playlistName, required context}) {
+Widget updatePlaylist({required playlistName, required context}) {
   String? title;
   return AlertDialog(
     backgroundColor: Colors.white,
     alignment: Alignment.center,
     title: const Center(
-        child: Text(
-      "Edit Playlist Name",
-      style: TextStyle(color: Colors.black),
-    )),
+      child: Text(
+        "Edit Playlist Name",
+        style: TextStyle(color: Colors.black),
+      ),
+    ),
 
     // form validation
     content: Form(
@@ -54,7 +56,7 @@ Widget  updatePlaylist({required playlistName, required context}) {
               child: Text("Cancel",
                   style: TextStyle(color: Colors.black, fontSize: 16.sp)),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
 
@@ -67,21 +69,32 @@ Widget  updatePlaylist({required playlistName, required context}) {
                   box.put(title, curentPlaylistName!);
                   box.delete(playlistName);
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      duration: const Duration(seconds: 1),
-                      shape: const StadiumBorder(),
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.black,
-                      // margin: EdgeInsets.all(20),
-                      margin: const EdgeInsets.all(10).r,
-                      content: const Center(
-                        heightFactor: 1.0,
-                        child: Text(
-                          "Updated Succesfully",
+                  Get.snackbar(
+                    'title',
+                    'message',
+                    titleText: const Center(
+                      child: Text(
+                        'Success',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.green,
                         ),
                       ),
                     ),
+                    messageText: const Center(
+                      child: Text(
+                        'Successfully updated',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.black,
+                    colorText: Colors.white,
+                    maxWidth: 250,
+                    margin: const EdgeInsets.only(bottom: 15),
                   );
                 }
               },
@@ -127,32 +140,45 @@ Widget deletePlaylist(
                 style: TextStyle(color: Colors.white, fontSize: 18.sp),
               ),
               onPressed: () {
-                Navigator.of(context).pop();
+                Get.back();
               },
             ),
             TextButton(
-              child: Text("Yes",
-                  style: TextStyle(color: Colors.white, fontSize: 18.sp)),
+              child: Text(
+                "Yes",
+                style: TextStyle(color: Colors.white, fontSize: 18.sp),
+              ),
               onPressed: () {
-                Navigator.pop(context);
+                Get.back();
                 box.delete(playlistsName[index]);
 
                 playlistsName = box.keys.toList();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 1),
-                    shape: const StadiumBorder(),
-                    behavior: SnackBarBehavior.floating,
-                    backgroundColor: Colors.black,
-                    // margin: EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(10).r,
-                    content: const Center(
-                      heightFactor: 1.0,
-                      child: Text(
-                        "delete Succesfully",
+                Get.snackbar(
+                  'title',
+                  'message',
+                  titleText: const Center(
+                    child: Text(
+                      'Success',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.red,
                       ),
                     ),
                   ),
+                  messageText: const Center(
+                    child: Text(
+                      'Successfully Deleted',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.black,
+                  colorText: Colors.white,
+                  maxWidth: 250,
+                  margin: const EdgeInsets.only(bottom: 15),
                 );
               },
             )

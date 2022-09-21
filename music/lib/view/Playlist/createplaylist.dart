@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
@@ -19,40 +20,47 @@ class CreatePlaylist extends StatelessWidget {
       backgroundColor: Colors.white,
       alignment: Alignment.center,
       title: const Center(
-          child: Text(
-        "Give Your Playlist Name",
-        style: TextStyle(color: Colors.black),
-      )),
+        child: Text(
+          "Give Your Playlist Name",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
 
       // form validation
       content: Form(
         key: formKey,
         child: TextFormField(
-            onChanged: (value) {
-              title = value.trim();
-            },
-            validator: (value) {
-              List keys = box.keys.toList();
-              if (value!.trim() == "") {
-                return "Name Required";
-              }
-              if (keys.where((element) => element == value.trim()).isNotEmpty) {
-                return "This Name Already Exist";
-              }
-              return null;
-            },
-            style: const TextStyle(color: Colors.black),
-            decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.deepPurple, width: 5.w)),
-              // fillColor: textblack,
-              hintText: 'Playlist Name',
-              hintStyle: const TextStyle(color: Colors.blueGrey),
-              enabledBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
-              ),
-            )),
+          onChanged: (value) {
+            title = value.trim();
+          },
+          validator: (value) {
+            List keys = box.keys.toList();
+            if (value!.trim() == "") {
+              return "Name Required";
+            }
+            if (keys
+                .where(
+                  (element) => element == value.trim(),
+                )
+                .isNotEmpty) {
+              return "This Name Already Exist";
+            }
+            return null;
+          },
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.deepPurple, width: 5.w),
+            ),
+            // fillColor: textblack,
+            hintText: 'Playlist Name',
+            hintStyle: const TextStyle(color: Colors.blueGrey),
+            enabledBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
+            ),
+          ),
+        ),
       ),
       actions: [
         Padding(
@@ -61,10 +69,12 @@ class CreatePlaylist extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextButton(
-                child: Text("Cancel",
-                    style: TextStyle(color: Colors.black, fontSize: 16.sp)),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.black, fontSize: 16.sp),
+                ),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  Get.back();
                 },
               ),
 
@@ -74,22 +84,33 @@ class CreatePlaylist extends StatelessWidget {
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     box.put(title, playlist);
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        duration: const Duration(seconds: 1),
-                        shape: const StadiumBorder(),
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.black,
-                        // margin: EdgeInsets.all(20),
-                        margin: const EdgeInsets.all(10).r,
-                        content: const Center(
-                          heightFactor: 1.0,
-                          child: Text(
-                            "Playlist Added",
+                    Get.back();
+                    Get.snackbar(
+                      'title',
+                      'message',
+                      titleText: const Center(
+                        child: Text(
+                          'Success',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.green,
                           ),
                         ),
                       ),
+                      messageText: const Center(
+                        child: Text(
+                          'Playlist Added',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.black,
+                      colorText: Colors.white,
+                      maxWidth: 250,
+                      margin: const EdgeInsets.only(bottom: 15),
                     );
                   }
                 },

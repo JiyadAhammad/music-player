@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 import 'package:music/view/widget/openplayer.dart';
 
@@ -99,7 +100,7 @@ class MySearch extends SearchDelegate {
                       ),
                       child: ListTile(
                         onTap: (() async {
-                          Navigator.pop(context);
+                          Get.back();
                           await Openplayer(
                             fullSongs: searched,
                             index: index,
@@ -193,7 +194,7 @@ class MySearch extends SearchDelegate {
                       ),
                       child: ListTile(
                         onTap: (() async {
-                          Navigator.pop(context);
+                          Get.back();
                           await Openplayer(
                             fullSongs: searched,
                             index: index,

@@ -30,26 +30,7 @@ class SplashScreen extends StatelessWidget {
     splashFetch();
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              const Color(0xFF911BEE),
-              Colors.black.withOpacity(0.94),
-              Colors.black,
-              Colors.black.withOpacity(0.94),
-              const Color(0xFF911BEE),
-            ],
-            stops: const [
-              0.01,
-              0.3,
-              0.5,
-              0.7,
-              1,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+        decoration: backgrounColor(),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -201,3 +182,36 @@ class SplashScreen extends StatelessWidget {
     }
   }
 }
+
+BoxDecoration backgrounColor() {
+  return BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        const Color(0xFF911BEE),
+        Colors.black.withOpacity(0.94),
+        Colors.black,
+        Colors.black.withOpacity(0.94),
+        const Color(0xFF911BEE),
+      ],
+      stops: const [
+        0.01,
+        0.3,
+        0.5,
+        0.7,
+        1,
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+  );
+}
+BoxDecoration backgroundColordrawer() {
+    return const BoxDecoration(
+      gradient: RadialGradient(
+        colors: [
+          Color(0xFF911BEE),
+          Color(0xFF4D0089),
+        ],
+      ),
+    );
+  }

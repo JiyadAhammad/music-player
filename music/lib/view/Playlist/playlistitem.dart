@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
+// ignore: must_be_immutable
 class PlaylistItem extends StatelessWidget {
   Songs song;
   List playlists = [];
   List<dynamic>? playlistSongs = [];
-  final countsong;
-  PlaylistItem({Key? key, required this.song, required this.countsong})
-      : super(key: key);
+  final dynamic countsong;
+  PlaylistItem({
+    Key? key,
+    required this.song,
+    required this.countsong,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,23 +43,26 @@ class PlaylistItem extends StatelessWidget {
                             playlistSongs?.add(temp);
                             await box.put(playlistName, playlistSongs!);
 
-                            Navigator.pop(context);
+                            Get.back();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 // backgroundColor: darkBlue,
                                 content: Text(
-                                  song.songname! + 'Added to Playlist',
+                                  '${song.songname!}Added to Playlist',
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                             );
                           } else {
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            Get.back;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
                                 content: Text(
-                              song.songname! + 'is Already in Playlist.',
-                              style: const TextStyle(color: Colors.white),
-                            )));
+                                  '${song.songname!}is Already in Playlist.',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            );
                           }
                         },
                         leading: Padding(
