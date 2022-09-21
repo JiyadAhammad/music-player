@@ -2,21 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:music/controller/getx/music_controller.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 import 'package:music/view/widget/ratemyapp.dart';
 import 'package:share_plus/share_plus.dart';
 
-class Navdrawer extends StatefulWidget {
-  bool isSwitched = false;
-  Navdrawer({
-    Key? key,
-  }) : super(key: key);
+// ignore: must_be_immutable
+class Navdrawer extends StatelessWidget {
+  // bool isSwitched = false;
+  const Navdrawer({Key? key}) : super(key: key);
 
-  @override
-  State<Navdrawer> createState() => _NavdrawerState();
-}
-
-class _NavdrawerState extends State<Navdrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,29 +55,35 @@ class _NavdrawerState extends State<Navdrawer> {
                 size: 18.sp,
               ),
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.notification_add,
-                color: Colors.white,
-              ),
-              title: const Text(
-                'Notification',
-                style: TextStyle(color: Colors.white),
-              ),
-              trailing: Switch(
-                value: widget.isSwitched,
-                onChanged: (value) {
-                  setState(
-                    () {
-                      widget.isSwitched = value;
-                      audioPlayer.showNotification = value;
-                    },
+            GetBuilder<MusicController>(
+                init: MusicController(),
+                builder: (switchController) {
+                  return ListTile(
+                    leading: const Icon(
+                      Icons.notification_add,
+                      color: Colors.white,
+                    ),
+                    title: const Text(
+                      'Notification',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    trailing: Switch(
+                      value: switchController.isSwitched,
+                      onChanged: (value) {
+                        switchController.isSwitchedToggle(value);
+                        audioPlayer.showNotification = value;
+                        // setState(
+                        //   () {
+                        //     isSwitched = value;
+                        //     audioPlayer.showNotification = value;
+                        //   },
+                        // );
+                      },
+                      activeTrackColor: Colors.white,
+                      activeColor: const Color(0xFF911BEE),
+                    ),
                   );
-                },
-                activeTrackColor: Colors.white,
-                activeColor: const Color(0xFF911BEE),
-              ),
-            ),
+                }),
             ListTile(
               onTap: (() {
                 // rateMyApp(context);
@@ -258,7 +259,7 @@ class _NavdrawerState extends State<Navdrawer> {
                 color: Colors.white,
                 size: 18.sp,
               ),
-              onTap: () => exitApp(),
+              onTap: () => exitApp(context),
             ),
             SizedBox(
               height: 140.h,
@@ -283,7 +284,7 @@ class _NavdrawerState extends State<Navdrawer> {
     );
   }
 
-  void exitApp() {
+  void exitApp(context) {
     showDialog(
       context: context,
       builder: (ctx) {

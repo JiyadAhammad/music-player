@@ -12,6 +12,7 @@ Audio find(List<Audio> source, String fromPath) {
   return source.firstWhere((element) => element.path == fromPath);
 }
 
+// ignore: must_be_immutable
 class NavBar extends StatelessWidget {
   NavBar({Key? key}) : super(key: key);
 
