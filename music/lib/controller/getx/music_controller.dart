@@ -6,7 +6,6 @@ class MusicController extends GetxController {
   int currentIndex = 1;
   bool isSwitched = false;
   double rating = 0;
-  // final temp = databaseSongs(dbSongs, songId);
 
   isRatingChanged(rate) {
     rating = rate;
@@ -39,9 +38,24 @@ class MusicController extends GetxController {
 
   removeFavouriteBottomSheet(songinfav, index) async {
     songinfav.removeWhere(
-        (elemet) => elemet.id.toString() == dbSongs[index].id.toString());
+      (elemet) => elemet.id.toString() == dbSongs[index].id.toString(),
+    );
 
     await box.put('favourites', songinfav);
+    update();
+  }
+
+  onFavIconclicktoAdd(favouritesSong, fav) {
+    favouritesSong.add(fav);
+    box.put("favourites", favouritesSong);
+    update();
+  }
+
+  onFavIconclicktoRemove(favouritesSong, fav) {
+    favouritesSong.removeWhere(
+      (element) => element.id.toString() == fav.id.toString(),
+    );
+    box.put("favourites", favouritesSong);
     update();
   }
 }
