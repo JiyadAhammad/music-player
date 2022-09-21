@@ -44,40 +44,44 @@ class Addtofavourite extends StatelessWidget {
                     ),
                   ),
                 ),
-                trailing: songinfav!
-                        .where((element) =>
-                            element.id.toString() ==
-                            dbSongs[index].id.toString())
-                        .isEmpty
-                    ? IconButton(
-                        onPressed: () async {
-                          favouController.addToFavoutire(dbSongs[index]);
-                          // songinfav.add(dbSongs[index]);
-                          // await box.put('favourites', songinfav);
+                trailing: GetBuilder<MusicController>(
+                    init: MusicController(),
+                    builder: (_) {
+                      return songinfav!
+                              .where((element) =>
+                                  element.id.toString() ==
+                                  dbSongs[index].id.toString())
+                              .isEmpty
+                          ? IconButton(
+                              onPressed: () async {
+                                favouController.addToFavoutire(dbSongs[index]);
+                                // songinfav.add(dbSongs[index]);
+                                // await box.put('favourites', songinfav);
 
-                          // setState(() {});
-                        },
-                        icon: Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 35.sp,
-                        ),
-                      )
-                    : IconButton(
-                        onPressed: () async {
-                          favouController.removeFavouriteBottomSheet(
-                              songinfav, index);
-                          // musicController.removeFromFavourite(
-                          //     dbSongs[index].id.toString());
+                                // setState(() {});
+                              },
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 35.sp,
+                              ),
+                            )
+                          : IconButton(
+                              onPressed: () async {
+                                favouController.removeFavouriteBottomSheet(
+                                    songinfav, index);
+                                // musicController.removeFromFavourite(
+                                //     dbSongs[index].id.toString());
 
-                          // setState(() {});
-                        },
-                        icon: Icon(
-                          Icons.delete,
-                          color: Colors.white,
-                          size: 35.sp,
-                        ),
-                      ),
+                                // setState(() {});
+                              },
+                              icon: Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 35.sp,
+                              ),
+                            );
+                    }),
               ),
             );
           },

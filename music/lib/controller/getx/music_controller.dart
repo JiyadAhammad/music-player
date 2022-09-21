@@ -42,5 +42,6 @@ class MusicController extends GetxController {
         (elemet) => elemet.id.toString() == dbSongs[index].id.toString());
 
     await box.put('favourites', songinfav);
+    update();
   }
 }

@@ -28,19 +28,20 @@ class FavouriteMusicScreen extends StatelessWidget {
           centerTitle: true,
           elevation: 0,
           leading: IconButton(
-              onPressed: () {
-                Get.to(
-                  () => NavBar(),
-                );
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: ((context) => NavBar()),
-                //   ),
-                // );
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-              )),
+            onPressed: () {
+              Get.to(
+                () => NavBar(),
+              );
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: ((context) => NavBar()),
+              //   ),
+              // );
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+            ),
+          ),
           actions: [
             IconButton(
               onPressed: () {
