@@ -49,7 +49,7 @@ class PlayListScreen extends StatelessWidget {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) {
-                    return const NavBar();
+                    return  NavBar();
                   },
                 ),
               );

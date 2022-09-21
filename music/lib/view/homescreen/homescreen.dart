@@ -114,21 +114,6 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        // title: SizedBox(
-                        //   height: 40.h,
-                        //   child: Marquee(
-                        //     blankSpace: 50.w.h,
-                        //     startAfter: Duration.zero,
-                        //     velocity: 20,
-                        //     text: fullSongs[index].metas.title!,
-                        //     style: TextStyle(
-                        //       overflow: TextOverflow.ellipsis,
-                        //       color: Colors.white,
-                        //       fontWeight: FontWeight.bold,
-                        //       fontSize: 20.sp,
-                        //     ),
-                        //   ),
-                        // ),
                         subtitle: Padding(
                           padding:
                               const EdgeInsets.only(top: 3.0,left: 2.0, bottom: 5).r,

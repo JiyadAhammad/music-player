@@ -37,7 +37,8 @@ Widget popup({required songId, required context}) {
           : PopupMenuItem(
               onTap: () async {
                 favourites!.removeWhere(
-                    (element) => element.id.toString() == temp.id.toString());
+                  (element) => element.id.toString() == temp.id.toString(),
+                );
                 await box.put("favourites", favourites!);
               },
               child: const Text(
@@ -60,11 +61,10 @@ Widget popup({required songId, required context}) {
     onSelected: (value) {
       if (value == 1) {
         playlistshowbottomsheet(
-            context: context, playlistNames: temp, currentplaysong: temp);
-        // showModalBottomSheet(
-        //     context: context, builder: (BuildContext context) {
-        //       return AddtoPlaylist(song: temp,);
-        //     });
+          context: context,
+          playlistNames: temp,
+          currentplaysong: temp,
+        );
       }
     },
   );

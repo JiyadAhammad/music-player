@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
@@ -35,13 +36,13 @@ class MyApp extends StatelessWidget {
         BuildContext context,
         Widget? child,
       ) {
-        return MaterialApp(
+        return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Music',
           theme: ThemeData(
             primarySwatch: Colors.deepPurple,
           ),
-          home: const SplashScreen(),
+          home: SplashScreen(),
         );
       },
     );

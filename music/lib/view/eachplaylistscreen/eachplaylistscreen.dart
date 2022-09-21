@@ -9,6 +9,7 @@ import 'package:music/view/nowplayingscreen/musicplayscreen.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 import 'package:music/view/widget/openplayer.dart';
 
+// ignore: must_be_immutable
 class EachPlayList extends StatelessWidget {
   String playlistnameId;
 
@@ -157,22 +158,6 @@ class EachPlayList extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              // title: SizedBox(
-                              //   height: 40.h,
-                              //   child: Marquee(
-                              //     blankSpace: 50.w.h,
-                              //     startAfter: Duration.zero,
-                              //     velocity: 50,
-                              //     // text: songdata.songtitle!,
-                              //     text: playlistSongs[index].songname!,
-                              //     style: TextStyle(
-                              //       overflow: TextOverflow.ellipsis,
-                              //       color: Colors.white,
-                              //       fontWeight: FontWeight.bold,
-                              //       fontSize: 20.sp,
-                              //     ),
-                              //   ),
-                              // ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.only(
                                         top: 3.0, left: 2.0, bottom: 5)
@@ -227,8 +212,9 @@ class EachPlayList extends StatelessWidget {
             onPressed: () {
               showModalBottomSheet(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.vertical(
-                        top: const Radius.circular(25).r)),
+                  borderRadius:
+                      BorderRadius.vertical(top: const Radius.circular(25).r),
+                ),
                 backgroundColor: Colors.deepPurple,
                 context: context,
                 builder: (ctx) {

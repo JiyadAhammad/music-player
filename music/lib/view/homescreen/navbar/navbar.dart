@@ -1,6 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:get/get.dart';
+import 'package:music/controller/getx/music_controller.dart';
 import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/favouritescreen/favouritescreen.dart';
 import 'package:music/view/homescreen/homescreen.dart';
@@ -10,15 +12,10 @@ Audio find(List<Audio> source, String fromPath) {
   return source.firstWhere((element) => element.path == fromPath);
 }
 
-class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
+class NavBar extends StatelessWidget {
+  NavBar({Key? key}) : super(key: key);
 
-  @override
-  State<NavBar> createState() => _NavBarState();
-}
-
-class _NavBarState extends State<NavBar> {
-  int currentSelectedIndex = 1;
+  // int currentSelectedIndex = 1;
 
   List navbarpages = [
     const FavouriteMusicScreen(),
@@ -42,32 +39,37 @@ class _NavBarState extends State<NavBar> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBody: true,
-      body: navbarpages[currentSelectedIndex],
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          iconTheme: const IconThemeData(
-            color: Colors.white,
-          ),
-        ),
-        child: CurvedNavigationBar(
-          color: Colors.deepPurple,
-          height: 50,
-          backgroundColor: Colors.transparent,
-          buttonBackgroundColor: Colors.deepOrangeAccent,
-          index: currentSelectedIndex,
-          onTap: (newIndex) {
-            setState(
-              () {
-                currentSelectedIndex = newIndex;
-              },
-            );
-          },
-          items: itembottomnavabr,
-        ),
-      ),
-      bottomSheet: const MiniPlayer(),
-    );
+    return GetBuilder<MusicController>(
+        init: MusicController(),
+        builder: (navController) {
+          return Scaffold(
+            extendBody: true,
+            body: navbarpages[navController.currentIndex],
+            bottomNavigationBar: Theme(
+              data: Theme.of(context).copyWith(
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                ),
+              ),
+              child: CurvedNavigationBar(
+                color: Colors.deepPurple,
+                height: 50,
+                backgroundColor: Colors.transparent,
+                buttonBackgroundColor: Colors.deepOrangeAccent,
+                index: navController.currentIndex,
+                onTap: (newIndex) {
+                  navController.currentIndexChange(newIndex);
+                  // setState(
+                  //   () {
+                  //     currentSelectedIndex = newIndex;
+                  //   },
+                  // );
+                },
+                items: itembottomnavabr,
+              ),
+            ),
+            bottomSheet: const MiniPlayer(),
+          );
+        });
   }
 }

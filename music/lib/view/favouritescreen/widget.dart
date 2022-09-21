@@ -4,19 +4,14 @@ import 'package:music/view/favouritescreen/favouritescreen.dart';
 import 'package:music/view/homescreen/widget.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-class FavPopup extends StatefulWidget {
-  final songId;
+class FavPopup extends StatelessWidget {
+  final dynamic songId;
   const FavPopup({Key? key, required this.songId}) : super(key: key);
 
   @override
-  State<FavPopup> createState() => _FavPopupState();
-}
-
-class _FavPopupState extends State<FavPopup> {
-  @override
   Widget build(BuildContext context) {
     // log("message on the build context");
-    final temp = databaseSongs(dbSongs, widget.songId);
+    final temp = databaseSongs(dbSongs, songId);
     return PopupMenuButton(
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(

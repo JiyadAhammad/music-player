@@ -11,41 +11,22 @@ import 'package:music/model/musicdb.dart';
 import 'package:music/view/homescreen/navbar/navbar.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-List<MusicListData> songlist2 = [];
-List<Songs> allSongs = [];
-List<Songs> songsFromDb = [];
-List<Audio> finalSongList = [];
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
 final Box<List<dynamic>> box = StorageBox.getInstance();
 final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
-List<Songs> mappedSongs = [];
 List<Songs> dbSongs = [];
 List<Audio> fullSongs = [];
-Map<dynamic, dynamic> a = {};
-List<String> allAudio = [];
-List<String> mTitle = [];
-List<String> mPath = [];
-List<String> mArtist = [];
-List<String> malbum = [];
-List<String> malbumImage = [];
-List<String> mDuration = [];
-List<int> mId = [];
+List<MusicListData> songlist2 = [];
+List<Songs> allSongs = [];
 
-class _SplashScreenState extends State<SplashScreen> {
-  List<String>? allAudios;
-  List<Audio>? secondAllaudios;
+// ignore: must_be_immutable
+class SplashScreen extends StatelessWidget {
+  SplashScreen({Key? key}) : super(key: key);
+
   static const _platform = MethodChannel('search_files_in_storage/search');
   bool value = false;
   @override
   Widget build(BuildContext context) {
-    // screenEnter(context);
+    splashFetch(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -119,27 +100,22 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void searchInStorage() {
-    _platform.invokeMethod('search').then((value) {
-      final res = value as String;
+    _platform.invokeMethod('search').then(
+      (value) {
+        final res = value as String;
 
-      onSuccess(res);
-    }).onError((error, stackTrace) {});
+        onSuccess(res);
+      },
+    ).onError((error, stackTrace) {});
   }
 
-  String _printDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$twoDigitMinutes:$twoDigitSeconds";
-  }
-
-  Future splashFetch() async {
+  Future splashFetch(context) async {
     if (await _requestPermission(Permission.storage)) {
       searchInStorage();
 
-      mSplash();
+      mSplash(context);
     } else {
-      splashFetch();
+      splashFetch(context);
     }
   }
 
@@ -173,19 +149,19 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-  @override
-  void initState() {
-    splashFetch();
+  // @override
+  // void initState() {
+  //   splashFetch();
 
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
-  Future<void> mSplash() async {
+  Future<void> mSplash(context) async {
     await Future.delayed(const Duration(seconds: 5));
 
     // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (ctx) => const NavBar()),
+      MaterialPageRoute(builder: (ctx) =>  NavBar()),
     );
   }
 
@@ -220,17 +196,5 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     }
-
-    // for (var i = 0; i < songlist2.length; i++) {
-    //   finalSongList.add(
-    //     Audio.file(
-    //       songlist2[i].path!,
-    //       metas: Metas(
-    //         title: songlist2[i].title,
-    //         artist: songlist2[i].albums,
-    //       ),
-    //     ),
-    //   );
-    // }
   }
 }
