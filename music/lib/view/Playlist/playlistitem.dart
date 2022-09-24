@@ -44,15 +44,15 @@ class PlaylistItem extends StatelessWidget {
                             await box.put(playlistName, playlistSongs!);
 
                             Get.back();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                // backgroundColor: darkBlue,
-                                content: Text(
-                                  '${song.songname!}Added to Playlist',
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            );
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   SnackBar(
+                            //     // backgroundColor: darkBlue,
+                            //     content: Text(
+                            //       '${song.songname!}Added to Playlist',
+                            //       style: const TextStyle(color: Colors.white),
+                            //     ),
+                            //   ),
+                            // );
                           } else {
                             Get.back;
                             ScaffoldMessenger.of(context).showSnackBar(

@@ -109,9 +109,7 @@ class SplashScreen extends StatelessWidget {
       log('permission granted');
       return true;
     } else {
-      // print('object');
       var result = await store.request();
-
       var oneresult = await access.request();
       log('permission request ');
 
@@ -205,13 +203,14 @@ BoxDecoration backgrounColor() {
     ),
   );
 }
+
 BoxDecoration backgroundColordrawer() {
-    return const BoxDecoration(
-      gradient: RadialGradient(
-        colors: [
-          Color(0xFF911BEE),
-          Color(0xFF4D0089),
-        ],
-      ),
-    );
-  }
+  return const BoxDecoration(
+    gradient: RadialGradient(
+      colors: [
+        Color(0xFF911BEE),
+        Color(0xFF4D0089),
+      ],
+    ),
+  );
+}

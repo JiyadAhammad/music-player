@@ -40,7 +40,7 @@ class PlayListScreen extends StatelessWidget {
         ),
         body: GetBuilder<MusicController>(
           init: MusicController(),
-          builder: (context) {
+          builder: (_) {
             var playlistName = box.keys.toList();
 
             return playlistName.length == 2

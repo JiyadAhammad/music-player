@@ -78,16 +78,7 @@ class MainActivity : FlutterActivity() {
         @RequiresApi(Build.VERSION_CODES.R)
         private fun getAllAudio(): String {
                 val templistclass = ArrayList<MusicModalList>()
-                //        val templistFinal = ArrayList<HashMap<String,Any>>()
-                //        val tempListMapMusic=HashMap<String,Any>()
-                //        val tempList = HashMap<String, List<String>>()
-                //        val title = arrayListOf<String>()
-                //        val id = arrayListOf<String>()
-                //        val album = arrayListOf<String>()
-                //        val artist = arrayListOf<String>()
-                //        val pathss = arrayListOf<String>()
-                //        val durationk = arrayListOf<String>()
-                //        val imagess = arrayListOf<String>()
+              
                 val selection = MediaStore.Audio.Media.IS_MUSIC + " != 0"
                 val projection =
                                 arrayOf(

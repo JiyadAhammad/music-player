@@ -1,4 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/homescreen/widget.dart';
@@ -89,10 +90,17 @@ class MusicController extends GetxController {
     if (value.trim() == "") {
       return "Name Required";
     }
+
     update();
   }
 
-  playlistDelete(dynamic playlistsName,int index) {
+  validateEditPLayListName(playlistName,String title) {
+    List? curentPlaylistName = box.get(playlistName);
+    box.put(title, curentPlaylistName!);
+    box.delete(playlistName);
+  }
+
+  playlistDelete(dynamic playlistsName, int index) {
     box.delete(playlistsName[index]);
     update();
   }

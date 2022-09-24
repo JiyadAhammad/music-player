@@ -64,10 +64,9 @@ Widget updatePlaylist({required playlistName, required context}) {
               child: Text("update", style: TextStyle(fontSize: 16.sp)),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  List? curentPlaylistName = box.get(playlistName);
-                  box.put(title, curentPlaylistName!);
-                  box.delete(playlistName);
-                  Navigator.pop(context);
+                  musicController.validateEditPLayListName(
+                      playlistName, title!);
+                  Get.back();
                   Get.snackbar(
                     'title',
                     'message',
