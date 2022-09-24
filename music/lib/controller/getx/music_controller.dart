@@ -1,4 +1,6 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:get/get.dart';
+import 'package:music/model/musicdb.dart';
 import 'package:music/view/homescreen/widget.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
@@ -7,28 +9,28 @@ class MusicController extends GetxController {
   bool isSwitched = false;
   double rating = 0;
 
-  isRatingChanged(rate) {
+  void isRatingChanged(double rate) {
     rating = rate;
     update();
   }
 
-  isSwitchedToggle(value) {
+  void isSwitchedToggle(bool value) {
     isSwitched = value;
     update();
   }
 
-  currentIndexChange(index) {
+  void currentIndexChange(int index) {
     currentIndex = index;
     update();
   }
 
-  addToFavoutire(temp) async {
+  Future<void> addToFavoutire(Songs temp) async {
     favourites!.add(temp);
     await box.put("favourites", favourites!);
     update();
   }
 
-  removeFromFavourite(temp) async {
+  Future<void> removeFromFavourite(Songs temp) async {
     favourites!.removeWhere(
       (element) => element.id.toString() == temp.id.toString(),
     );
@@ -36,7 +38,10 @@ class MusicController extends GetxController {
     update();
   }
 
-  removeFavouriteBottomSheet(songinfav, index) async {
+  Future<void> removeFavouriteBottomSheet(
+    dynamic songinfav,
+    int index,
+  ) async {
     songinfav.removeWhere(
       (elemet) => elemet.id.toString() == dbSongs[index].id.toString(),
     );
@@ -45,17 +50,50 @@ class MusicController extends GetxController {
     update();
   }
 
-  onFavIconclicktoAdd(favouritesSong, fav) {
+  Future<void> onFavIconclicktoAdd(
+    dynamic favouritesSong,
+    Songs fav,
+  ) async {
     favouritesSong.add(fav);
     box.put("favourites", favouritesSong);
     update();
   }
 
-  onFavIconclicktoRemove(favouritesSong, fav) {
+  Future<void> onFavIconclicktoRemove(
+    dynamic favouritesSong,
+    Songs fav,
+  ) async {
     favouritesSong.removeWhere(
       (element) => element.id.toString() == fav.id.toString(),
     );
     box.put("favourites", favouritesSong);
+    update();
+  }
+
+  playListNameCreate(String value, List keys) {
+    if (value.trim() == "") {
+      return "Name Required";
+    }
+    if (keys
+        .where(
+          (element) => element == value.trim(),
+        )
+        .isNotEmpty) {
+      return "This Name Already Exist";
+    }
+
+    update();
+  }
+
+  playListNameEdit(String value) {
+    if (value.trim() == "") {
+      return "Name Required";
+    }
+    update();
+  }
+
+  playlistDelete(dynamic playlistsName,int index) {
+    box.delete(playlistsName[index]);
     update();
   }
 }

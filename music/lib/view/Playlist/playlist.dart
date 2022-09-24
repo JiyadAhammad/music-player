@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:music/controller/getx/music_controller.dart';
 import 'package:music/view/Playlist/createplaylist.dart';
 import 'package:music/view/Playlist/widget.dart';
 import 'package:music/view/eachplaylistscreen/eachplaylistscreen.dart';
@@ -31,22 +32,15 @@ class PlayListScreen extends StatelessWidget {
               Get.offAll(
                 () => NavBar(),
               );
-              // Navigator.of(context).pushReplacement(
-              //   MaterialPageRoute(
-              //     builder: (ctx) {
-              //       return NavBar();
-              //     },
-              //   ),
-              // );
             },
             icon: const Icon(
               Icons.arrow_back,
             ),
           ),
         ),
-        body: ValueListenableBuilder(
-          valueListenable: box.listenable(),
-          builder: (BuildContext context, playlistnameBox, Widget? child) {
+        body: GetBuilder<MusicController>(
+          init: MusicController(),
+          builder: (context) {
             var playlistName = box.keys.toList();
 
             return playlistName.length == 2
@@ -83,13 +77,6 @@ class PlayListScreen extends StatelessWidget {
                                 playlistnameId: playlistName[index],
                               ),
                             );
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: ((context) => EachPlayList(
-                            //           playlistnameId: playlistName[index],
-                            //         )),
-                            //   ),
-                            // );
                           },
                           child: Stack(
                             alignment: Alignment.bottomRight,
@@ -192,10 +179,6 @@ class PlayListScreen extends StatelessWidget {
                           ),
                         ),
                       );
-                      // : const SizedBox(
-                      //     height: 0,
-                      //     width: 0,
-                      //   );
                     },
                   );
           },
@@ -206,10 +189,11 @@ class PlayListScreen extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: () {
               showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const CreatePlaylist();
-                  });
+                context: context,
+                builder: (BuildContext context) {
+                  return const CreatePlaylist();
+                },
+              );
             },
             backgroundColor: Colors.transparent,
             elevation: 0.0,

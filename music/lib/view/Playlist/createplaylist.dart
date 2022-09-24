@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:music/controller/getx/music_controller.dart';
+import 'package:music/main.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
@@ -29,38 +31,34 @@ class CreatePlaylist extends StatelessWidget {
       // form validation
       content: Form(
         key: formKey,
-        child: TextFormField(
-          onChanged: (value) {
-            title = value.trim();
-          },
-          validator: (value) {
-            List keys = box.keys.toList();
-            if (value!.trim() == "") {
-              return "Name Required";
-            }
-            if (keys
-                .where(
-                  (element) => element == value.trim(),
-                )
-                .isNotEmpty) {
-              return "This Name Already Exist";
-            }
-            return null;
-          },
-          style: const TextStyle(color: Colors.black),
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.deepPurple, width: 5.w),
-            ),
-            // fillColor: textblack,
-            hintText: 'Playlist Name',
-            hintStyle: const TextStyle(color: Colors.blueGrey),
-            enabledBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
-            ),
-          ),
-        ),
+        child: GetBuilder<MusicController>(
+            init: MusicController(),
+            builder: (formContrl) {
+              return TextFormField(
+                onChanged: (value) {
+                  title = value.trim();
+                },
+                validator: (value) {
+                  List keys = box.keys.toList();
+                  formContrl.playListNameCreate(value!, keys);
+                  return null;
+                },
+                style: const TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Colors.deepPurple, width: 5.w),
+                  ),
+                  // fillColor: textblack,
+                  hintText: 'Playlist Name',
+                  hintStyle: const TextStyle(color: Colors.blueGrey),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: Colors.deepPurpleAccent, width: 5.0.w),
+                  ),
+                ),
+              );
+            }),
       ),
       actions: [
         Padding(

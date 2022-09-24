@@ -123,7 +123,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                         fullSongs: favSong,
                                         index: index,
                                         songId:
-                                            favSong[index].metas.id.toString())
+                                            favSong[index].metas.id.toString(),)
                                     .openAssetPlayer(
                                         index: index, songs: favSong);
                                 log("$favSong favourite song");

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:music/main.dart';
 import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
@@ -27,9 +28,7 @@ Widget updatePlaylist({required playlistName, required context}) {
           },
           validator: (value) {
             // List keys = box.keys.toList();
-            if (value!.trim() == "") {
-              return "Name Required";
-            }
+            musicController.playListNameEdit(value!);
 
             return null;
           },
@@ -150,7 +149,7 @@ Widget deletePlaylist(
               ),
               onPressed: () {
                 Get.back();
-                box.delete(playlistsName[index]);
+                musicController.playlistDelete(playlistsName, index);
 
                 playlistsName = box.keys.toList();
                 Get.snackbar(
