@@ -1,5 +1,4 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/homescreen/widget.dart';
@@ -9,6 +8,7 @@ class MusicController extends GetxController {
   int currentIndex = 1;
   bool isSwitched = false;
   double rating = 0;
+  
 
   void isRatingChanged(double rate) {
     rating = rate;
@@ -94,14 +94,42 @@ class MusicController extends GetxController {
     update();
   }
 
-  validateEditPLayListName(playlistName,String title) {
+  validateEditPLayListName(playlistName, String title) {
     List? curentPlaylistName = box.get(playlistName);
     box.put(title, curentPlaylistName!);
     box.delete(playlistName);
+    update();
   }
 
-  playlistDelete(dynamic playlistsName, int index) {
+  void playlistDelete(dynamic playlistsName, int index) {
     box.delete(playlistsName[index]);
+    update();
+  }
+
+  void deleteSongInPlayList(
+    List<Songs> playlistSongs,
+    int index,
+    String playlistnameId,
+    List<Audio> playPlaylist,
+  ) {
+    playlistSongs.removeAt(index);
+    box.put(playlistnameId, playlistSongs);
+    playPlaylist.clear();
+    update();
+  }
+
+  Future<void> addPlayListMusicFromBottomSheet(
+      List<Songs> playlistSongs, int index, String playListName) async {
+    playlistSongs.add(dbSongs[index]);
+    await box.put(playListName, playlistSongs);
+    update();
+  }
+
+  Future<void> deletePlayListMusicFromBottomSheet(
+      List<Songs> playlistSongs, int index, String playListName) async {
+    playlistSongs.removeWhere(
+        (element) => element.id.toString() == dbSongs[index].id.toString());
+    await box.put(playListName, playlistSongs);
     update();
   }
 }
