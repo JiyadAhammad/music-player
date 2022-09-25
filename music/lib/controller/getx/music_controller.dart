@@ -8,7 +8,6 @@ class MusicController extends GetxController {
   int currentIndex = 1;
   bool isSwitched = false;
   double rating = 0;
-  
 
   void isRatingChanged(double rate) {
     rating = rate;

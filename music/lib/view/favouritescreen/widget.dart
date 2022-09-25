@@ -30,7 +30,7 @@ class FavPopup extends StatelessWidget {
                 .where((element) => element.id.toString() == temp.id.toString())
                 .isEmpty
             ? PopupMenuItem(
-                onTap: () async {
+                onTap: () {
                   musicController.addToFavoutire(temp);
                   // favourites!.add(temp);
                   // await box.put("favourites", favourites!);
@@ -41,7 +41,7 @@ class FavPopup extends StatelessWidget {
                 ),
               )
             : PopupMenuItem(
-                onTap: () async {
+                onTap: () {
                   musicController.removeFromFavourite(temp);
                   // favourites!.removeWhere(
                   //   (element) => element.id.toString() == temp.id.toString(),

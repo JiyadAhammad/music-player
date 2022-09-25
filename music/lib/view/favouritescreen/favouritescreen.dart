@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:music/controller/getx/music_controller.dart';
+import 'package:music/main.dart';
 import 'package:music/model/musicdb.dart';
 // import 'package:hive_flutter/adapters.dart';
 import 'package:music/view/favouritescreen/addtofavoutie.dart';
@@ -120,12 +121,10 @@ class FavouriteMusicScreen extends StatelessWidget {
                             child: ListTile(
                               onTap: () {
                                 Openplayer(
-                                        fullSongs: favSong,
-                                        index: index,
-                                        songId:
-                                            favSong[index].metas.id.toString(),)
-                                    .openAssetPlayer(
-                                        index: index, songs: favSong);
+                                  fullSongs: favSong,
+                                  index: index,
+                                  songId: favSong[index].metas.id.toString(),
+                                ).openAssetPlayer(index: index, songs: favSong);
                                 log("$favSong favourite song");
                               },
                               leading: const CircleAvatar(
