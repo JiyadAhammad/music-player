@@ -6,6 +6,7 @@ import 'package:music/view/Playlist/createplaylist.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
 Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
+  // realtimePlayingInfos.isPlaying?isRotate=true:isRotate=false;
   return Column(
     children: [
       SizedBox(
@@ -171,198 +172,23 @@ playlistshowbottomsheet(
                 ),
                 onPressed: () {
                   showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return const CreatePlaylist();
-                      });
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const CreatePlaylist();
+                    },
+                  );
                 },
               ),
             ),
-            ListView(shrinkWrap: true, children: [
-                  PlaylistItem(
-                    song: playlistNames,
-                    countsong: "song",
-                  )
-                ]),
-
-            // IconButton(
-            //     onPressed: () {}, icon: CircleAvatar(child: Icon(Icons.add))),
-            // Expanded(
-            //   child: ValueListenableBuilder(
-            //     valueListenable: box.listenable(),
-            //     builder:
-            //         (BuildContext context, playlistnameBox, Widget? child) {
-            //       var playlistName = box.keys.toList();
-            //       return playlistName.length == 2
-            //           ? Center(
-            //               child: Text(
-            //                 'No Playlist',
-            //                 style: TextStyle(
-            //                   color: Colors.white,
-            //                   fontSize: 25.sp,
-            //                 ),
-            //               ),
-            //             )
-            //           : GridView.builder(
-            //               gridDelegate:
-            //                   const SliverGridDelegateWithFixedCrossAxisCount(
-            //                 crossAxisCount: 2,
-            //                 childAspectRatio: 4 / 3,
-            //               ),
-            //               physics: const BouncingScrollPhysics(),
-            //               itemCount: playlistName.length,
-            //               itemBuilder: (context, index) {
-            //                 var playlistSongs = box.get(playlistName[index]);
-
-            //                 return playlistName[index] != "mymusic" &&
-            //                         playlistName[index] != "favourites"
-            //                     ? Padding(
-            //                         padding: const EdgeInsets.fromLTRB(
-            //                             15, 10, 15, 10),
-            //                         child: InkWell(
-            //                           onTap: () {
-            //                             PlaylistItem(
-            //                               song: playlistNames,
-            //                               countsong: "song",
-            //                             );
-            //                           },
-            //                           // onTap: () {
-            //                           //   Navigator.of(context).push(
-            //                           //     MaterialPageRoute(
-            //                           //       builder: ((context) => EachPlayList(
-            //                           //             playlistnameId: playlistName[index],
-            //                           //           )),
-            //                           //     ),
-            //                           //   );
-            //                           // },
-            //                           // Navigator.of(context).push(
-            //                           //   MaterialPageRoute(
-            //                           //     builder: (ctx) {
-            //                           //       return EachPlayList(
-            //                           //         playlistName: playlistnameDb!.playlistName!,
-            //                           //         playlistnameId: playlistnameDb.id,
-            //                           //       );
-            //                           //     },
-            //                           //   ),
-            //                           // );
-
-            //                           child: Stack(
-            //                             alignment: Alignment.bottomRight,
-            //                             children: [
-            //                               Container(
-            //                                 decoration: BoxDecoration(
-            //                                   borderRadius:
-            //                                       BorderRadius.circular(15).r,
-            //                                   border: Border.all(
-            //                                     color: Colors.white54,
-            //                                     style: BorderStyle.solid,
-            //                                     width: 2.5,
-            //                                   ),
-            //                                   color: Colors.transparent,
-            //                                 ),
-            //                                 child: Center(
-            //                                   child: Text(
-            //                                     playlistName[index].toString(),
-            //                                     style: TextStyle(
-            //                                       color: Colors.white,
-            //                                       fontSize: 20.sp,
-            //                                     ),
-            //                                   ),
-            //                                 ),
-            //                               ),
-            //                               PopupMenuButton(
-            //                                 shape: RoundedRectangleBorder(
-            //                                   borderRadius: BorderRadius.all(
-            //                                     const Radius.circular(15.0).r,
-            //                                   ),
-            //                                 ),
-            //                                 color: Colors.black,
-            //                                 icon: const Icon(
-            //                                   Icons.more_vert,
-            //                                   color: Colors.white,
-            //                                 ),
-            //                                 itemBuilder: (_) =>
-            //                                     <PopupMenuItem<String>>[
-            //                                   PopupMenuItem<String>(
-            //                                     onTap: () {},
-            //                                     value: 'rename',
-            //                                     child: Row(
-            //                                       children: const [
-            //                                         Icon(
-            //                                           Icons.edit,
-            //                                           color: Colors.white,
-            //                                         ),
-            //                                         Text(
-            //                                           ' Edit playlist',
-            //                                           style: TextStyle(
-            //                                             color: Colors.white,
-            //                                           ),
-            //                                         ),
-            //                                       ],
-            //                                     ),
-            //                                   ),
-            //                                   PopupMenuItem<String>(
-            //                                     onTap: () {},
-            //                                     value: 'delete',
-            //                                     child: Row(
-            //                                       children: const [
-            //                                         Icon(
-            //                                           Icons.delete,
-            //                                           color: Colors.white,
-            //                                         ),
-            //                                         Text(
-            //                                           ' Delete playlist ',
-            //                                           style: TextStyle(
-            //                                             color: Colors.white,
-            //                                           ),
-            //                                         ),
-            //                                       ],
-            //                                     ),
-            //                                   ),
-            //                                 ],
-            //                                 onSelected: (selected) {
-            //                                   if (selected == 'delete') {
-            //                                     showDialog(
-            //                                       context: context,
-            //                                       builder:
-            //                                           (BuildContext context) {
-            //                                         return deletePlaylist(
-            //                                             context: context,
-            //                                             index: index,
-            //                                             playlistsName:
-            //                                                 playlistName);
-            //                                       },
-            //                                     );
-            //                                   }
-            //                                   if (selected == 'rename') {
-            //                                     showDialog(
-            //                                       context: context,
-            //                                       builder:
-            //                                           (BuildContext context) {
-            //                                         return UpdatePlaylist(
-            //                                           context: context,
-            //                                           playlistName:
-            //                                               playlistName[index],
-            //                                         );
-            //                                       },
-            //                                     );
-            //                                   }
-            //                                 },
-            //                               ),
-            //                               // popupMenuButtonSelected(
-            //                               //   playlistfile: playlistnameDb,
-            //                               //   index: index,
-            //                               // )
-            //                             ],
-            //                           ),
-            //                         ),
-            //                       )
-            //                     : const SizedBox();
-            //               },
-            //             );
-            //     },
-            //   ),
-            // ),
+            ListView(
+              shrinkWrap: true,
+              children: [
+                PlaylistItem(
+                  song: playlistNames,
+                  countsong: "song",
+                )
+              ],
+            ),
           ],
         ),
       );

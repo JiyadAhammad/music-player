@@ -3,7 +3,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:music/controller/getx/music_controller.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/Playlist/playlist.dart';

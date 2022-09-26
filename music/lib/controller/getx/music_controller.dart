@@ -1,13 +1,34 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/homescreen/widget.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-class MusicController extends GetxController {
+class MusicController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   int currentIndex = 1;
   bool isSwitched = false;
   double rating = 0;
+  Color color = const Color.fromARGB(255, 235, 139, 171);
+  bool isRepeate = false;
+  late AnimationController animationController;
+
+  @override
+  void onInit() {
+    super.onInit();
+    imageRotate();
+  }
+
+  void imageRotate() {
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 7),
+    );
+    animationController.repeat();
+    update();
+  }
 
   void isRatingChanged(double rate) {
     rating = rate;
@@ -21,6 +42,12 @@ class MusicController extends GetxController {
 
   void currentIndexChange(int index) {
     currentIndex = index;
+    update();
+  }
+
+  void isLoopmode(bool value, Color cValue) {
+    isRepeate = value;
+    color = cValue;
     update();
   }
 
