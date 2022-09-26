@@ -7,23 +7,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:music/model/songfetch.dart';
-import 'package:music/model/musicdb.dart';
-import 'package:music/view/homescreen/navbar/navbar.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../../model/musicdb.dart';
+import '../../model/songfetch.dart';
+import '../homescreen/navbar/navbar.dart';
 
 final Box<List<dynamic>> box = StorageBox.getInstance();
 final AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
-List<Songs> dbSongs = [];
-List<Audio> fullSongs = [];
-List<MusicListData> songlist2 = [];
-List<Songs> allSongs = [];
+List<Songs> dbSongs = <Songs>[];
+List<Audio> fullSongs = <Audio>[];
+List<MusicListData> songlist2 = <MusicListData>[];
+List<Songs> allSongs = <Songs>[];
 
 // ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
-  SplashScreen({Key? key}) : super(key: key);
+  SplashScreen({super.key});
 
-  static const _platform = MethodChannel('search_files_in_storage/search');
+  static const MethodChannel _platform =
+      MethodChannel('search_files_in_storage/search');
   bool value = false;
   @override
   Widget build(BuildContext context) {
@@ -34,15 +35,14 @@ class SplashScreen extends StatelessWidget {
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     SizedBox(
                       height: 150.h,
                     ),
-
                     Text(
                       'ΜΟΥΣΙΚΗ',
                       style: TextStyle(
@@ -83,15 +83,15 @@ class SplashScreen extends StatelessWidget {
 
   void searchInStorage() {
     _platform.invokeMethod('search').then(
-      (value) {
-        final res = value as String;
+      (dynamic value) {
+        final String res = value as String;
 
         onSuccess(res);
       },
-    ).onError((error, stackTrace) {});
+    ).onError((Object? error, StackTrace stackTrace) {});
   }
 
-  Future splashFetch() async {
+  Future<void> splashFetch() async {
     if (await _requestPermission(Permission.storage)) {
       searchInStorage();
       mSplash();
@@ -101,16 +101,16 @@ class SplashScreen extends StatelessWidget {
   }
 
   Future<bool> _requestPermission(Permission isPermission) async {
-    const store = Permission.storage;
-    const access = Permission.accessMediaLocation;
+    const Permission store = Permission.storage;
+    const Permission access = Permission.accessMediaLocation;
 
     if (await isPermission.isGranted) {
       await access.isGranted && await store.isGranted;
       log('permission granted');
       return true;
     } else {
-      var result = await store.request();
-      var oneresult = await access.request();
+      final PermissionStatus result = await store.request();
+      final PermissionStatus oneresult = await access.request();
       log('permission request ');
 
       if (result == PermissionStatus.limited &&
@@ -136,7 +136,7 @@ class SplashScreen extends StatelessWidget {
   // }
 
   Future<void> mSplash() async {
-    await Future.delayed(const Duration(seconds: 5));
+    await Future<dynamic>.delayed(const Duration(seconds: 5));
 
     // ignore: use_build_context_synchronously
     // Navigator.of(context).pushReplacement(
@@ -147,26 +147,28 @@ class SplashScreen extends StatelessWidget {
     );
   }
 
-  onSuccess(audioListFromStorage) async {
-    final valueMap = jsonDecode(audioListFromStorage);
-    // final a = MusicListData.fromJson(valueMap);
-    List songlist = valueMap;
-    songlist2 = songlist.map((e) {
-      return MusicListData.fromJson(e);
+  Future<void> onSuccess(String audioListFromStorage) async {
+    final dynamic valueMap = jsonDecode(audioListFromStorage);
+    // // final a = MusicListData.fromJson(valueMap);
+    final List<dynamic> songlist = valueMap as List<dynamic>;
+    songlist2 = songlist.map((dynamic e) {
+      return MusicListData.fromJson(e as Map<String, dynamic>);
     }).toList();
     allSongs = songlist2
-        .map((music) => Songs(
-              id: int.parse(music.id!),
-              songname: music.title!,
-              path: music.path!,
-              artist: music.artist!,
-            ))
+        .map(
+          (MusicListData music) => Songs(
+            id: int.parse(music.id!),
+            songname: music.title,
+            path: music.path,
+            artist: music.artist,
+          ),
+        )
         .toList();
 
     box.put('mymusic', allSongs);
-    dbSongs = box.get('mymusic') as List<Songs>;
+    final List<Songs> dbSongs = box.get('mymusic')! as List<Songs>;
 
-    for (var element in dbSongs) {
+    for (final Songs element in dbSongs) {
       fullSongs.add(
         Audio.file(
           element.path!,
@@ -184,14 +186,14 @@ class SplashScreen extends StatelessWidget {
 BoxDecoration backgrounColor() {
   return BoxDecoration(
     gradient: LinearGradient(
-      colors: [
+      colors: <Color>[
         const Color(0xFF911BEE),
         Colors.black.withOpacity(0.94),
         Colors.black,
         Colors.black.withOpacity(0.94),
         const Color(0xFF911BEE),
       ],
-      stops: const [
+      stops: const <double>[
         0.01,
         0.3,
         0.5,
@@ -207,7 +209,7 @@ BoxDecoration backgrounColor() {
 BoxDecoration backgroundColordrawer() {
   return const BoxDecoration(
     gradient: RadialGradient(
-      colors: [
+      colors: <Color>[
         Color(0xFF911BEE),
         Color(0xFF4D0089),
       ],

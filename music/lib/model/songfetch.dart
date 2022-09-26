@@ -1,11 +1,4 @@
 class MusicListData {
-  String? albums;
-  String? artist;
-  String? duration;
-  String? id;
-  String? path;
-  String? title;
-
   MusicListData(
       {this.albums,
       this.artist,
@@ -13,6 +6,12 @@ class MusicListData {
       this.id,
       this.path,
       this.title});
+  String? albums;
+  String? artist;
+  String? duration;
+  String? id;
+  String? path;
+  String? title;
 
   MusicListData.fromJson(Map<String, dynamic> json) {
     albums = json['albums'];

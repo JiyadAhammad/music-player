@@ -2,33 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/model/musicdb.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+import 'controller/getx/music_controller.dart';
+import 'model/musicdb.dart';
+import 'view/splashscreen/splashscreen.dart';
 
-final musicController = Get.put(MusicController());
+final MusicController musicController = Get.put(MusicController());
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(SongsAdapter());
-  await Hive.openBox<List>(boxname);
-  List<dynamic> favKey = box.keys.toList();
-  if (!(favKey.contains("favourites"))) {
-    List<dynamic> favouritesSongs = [];
-    await box.put("favourites", favouritesSongs);
+  await Hive.openBox<List<Songs>>(boxname);
+  final List<dynamic> favKey = box.keys.toList();
+  if (!favKey.contains('favourites')) {
+    final List<Songs> favouritesSongs = <Songs>[];
+    await box.put('favourites', favouritesSongs);
   }
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      splitScreenMode: false,
+      splitScreenMode: true,
       minTextAdapt: true,
       useInheritedMediaQuery: true,
       designSize: const Size(

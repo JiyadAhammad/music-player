@@ -3,6 +3,12 @@ part 'musicdb.g.dart';
 
 @HiveType(typeId: 0)
 class Songs extends HiveObject {
+  Songs({
+    required this.id,
+    required this.path,
+    required this.songname,
+    required this.artist,
+  });
   @HiveField(0)
   String? path;
   @HiveField(1)
@@ -11,19 +17,13 @@ class Songs extends HiveObject {
   String? artist;
   @HiveField(3)
   int? id;
-  Songs({
-    required this.id,
-    required this.path,
-    required this.songname,
-    required this.artist,
-  });
 }
 
-String boxname = "songs";
+String boxname = 'songs';
 
 class StorageBox {
-  static Box<List>? _box;
-  static Box<List> getInstance() {
-    return _box ??= Hive.box(boxname);
+  static Box<List<Songs>>? _box;
+  static Box<List<Songs>> getInstance() {
+    return _box ?? Hive.box(boxname);
   }
 }
