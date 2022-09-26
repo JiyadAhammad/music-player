@@ -198,6 +198,7 @@ class MusicPlaySceeen extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
+                    //onwe comment to commit ;
                     // if(audioPlayer.isPlaying==playing){
                     //   isRotate=true;
                     // }else{
