@@ -2,7 +2,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../model/musicdb.dart';
 import '../../view/homescreen/widget.dart';
 import '../../view/splashscreen/splashscreen.dart';
@@ -121,8 +120,8 @@ class MusicController extends GetxController
     update();
   }
 
-  validateEditPLayListName(playlistName, String title) {
-    List? curentPlaylistName = box.get(playlistName);
+  void validateEditPLayListName(dynamic playlistName, String title) {
+    final List<dynamic>? curentPlaylistName = box.get(playlistName);
     box.put(title, curentPlaylistName!);
     box.delete(playlistName);
     update();

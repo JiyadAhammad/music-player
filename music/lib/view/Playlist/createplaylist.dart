@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/main.dart';
-import 'package:music/model/musicdb.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
 
-List playlists = [];
+import '../../controller/getx/music_controller.dart';
+import '../../model/musicdb.dart';
+import '../splashscreen/splashscreen.dart';
 
-List<dynamic>? playlistSongs = [];
+List<dynamic> playlists = <dynamic>[];
+
+List<dynamic>? playlistSongs = <dynamic>[];
 
 class CreatePlaylist extends StatelessWidget {
-  const CreatePlaylist({Key? key}) : super(key: key);
+  const CreatePlaylist({super.key});
 
   @override
   Widget build(BuildContext context) {
-    List<Songs> playlist = [];
+    final List<Songs> playlist = <Songs>[];
     String? title;
-    final formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return AlertDialog(
       backgroundColor: Colors.white,
       alignment: Alignment.center,
       title: const Center(
         child: Text(
-          "Give Your Playlist Name",
+          'Give Your Playlist Name',
           style: TextStyle(color: Colors.black),
         ),
       ),
@@ -33,13 +33,13 @@ class CreatePlaylist extends StatelessWidget {
         key: formKey,
         child: GetBuilder<MusicController>(
             init: MusicController(),
-            builder: (formContrl) {
+            builder: (MusicController formContrl) {
               return TextFormField(
-                onChanged: (value) {
+                onChanged: (String value) {
                   title = value.trim();
                 },
-                validator: (value) {
-                  List keys = box.keys.toList();
+                validator: (String? value) {
+                  final List<dynamic> keys = box.keys.toList();
                   formContrl.playListNameCreate(value!, keys);
                   return null;
                 },
@@ -60,15 +60,15 @@ class CreatePlaylist extends StatelessWidget {
               );
             }),
       ),
-      actions: [
+      actions: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10).r,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+            children: <Widget>[
               TextButton(
                 child: Text(
-                  "Cancel",
+                  'Cancel',
                   style: TextStyle(color: Colors.black, fontSize: 16.sp),
                 ),
                 onPressed: () {
@@ -78,7 +78,10 @@ class CreatePlaylist extends StatelessWidget {
 
               // add playlist from db
               ElevatedButton(
-                child: Text("Create", style: TextStyle(fontSize: 16.sp)),
+                child: Text(
+                  'Create',
+                  style: TextStyle(fontSize: 16.sp),
+                ),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     box.put(title, playlist);

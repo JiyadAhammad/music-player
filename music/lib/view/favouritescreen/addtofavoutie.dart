@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../controller/getx/music_controller.dart';
-import '../../model/musicdb.dart';
 import '../splashscreen/splashscreen.dart';
 
 class Addtofavourite extends StatelessWidget {
   const Addtofavourite({super.key});
 
-  // List<Songs> songsinfav = [];
   @override
   Widget build(BuildContext context) {
-    // final songsinfav = databaseSongs(dbSongs,);
-    // final temp = databaseSongs(dbSongs,);
-    // songsinfav = box.get("favourites");
     final List<dynamic> songinfav = box.get('favourites')!;
     return ListView.builder(
       itemCount: dbSongs.length,
@@ -53,10 +47,6 @@ class Addtofavourite extends StatelessWidget {
                     ? IconButton(
                         onPressed: () {
                           favouController.addToFavoutire(dbSongs[index]);
-                          // songinfav.add(dbSongs[index]);
-                          // await box.put('favourites', songinfav);
-
-                          // setState(() {});
                         },
                         icon: Icon(
                           Icons.add,
@@ -68,10 +58,6 @@ class Addtofavourite extends StatelessWidget {
                         onPressed: () {
                           favouController.removeFavouriteBottomSheet(
                               songinfav, index);
-                          // musicController.removeFromFavourite(
-                          //     dbSongs[index].id.toString());
-
-                          // setState(() {});
                         },
                         icon: Icon(
                           Icons.delete,

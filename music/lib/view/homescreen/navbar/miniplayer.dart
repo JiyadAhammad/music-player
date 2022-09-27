@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
-
 import '../../nowplayingscreen/musicplayscreen.dart';
 import '../../splashscreen/splashscreen.dart';
 import 'navbar.dart';

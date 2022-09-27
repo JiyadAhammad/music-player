@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/view/Playlist/createplaylist.dart';
-import 'package:music/view/Playlist/widget.dart';
-import 'package:music/view/eachplaylistscreen/eachplaylistscreen.dart';
-import 'package:music/view/homescreen/navbar/navbar.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
-
-import '../../model/musicdb.dart';
+import '../../controller/getx/music_controller.dart';
+import '../eachplaylistscreen/eachplaylistscreen.dart';
+import '../homescreen/navbar/navbar.dart';
+import '../splashscreen/splashscreen.dart';
+import 'createplaylist.dart';
+import 'widget.dart';
 
 final GlobalKey<FormState> formKey = GlobalKey();
 String palyListNameValidate = '';
 final TextEditingController nameController = TextEditingController();
 
 class PlayListScreen extends StatelessWidget {
-  const PlayListScreen({Key? key}) : super(key: key);
+  const PlayListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class PlayListScreen extends StatelessWidget {
         body: GetBuilder<MusicController>(
           init: MusicController(),
           builder: (_) {
-            List<dynamic> playlistName = box.keys.toList();
+            final List<dynamic> playlistName = box.keys.toList();
 
             return playlistName.length == 2
                 ? Center(
@@ -66,9 +64,6 @@ class PlayListScreen extends StatelessWidget {
                           (dynamic element) => element == 'favourites');
                       playlistName.removeWhere(
                           (dynamic element) => element == 'mymusic');
-                      // var playlistSongs = box.get(playlistName[index]);
-                      // return playlistName[index] != "mymusic" &&
-                      //         playlistName[index] != "favourites"
                       return Padding(
                         padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                         child: InkWell(
@@ -81,13 +76,12 @@ class PlayListScreen extends StatelessWidget {
                           },
                           child: Stack(
                             alignment: Alignment.bottomRight,
-                            children: [
+                            children: <Widget>[
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15).r,
                                   border: Border.all(
                                     color: Colors.white54,
-                                    style: BorderStyle.solid,
                                     width: 2.5,
                                   ),
                                   color: Colors.transparent,
@@ -102,7 +96,7 @@ class PlayListScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              PopupMenuButton(
+                              PopupMenuButton<dynamic>(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.all(
                                     const Radius.circular(15.0).r,
@@ -113,12 +107,12 @@ class PlayListScreen extends StatelessWidget {
                                   Icons.more_vert,
                                   color: Colors.white,
                                 ),
-                                itemBuilder: (_) => <PopupMenuEntry<String>>[
-                                  PopupMenuItem<String>(
+                                itemBuilder: (_) => <PopupMenuEntry<dynamic>>[
+                                  PopupMenuItem<dynamic>(
                                     onTap: () {},
                                     value: 'rename',
                                     child: Row(
-                                      children: const [
+                                      children: const <Widget>[
                                         Icon(
                                           Icons.edit,
                                           color: Colors.white,
@@ -136,7 +130,7 @@ class PlayListScreen extends StatelessWidget {
                                     onTap: () {},
                                     value: 'delete',
                                     child: Row(
-                                      children: const [
+                                      children: const <Widget>[
                                         Icon(
                                           Icons.delete,
                                           color: Colors.white,
@@ -213,7 +207,7 @@ BoxDecoration floatingActionBGColor() {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(100),
     gradient: const RadialGradient(
-      colors: [
+      colors: <Color>[
         Color(0xFF911BEE),
         Color(0xFF4D0089),
       ],

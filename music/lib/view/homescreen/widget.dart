@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../controller/getx/music_controller.dart';
 import '../../main.dart';
 import '../../model/musicdb.dart';
@@ -28,12 +27,12 @@ Widget popup({required String songId, required BuildContext context}) {
           Icons.more_vert,
           color: Colors.white,
         ),
-        itemBuilder: (_) => <PopupMenuEntry<String>>[
+        itemBuilder: (_) => <PopupMenuEntry<dynamic>>[
           if (favourites!
               .where((dynamic element) =>
                   element.id.toString() == temp.id.toString())
               .isEmpty)
-            PopupMenuItem<String>(
+            PopupMenuItem<dynamic>(
               onTap: () {
                 // musicController.addToFavoutire(temp);
                 musicController.addToFavoutire(temp);
@@ -44,7 +43,7 @@ Widget popup({required String songId, required BuildContext context}) {
               ),
             )
           else
-            PopupMenuItem<String>(
+            PopupMenuItem<dynamic>(
               onTap: () async {
                 musicController.removeFromFavourite(temp);
               },
@@ -55,8 +54,8 @@ Widget popup({required String songId, required BuildContext context}) {
                 ),
               ),
             ),
-          const PopupMenuItem<String>(
-            value: '1',
+          const PopupMenuItem<dynamic>(
+            value: 1,
             child: Text(
               'Add to Playlist',
               style: TextStyle(
@@ -66,7 +65,7 @@ Widget popup({required String songId, required BuildContext context}) {
           ),
         ],
         onSelected: (dynamic value) {
-          if (value == '1') {
+          if (value == 1) {
             playlistshowbottomsheet(
               context: context,
               playlistNames: temp,

@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/main.dart';
-import 'package:music/view/Playlist/playlist.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+import '../../main.dart';
+import '../splashscreen/splashscreen.dart';
+import 'playlist.dart';
 
 Widget updatePlaylist(
     {required dynamic playlistName, required BuildContext context}) {
@@ -15,7 +13,7 @@ Widget updatePlaylist(
     alignment: Alignment.center,
     title: const Center(
       child: Text(
-        "Edit Playlist Name",
+        'Edit Playlist Name',
         style: TextStyle(color: Colors.black),
       ),
     ),
@@ -24,39 +22,43 @@ Widget updatePlaylist(
     content: Form(
       key: formKey,
       child: TextFormField(
-          initialValue: playlistName.toString(),
-          style: const TextStyle(color: Colors.black),
-          onChanged: (value) {
-            title = value.trim();
-          },
-          validator: (value) {
-            // List keys = box.keys.toList();
-            musicController.playListNameEdit(value!);
+        initialValue: playlistName.toString(),
+        style: const TextStyle(color: Colors.black),
+        onChanged: (String value) {
+          title = value.trim();
+        },
+        validator: (String? value) {
+          // List keys = box.keys.toList();
+          musicController.playListNameEdit(value!);
 
-            return null;
-          },
-          // style: const TextStyle(color: Colors.black),
-          decoration: InputDecoration(
-            focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.deepPurple, width: 5.w)),
-            // fillColor: textblack,
-            hintText: 'Playlist Name',
-            hintStyle: const TextStyle(color: Colors.blueGrey),
-            enabledBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
-            ),
-          )),
+          return null;
+        },
+        // style: const TextStyle(color: Colors.black),
+        decoration: InputDecoration(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.deepPurple, width: 5.w),
+          ),
+          // fillColor: textblack,
+          hintText: 'Playlist Name',
+          hintStyle: const TextStyle(color: Colors.blueGrey),
+          enabledBorder: OutlineInputBorder(
+            borderSide:
+                BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
+          ),
+        ),
+      ),
     ),
-    actions: [
+    actions: <Widget>[
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10).r,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
+          children: <Widget>[
             TextButton(
-              child: Text("Cancel",
-                  style: TextStyle(color: Colors.black, fontSize: 16.sp)),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.black, fontSize: 16.sp),
+              ),
               onPressed: () {
                 Get.back();
               },
@@ -64,7 +66,7 @@ Widget updatePlaylist(
 
             // add playlist from db
             ElevatedButton(
-              child: Text("update", style: TextStyle(fontSize: 16.sp)),
+              child: Text('update', style: TextStyle(fontSize: 16.sp)),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   musicController.validateEditPLayListName(
@@ -108,12 +110,14 @@ Widget updatePlaylist(
 }
 
 Widget deletePlaylist(
-    {required context, required playlistsName, required int index}) {
+    {required BuildContext context,
+    required List<dynamic> playlistsName,
+    required int index}) {
   return AlertDialog(
     backgroundColor: Colors.black,
     title: const Center(
       child: Text(
-        "ALERT !!",
+        'ALERT !!',
         style: TextStyle(color: Colors.red),
       ),
     ),
@@ -121,23 +125,23 @@ Widget deletePlaylist(
       padding: const EdgeInsets.only(top: 8.0).r,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Text(
-            "Do you want to delete",
+            'Do you want to delete',
             style: TextStyle(color: Colors.white, fontSize: 20.sp),
           ),
         ],
       ),
     ),
-    actions: [
+    actions: <Widget>[
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 1).r,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: <Widget>[
             TextButton(
               child: Text(
-                "Cancel",
+                'Cancel',
                 style: TextStyle(color: Colors.white, fontSize: 18.sp),
               ),
               onPressed: () {
@@ -146,7 +150,7 @@ Widget deletePlaylist(
             ),
             TextButton(
               child: Text(
-                "Yes",
+                'Yes',
                 style: TextStyle(color: Colors.white, fontSize: 18.sp),
               ),
               onPressed: () {

@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/main.dart';
-import 'package:music/model/musicdb.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+import '../../controller/getx/music_controller.dart';
+import '../../main.dart';
+import '../../model/musicdb.dart';
+import '../splashscreen/splashscreen.dart';
 
 // ignore: must_be_immutable
 class AddsongsToPlaylist extends StatelessWidget {
   AddsongsToPlaylist({
-    Key? key,
+    super.key,
     required this.playListName,
-  }) : super(key: key);
+  });
   final String playListName;
-  List<Songs> playlistSongs = [];
+  List<Songs> playlistSongs = <Songs>[];
 
   @override
   Widget build(BuildContext context) {
-    // log("checking");
     playlistSongs = box.get(playListName)!.cast<Songs>();
     return GetBuilder<MusicController>(
       init: MusicController(),
@@ -48,7 +47,7 @@ class AddsongsToPlaylist extends StatelessWidget {
                   ),
                 ),
                 trailing: playlistSongs
-                        .where((element) =>
+                        .where((Songs element) =>
                             element.id.toString() ==
                             dbSongs[index].id.toString())
                         .isEmpty

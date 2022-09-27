@@ -142,7 +142,6 @@ class SplashScreen extends StatelessWidget {
           ),
         )
         .toList();
-    // log('${allSongs.length} this is all songs');
     box.put('mymusic', allSongs);
     dbSongs = box.get('mymusic')! as List<Songs>;
     fullSongs.clear();

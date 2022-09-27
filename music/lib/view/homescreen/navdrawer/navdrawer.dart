@@ -3,12 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-
 import '../../../controller/getx/music_controller.dart';
 import '../../splashscreen/splashscreen.dart';
 import '../../widget/ratemyapp.dart';
 
-// ignore: must_be_immutable
 class Navdrawer extends StatelessWidget {
   const Navdrawer({super.key});
 
@@ -66,12 +64,6 @@ class Navdrawer extends StatelessWidget {
                     onChanged: (bool value) {
                       switchController.isSwitchedToggle(value);
                       audioPlayer.showNotification = value;
-                      // setState(
-                      //   () {
-                      //     isSwitched = value;
-                      //     audioPlayer.showNotification = value;
-                      //   },
-                      // );
                     },
                     activeTrackColor: Colors.white,
                     activeColor: const Color(0xFF911BEE),
@@ -81,7 +73,6 @@ class Navdrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                // rateMyApp(context);
                 showDialog(
                   context: context,
                   builder: (BuildContext ctx) {
@@ -220,7 +211,7 @@ class Navdrawer extends StatelessWidget {
                   ),
                   applicationName: 'ΜΟΥΣΙΚΗ',
                   applicationVersion: '1.0.0+1',
-                  children: [
+                  children: <Widget>[
                     Text(
                       'ΜΟΥΣΙΚΗ is an Offline Music Player created by JIYAD AHAMMAD',
                       style: TextStyle(fontSize: 18.sp),

@@ -1,23 +1,22 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:music/view/Playlist/playlistitem.dart';
-import 'package:music/view/Playlist/createplaylist.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
-
 import '../../model/musicdb.dart';
+import '../Playlist/createplaylist.dart';
+import '../Playlist/playlistitem.dart';
+import '../splashscreen/splashscreen.dart';
 
 Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
   // realtimePlayingInfos.isPlaying?isRotate=true:isRotate=false;
   return Column(
-    children: [
+    children: <Widget>[
       SizedBox(
         height: 5.h,
       ),
       slider(realtimePlayingInfos),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+        children: <Widget>[
           getTimeText(
             realtimePlayingInfos.currentPosition,
           ),
@@ -28,7 +27,7 @@ Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: <Widget>[
           IconButton(
             onPressed: () {
               audioPlayer.previous();
@@ -90,16 +89,16 @@ Widget getTimeText(Duration currentValue) {
 }
 
 String transformingString(int seconds) {
-  String minuteString =
+  final String minuteString =
       '${(seconds / 60).floor() < 10 ? 0 : ''}${(seconds / 60).floor()}';
-  String secondString =
+  final String secondString =
       '${(seconds % 60).floor() < 10 ? 0 : ''}${(seconds % 60).floor()}';
   return '$minuteString:$secondString';
 }
 
 Widget slider(RealtimePlayingInfos realtimePlayingInfos) {
   return Stack(
-    children: [
+    children: <Widget>[
       SliderTheme(
         data: const SliderThemeData(
           thumbColor: Colors.white,
@@ -110,13 +109,10 @@ Widget slider(RealtimePlayingInfos realtimePlayingInfos) {
         child: Slider.adaptive(
           value: realtimePlayingInfos.currentPosition.inSeconds.toDouble(),
           max: realtimePlayingInfos.duration.inSeconds.toDouble(),
-          min: 0,
-          onChanged: (value) {
+          onChanged: (double value) {
             if (value <= 0) {
               audioPlayer.seek(
-                const Duration(
-                  seconds: 0,
-                ),
+                Duration.zero,
               );
             } else if (value >= realtimePlayingInfos.duration.inSeconds) {
               audioPlayer.seek(realtimePlayingInfos.duration);
@@ -134,19 +130,18 @@ Widget slider(RealtimePlayingInfos realtimePlayingInfos) {
   );
 }
 
-playlistshowbottomsheet(
+Future<dynamic> playlistshowbottomsheet(
     {required BuildContext context,
     required Songs playlistNames,
-    required currentplaysong}) {
+    required dynamic currentplaysong}) {
   return showModalBottomSheet(
-    // flotingactionbuttom(),
     context: context,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         top: const Radius.circular(30).r,
       ),
     ),
-    builder: (ctx) {
+    builder: (BuildContext ctx) {
       return Container(
         height: 350.h,
         decoration: BoxDecoration(
@@ -155,14 +150,14 @@ playlistshowbottomsheet(
             topRight: const Radius.circular(30).r,
           ),
           gradient: const RadialGradient(
-            colors: [
+            colors: <Color>[
               Color(0xFF911BEE),
               Color(0xFF4D0089),
             ],
           ),
         ),
         child: Column(
-          children: [
+          children: <Widget>[
             CircleAvatar(
               radius: 30.r,
               backgroundColor: Colors.black,
@@ -184,10 +179,10 @@ playlistshowbottomsheet(
             ),
             ListView(
               shrinkWrap: true,
-              children: [
+              children: <Widget>[
                 PlaylistItem(
                   song: playlistNames,
-                  countsong: "song",
+                  countsong: 'song',
                 )
               ],
             ),

@@ -3,49 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/main.dart';
-import 'package:music/view/favouritescreen/favouriteicon.dart';
-import 'package:music/view/favouritescreen/favouritescreen.dart';
-import 'package:music/view/homescreen/navbar/navbar.dart';
-import 'package:music/view/nowplayingscreen/widget.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+import '../../controller/getx/music_controller.dart';
+import '../../main.dart';
+import '../../model/musicdb.dart';
+import '../favouritescreen/favouriteicon.dart';
+import '../favouritescreen/favouritescreen.dart';
+import '../homescreen/navbar/navbar.dart';
+import '../splashscreen/splashscreen.dart';
+import 'widget.dart';
 
 class MusicPlaySceeen extends StatelessWidget {
-  List<Audio>? allSongs = [];
-  final int? index;
-  final String? songId;
   MusicPlaySceeen({
-    Key? key,
+    super.key,
     this.songId,
     this.allSongs,
     this.index,
-  }) : super(key: key);
-
-  // with TickerProviderStateMixin {
+  });
+  List<Audio>? allSongs = <Audio>[];
+  final int? index;
+  final String? songId;
   bool isRotate = true;
-
   List<dynamic> playlist = <dynamic>[];
   List<dynamic> playlistSongs = <dynamic>[];
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   animationController = AnimationController(
-  //     vsync: this,
-  //     duration: const Duration(seconds: 7),
-  //   );
-  //   animationController.repeat();
-  //   isRotate = true;
-  // }
 
   @override
   Widget build(BuildContext context) {
-    final playlistName = databaseSongs(dbSongs, songId!);
+    final Songs playlistName = databaseSongs(dbSongs, songId!);
     // log(dbsongs.toString());
     return Container(
       decoration: const BoxDecoration(
         gradient: RadialGradient(
-          colors: [
+          colors: <Color>[
             Color(0xFF911BEE),
             Color(0xFF4D0089),
           ],
@@ -71,22 +59,20 @@ class MusicPlaySceeen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: audioPlayer.builderCurrent(
-            builder: (context, Playing? playing) {
-              final myAudio = find(allSongs!, playing!.audio.audio.path);
-              final currentSong = dbSongs.firstWhere((element) =>
+            builder: (BuildContext context, Playing? playing) {
+              final Audio myAudio = find(allSongs!, playing!.audio.audio.path);
+              final Songs currentSong = dbSongs.firstWhere((Songs element) =>
                   element.id.toString() == myAudio.metas.id.toString());
-              // final currentsong = dbsongs!.firstWhere((e)=>e.id.toString() == myAudio.metas.id.toString());
-              // log(currentsong.toString());
               return Padding(
                 padding: EdgeInsets.only(top: 50.h, left: 25.w, right: 25.w),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     AnimatedBuilder(
                       animation: musicController.animationController,
                       child: Image.asset(
                         'assets/img/musiclogo.png',
                       ),
-                      builder: (context, child) {
+                      builder: (BuildContext context, Widget? child) {
                         return Transform.rotate(
                           angle:
                               musicController.animationController.value * 6.3,
@@ -97,13 +83,12 @@ class MusicPlaySceeen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(top: 30.h),
                       child: Column(
-                        children: [
+                        children: <Widget>[
                           SizedBox(
                             height: 50.h,
                             width: 250.w,
                             child: Marquee(
                               blankSpace: 50.w.h,
-                              startAfter: Duration.zero,
                               velocity: 60,
                               text: myAudio.metas.title!,
                               style: TextStyle(
@@ -129,7 +114,7 @@ class MusicPlaySceeen extends StatelessWidget {
                       padding: EdgeInsets.only(top: 30.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: <Widget>[
                           GetBuilder<MusicController>(
                               init: MusicController(),
                               builder: (_) {
@@ -139,23 +124,11 @@ class MusicPlaySceeen extends StatelessWidget {
                                       audioPlayer.setLoopMode(LoopMode.single);
                                       musicController.isLoopmode(
                                           true, Colors.black);
-                                      // setState(
-                                      //   () {
-                                      //     isRepeate = true;
-                                      //     color = Colors.black;
-                                      //   },
-                                      // );
                                     } else {
                                       audioPlayer
                                           .setLoopMode(LoopMode.playlist);
                                       musicController.isLoopmode(
                                           false, Colors.white);
-                                      // setState(
-                                      //   () {
-                                      //     isRepeate = false;
-                                      //     color = Colors.white;
-                                      //   },
-                                      // );
                                     }
                                   },
                                   icon: Icon(
@@ -176,7 +149,6 @@ class MusicPlaySceeen extends StatelessWidget {
                                   context: context,
                                   playlistNames: playlistName,
                                   currentplaysong: currentSong);
-                              // addtoPlaylistinNowpalying(context: context);
                             },
                             icon: Icon(
                               Icons.queue_music_sharp,
@@ -189,7 +161,7 @@ class MusicPlaySceeen extends StatelessWidget {
                     ),
                     audioPlayer.builderRealtimePlayingInfos(
                       builder: (
-                        context,
+                        BuildContext context,
                         RealtimePlayingInfos realtimePlayingInfos,
                       ) {
                         return audioplayerUI(realtimePlayingInfos);
@@ -198,16 +170,6 @@ class MusicPlaySceeen extends StatelessWidget {
                     SizedBox(
                       height: 5.h,
                     ),
-                    //onwe comment to commit ;
-                    // if(audioPlayer.isPlaying==playing){
-                    //   isRotate=true;
-                    // }else{
-                    //   isRotate=false
-                    // }
-                    // slider(),
-                    // audioPlayer.isPlaying
-                    //     ? isRotate = true
-                    //     : isRotate = false,
                   ],
                 ),
               );
@@ -217,10 +179,4 @@ class MusicPlaySceeen extends StatelessWidget {
       ),
     );
   }
-
-  // @override
-  // void dispose() {
-  //   musicController.animationController.dispose();
-  //   super.dispose();
-  // }
 }

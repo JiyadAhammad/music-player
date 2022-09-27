@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/model/musicdb.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+
+import '../../model/musicdb.dart';
+import '../splashscreen/splashscreen.dart';
+
+List<dynamic> playlists = <dynamic>[];
+List<dynamic>? playlistSongs = <dynamic>[];
 
 class PlaylistItem extends StatelessWidget {
-  PlaylistItem({
+  const PlaylistItem({
     super.key,
     required this.song,
     required this.countsong,
   });
   final Songs song;
-  List<dynamic> playlists = <dynamic>[];
-  List<dynamic>? playlistSongs = <dynamic>[];
+
   final dynamic countsong;
 
   @override
   Widget build(BuildContext context) {
     playlists = box.keys.toList();
     return Column(
-      children: [
+      children: <Widget>[
         ...playlists
             .map(
-              (playlistName) => playlistName != "mymusic" &&
-                      playlistName != "favourites"
+              (dynamic playlistName) => playlistName != 'mymusic' &&
+                      playlistName != 'favourites'
                   ? Container(
                       decoration: BoxDecoration(
                           color: Colors.transparent,
@@ -31,14 +34,16 @@ class PlaylistItem extends StatelessWidget {
                       child: ListTile(
                         onTap: () async {
                           playlistSongs = box.get(playlistName);
-                          List existingSongs = [];
+                          List<dynamic> existingSongs = <dynamic>[];
                           existingSongs = playlistSongs!
-                              .where((element) =>
+                              .where((dynamic element) =>
                                   element.id.toString() == song.id.toString())
                               .toList();
                           if (existingSongs.isEmpty) {
-                            final temp = dbSongs.firstWhere((element) =>
-                                element.id.toString() == song.id.toString());
+                            final Songs temp = dbSongs.firstWhere(
+                                (Songs element) =>
+                                    element.id.toString() ==
+                                    song.id.toString());
                             playlistSongs?.add(temp);
                             await box.put(playlistName, playlistSongs!);
 

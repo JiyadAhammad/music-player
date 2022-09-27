@@ -2,7 +2,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../splashscreen/splashscreen.dart';
 import '../../widget/openplayer.dart';
 
@@ -161,7 +160,7 @@ class MySearch extends SearchDelegate<dynamic> {
 // search element
   @override
   Widget buildSuggestions(BuildContext context) {
-    final searched = fullSongs
+    final List<Audio> searched = fullSongs
         .toList()
         .where(
           (Audio element) => element.metas.title!.toLowerCase().contains(

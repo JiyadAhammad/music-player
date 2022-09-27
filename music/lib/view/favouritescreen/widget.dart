@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../main.dart';
-import '../../model/musicdb.dart';
 import '../homescreen/widget.dart';
 import '../splashscreen/splashscreen.dart';
 import 'favouritescreen.dart';
@@ -16,7 +14,6 @@ class FavPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // log("message on the build context");
     final dynamic temp = databaseSongs(dbSongs, songId);
     return PopupMenuButton<dynamic>(
       padding: EdgeInsets.zero,
