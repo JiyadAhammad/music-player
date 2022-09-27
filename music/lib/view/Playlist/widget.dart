@@ -7,7 +7,8 @@ import 'package:music/main.dart';
 import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-Widget updatePlaylist({required playlistName, required context}) {
+Widget updatePlaylist(
+    {required dynamic playlistName, required BuildContext context}) {
   String? title;
   return AlertDialog(
     backgroundColor: Colors.white,

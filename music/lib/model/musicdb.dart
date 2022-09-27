@@ -22,8 +22,8 @@ class Songs extends HiveObject {
 String boxname = 'songs';
 
 class StorageBox {
-  static Box<List<Songs>>? _box;
-  static Box<List<Songs>> getInstance() {
+  static Box<List<dynamic>>? _box;
+  static Box<List<dynamic>> getInstance() {
     return _box ?? Hive.box(boxname);
   }
 }

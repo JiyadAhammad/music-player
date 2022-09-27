@@ -15,7 +15,7 @@ class Addtofavourite extends StatelessWidget {
     // final songsinfav = databaseSongs(dbSongs,);
     // final temp = databaseSongs(dbSongs,);
     // songsinfav = box.get("favourites");
-    final List<Songs> songinfav = box.get('favourites')! as List<Songs>;
+    final List<dynamic> songinfav = box.get('favourites')!;
     return ListView.builder(
       itemCount: dbSongs.length,
       itemBuilder: (BuildContext context, int index) {
@@ -46,7 +46,7 @@ class Addtofavourite extends StatelessWidget {
               init: MusicController(),
               builder: (MusicController favouController) {
                 return songinfav
-                        .where((Songs element) =>
+                        .where((dynamic element) =>
                             element.id.toString() ==
                             dbSongs[index].id.toString())
                         .isEmpty

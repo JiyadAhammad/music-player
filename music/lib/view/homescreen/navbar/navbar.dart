@@ -18,7 +18,7 @@ class NavBar extends StatelessWidget {
   // int currentSelectedIndex = 1;
 
   final List<StatelessWidget> navbarpages = <StatelessWidget>[
-    FavouriteMusicScreen(),
+    const FavouriteMusicScreen(),
     const HomeScreen(),
     const PlayListScreen()
   ];

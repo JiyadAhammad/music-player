@@ -17,7 +17,7 @@ class FavPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // log("message on the build context");
-    final Songs temp = databaseSongs(dbSongs, songId);
+    final dynamic temp = databaseSongs(dbSongs, songId);
     return PopupMenuButton<dynamic>(
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
@@ -33,11 +33,11 @@ class FavPopup extends StatelessWidget {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
         if (favourites!
             .where(
-                (Songs element) => element.id.toString() == temp.id.toString())
+                (dynamic element) => element.id.toString() == temp.id.toString())
             .isEmpty)
           PopupMenuItem<dynamic>(
             onTap: () {
-              musicController.addToFavoutire(temp);
+              musicController.addToFavoutire( temp);
             },
             child: const Text(
               'Add to Favourite',

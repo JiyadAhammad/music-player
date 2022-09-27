@@ -1,9 +1,9 @@
 import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../controller/getx/music_controller.dart';
 import '../../model/musicdb.dart';
 import '../homescreen/navbar/navbar.dart';
@@ -12,12 +12,14 @@ import '../widget/openplayer.dart';
 import 'addtofavoutie.dart';
 import 'widget.dart';
 
+List<dynamic>? favouritesSongs = <dynamic>[];
+
 class FavouriteMusicScreen extends StatelessWidget {
-  FavouriteMusicScreen({super.key});
-  final List<Songs> favouritesSongs = <Songs>[];
+  const FavouriteMusicScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    favouritesSongs = box.get('favourites');
     return Container(
       decoration: backgrounColor(),
       child: Scaffold(
@@ -67,14 +69,12 @@ class FavouriteMusicScreen extends StatelessWidget {
         body: GetBuilder<MusicController>(
           init: MusicController(),
           builder: (MusicController favController) {
-            final List<Songs> favouritesSongs =
-                box.get('favourites')! as List<Songs>;
-             final List<Audio> favSong = <Audio>[];
+            final List<Audio> favSong = <Audio>[];
 
-            for (final Songs item in favouritesSongs) {
+            for (final dynamic item in favouritesSongs!) {
               favSong.add(
                 Audio.file(
-                  item.path!,
+                  item.path!.toString(),
                   metas: Metas(
                     id: item.id.toString(),
                     artist: item.artist.toString(),
@@ -83,7 +83,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                 ),
               );
             }
-            return favouritesSongs.isEmpty
+            return favouritesSongs!.isEmpty
                 ? SizedBox(
                     child: Center(
                       child: Text(
@@ -100,7 +100,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: favouritesSongs.length,
+                      itemCount: favouritesSongs!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
                           shape: RoundedRectangleBorder(
@@ -124,8 +124,10 @@ class FavouriteMusicScreen extends StatelessWidget {
                                   fullSongs: favSong,
                                   index: index,
                                   songId: favSong[index].metas.id.toString(),
-                                ).openAssetPlayer(index: index, songs: favSong);
-                                log('$favSong favourite song');
+                                ).openAssetPlayer(
+                                  index: index,
+                                  songs: favSong,
+                                );
                               },
                               leading: const CircleAvatar(
                                 child: Icon(
@@ -138,7 +140,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                         left: 5.0, bottom: 3, top: 3)
                                     .r,
                                 child: Text(
-                                  favouritesSongs[index].songname.toString(),
+                                  favouritesSongs![index].songname.toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -148,7 +150,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                 ),
                               ),
                               subtitle: Text(
-                                favouritesSongs[index].artist.toString(),
+                                favouritesSongs![index].artist.toString(),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -158,7 +160,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                               trailing: SizedBox(
                                 width: 25,
                                 child: FavPopup(
-                                  songId: favouritesSongs[index].id.toString(),
+                                  songId: favouritesSongs![index].id.toString(),
                                   // context: context),
                                 ),
                               ),

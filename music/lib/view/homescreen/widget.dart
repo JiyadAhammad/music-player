@@ -9,7 +9,7 @@ import '../favouritescreen/favouritescreen.dart';
 import '../nowplayingscreen/widget.dart';
 import '../splashscreen/splashscreen.dart';
 
-List<Songs>? favourites = box.get('favourites')! as List<Songs>;
+List<dynamic>? favourites = box.get('favourites');
 
 Widget popup({required String songId, required BuildContext context}) {
   final Songs temp = databaseSongs(dbSongs, songId);
@@ -30,7 +30,7 @@ Widget popup({required String songId, required BuildContext context}) {
         ),
         itemBuilder: (_) => <PopupMenuEntry<String>>[
           if (favourites!
-              .where((Songs element) =>
+              .where((dynamic element) =>
                   element.id.toString() == temp.id.toString())
               .isEmpty)
             PopupMenuItem<String>(

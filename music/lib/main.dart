@@ -12,11 +12,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(SongsAdapter());
-  await Hive.openBox<List<Songs>>(boxname);
+  await Hive.openBox<List<dynamic>>(boxname);
   final List<dynamic> favKey = box.keys.toList();
   if (!favKey.contains('favourites')) {
-    final List<Songs> favouritesSongs = <Songs>[];
-    await box.put('favourites', favouritesSongs);
+    final List<dynamic> favouritesSong = <dynamic>[];
+    await box.put('favourites', favouritesSong);
   }
 
   runApp(const MyApp());
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.deepPurple,
           ),
-          home: SplashScreen(),
+          home: const SplashScreen(),
         );
       },
     );

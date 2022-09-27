@@ -25,8 +25,8 @@ class MusicPlaySceeen extends StatelessWidget {
   // with TickerProviderStateMixin {
   bool isRotate = true;
 
-  List playlist = [];
-  List<dynamic> playlistSongs = [];
+  List<dynamic> playlist = <dynamic>[];
+  List<dynamic> playlistSongs = <dynamic>[];
   // @override
   // void initState() {
   //   super.initState();

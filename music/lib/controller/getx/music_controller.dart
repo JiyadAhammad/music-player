@@ -52,15 +52,15 @@ class MusicController extends GetxController
     update();
   }
 
-  Future<void> addToFavoutire(Songs temp) async {
+  Future<void> addToFavoutire(dynamic temp) async {
     favourites!.add(temp);
     await box.put('favourites', favourites!);
     update();
   }
 
-  Future<void> removeFromFavourite(Songs temp) async {
+  Future<void> removeFromFavourite(dynamic temp) async {
     favourites!.removeWhere(
-      (element) => element.id.toString() == temp.id.toString(),
+      (dynamic item) => item.id.toString() == temp.id.toString(),
     );
     await box.put('favourites', favourites!);
     update();
@@ -71,7 +71,7 @@ class MusicController extends GetxController
     int index,
   ) async {
     songinfav.removeWhere(
-      (elemet) => elemet.id.toString() == dbSongs[index].id.toString(),
+      (dynamic elemet) => elemet.id.toString() == dbSongs[index].id.toString(),
     );
 
     await box.put('favourites', songinfav);
@@ -92,19 +92,19 @@ class MusicController extends GetxController
     Songs fav,
   ) async {
     favouritesSong.removeWhere(
-      (element) => element.id.toString() == fav.id.toString(),
+      (dynamic item) => item.id.toString() == fav.id.toString(),
     );
     box.put('favourites', favouritesSong);
     update();
   }
 
-  playListNameCreate(String value, List keys) {
+  dynamic playListNameCreate(String value, List<dynamic> keys) {
     if (value.trim() == '') {
       return 'Name Required';
     }
     if (keys
         .where(
-          (element) => element == value.trim(),
+          (dynamic item) => item == value.trim(),
         )
         .isNotEmpty) {
       return 'This Name Already Exist';
@@ -113,7 +113,7 @@ class MusicController extends GetxController
     update();
   }
 
-  playListNameEdit(String value) {
+  dynamic playListNameEdit(String value) {
     if (value.trim() == '') {
       return 'Name Required';
     }
@@ -154,8 +154,8 @@ class MusicController extends GetxController
 
   Future<void> deletePlayListMusicFromBottomSheet(
       List<Songs> playlistSongs, int index, String playListName) async {
-    playlistSongs.removeWhere(
-        (element) => element.id.toString() == dbSongs[index].id.toString());
+    playlistSongs.removeWhere((Songs element) =>
+        element.id.toString() == dbSongs[index].id.toString());
     await box.put(playListName, playlistSongs);
     update();
   }
