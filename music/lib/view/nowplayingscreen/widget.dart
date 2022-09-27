@@ -5,6 +5,8 @@ import 'package:music/view/Playlist/playlistitem.dart';
 import 'package:music/view/Playlist/createplaylist.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
+import '../../model/musicdb.dart';
+
 Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
   // realtimePlayingInfos.isPlaying?isRotate=true:isRotate=false;
   return Column(
@@ -134,7 +136,7 @@ Widget slider(RealtimePlayingInfos realtimePlayingInfos) {
 
 playlistshowbottomsheet(
     {required BuildContext context,
-    required playlistNames,
+    required Songs playlistNames,
     required currentplaysong}) {
   return showModalBottomSheet(
     // flotingactionbuttom(),

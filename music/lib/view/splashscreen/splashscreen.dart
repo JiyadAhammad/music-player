@@ -20,11 +20,11 @@ List<MusicListData> songlist2 = <MusicListData>[];
 List<Songs> allSongs = <Songs>[];
 
 class SplashScreen extends StatelessWidget {
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   static const MethodChannel _platform =
       MethodChannel('search_files_in_storage/search');
-  bool value = false;
+  // final bool value = false;
   @override
   Widget build(BuildContext context) {
     splashFetch();
@@ -104,42 +104,24 @@ class SplashScreen extends StatelessWidget {
 
     if (await isPermission.isGranted) {
       await access.isGranted && await store.isGranted;
-      log('permission granted');
       return true;
     } else {
       final PermissionStatus result = await store.request();
       final PermissionStatus oneresult = await access.request();
-      log('permission request ');
 
       if (result == PermissionStatus.limited &&
           oneresult == PermissionStatus.limited) {
-        log('permission status granted ');
-
         return true;
       } else {
-        log('permission denied ');
-
         return false;
       }
-      // }
-
     }
   }
 
-  // @override
-  // void initState() {
-  //   splashFetch();
-
-  //   super.initState();
-  // }
-
   Future<void> mSplash() async {
-    await Future<dynamic>.delayed(const Duration(seconds: 5));
-
-    // ignore: use_build_context_synchronously
-    // Navigator.of(context).pushReplacement(
-    //   MaterialPageRoute(builder: (ctx) =>  NavBar()),
-    // );
+    await Future<dynamic>.delayed(
+      const Duration(seconds: 5),
+    );
     Get.to(
       () => NavBar(),
     );
@@ -147,12 +129,10 @@ class SplashScreen extends StatelessWidget {
 
   Future<void> onSuccess(String audioListFromStorage) async {
     final dynamic valueMap = jsonDecode(audioListFromStorage);
-    // // final a = MusicListData.fromJson(valueMap);
     final List<dynamic> songlist = valueMap as List<dynamic>;
     songlist2 = songlist.map((dynamic e) {
       return MusicListData.fromJson(e as Map<String, dynamic>);
     }).toList();
-    // log('$songlist2 this is map ');
     allSongs = songlist2
         .map(
           (MusicListData music) => Songs(
@@ -165,8 +145,8 @@ class SplashScreen extends StatelessWidget {
         .toList();
     // log('${allSongs.length} this is all songs');
     box.put('mymusic', allSongs);
-    final List<Songs> dbSongs = box.get('mymusic')! as List<Songs>;
-    log('${dbSongs.length} this is all dbsongs');
+    dbSongs = box.get('mymusic')! as List<Songs>;
+    fullSongs.clear();
     for (final Songs element in dbSongs) {
       fullSongs.add(
         Audio.file(
@@ -179,8 +159,6 @@ class SplashScreen extends StatelessWidget {
         ),
       );
     }
-    // log('$fullSongs this is songs fetch from storage');
-    // log('${fullSongs.length} this is songs fetch from storage');
   }
 }
 

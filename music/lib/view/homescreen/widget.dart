@@ -1,9 +1,9 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../controller/getx/music_controller.dart';
+import '../../main.dart';
 import '../../model/musicdb.dart';
 import '../favouritescreen/favouritescreen.dart';
 import '../nowplayingscreen/widget.dart';
@@ -28,15 +28,15 @@ Widget popup({required String songId, required BuildContext context}) {
           Icons.more_vert,
           color: Colors.white,
         ),
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
+        itemBuilder: (_) => <PopupMenuEntry<String>>[
           if (favourites!
               .where((Songs element) =>
                   element.id.toString() == temp.id.toString())
               .isEmpty)
-            PopupMenuItem<dynamic>(
-              onTap: () async {
+            PopupMenuItem<String>(
+              onTap: () {
                 // musicController.addToFavoutire(temp);
-                favouriteController.addToFavoutire(temp);
+                musicController.addToFavoutire(temp);
               },
               child: const Text(
                 'Add to Favourite',
@@ -44,9 +44,9 @@ Widget popup({required String songId, required BuildContext context}) {
               ),
             )
           else
-            PopupMenuItem<dynamic>(
+            PopupMenuItem<String>(
               onTap: () async {
-                // musicController.removeFromFavourite(temp);
+                musicController.removeFromFavourite(temp);
               },
               child: const Text(
                 'Remove From Favourites',
@@ -55,8 +55,8 @@ Widget popup({required String songId, required BuildContext context}) {
                 ),
               ),
             ),
-          const PopupMenuItem<dynamic>(
-            value: 1,
+          const PopupMenuItem<String>(
+            value: '1',
             child: Text(
               'Add to Playlist',
               style: TextStyle(
@@ -66,7 +66,7 @@ Widget popup({required String songId, required BuildContext context}) {
           ),
         ],
         onSelected: (dynamic value) {
-          if (value == 1) {
+          if (value == '1') {
             playlistshowbottomsheet(
               context: context,
               playlistNames: temp,

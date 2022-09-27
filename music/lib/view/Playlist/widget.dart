@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -21,7 +23,7 @@ Widget updatePlaylist({required playlistName, required context}) {
     content: Form(
       key: formKey,
       child: TextFormField(
-          initialValue: playlistName,
+          initialValue: playlistName.toString(),
           style: const TextStyle(color: Colors.black),
           onChanged: (value) {
             title = value.trim();
@@ -105,7 +107,7 @@ Widget updatePlaylist({required playlistName, required context}) {
 }
 
 Widget deletePlaylist(
-    {required context, required playlistsName, required index}) {
+    {required context, required playlistsName, required int index}) {
   return AlertDialog(
     backgroundColor: Colors.black,
     title: const Center(

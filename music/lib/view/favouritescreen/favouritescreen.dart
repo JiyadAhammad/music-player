@@ -69,7 +69,7 @@ class FavouriteMusicScreen extends StatelessWidget {
           builder: (MusicController favController) {
             final List<Songs> favouritesSongs =
                 box.get('favourites')! as List<Songs>;
-             List<Audio> favSong = <Audio>[];
+             final List<Audio> favSong = <Audio>[];
 
             for (final Songs item in favouritesSongs) {
               favSong.add(

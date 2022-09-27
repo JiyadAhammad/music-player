@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/model/musicdb.dart';
+import '../../model/musicdb.dart';
 import 'package:music/view/Playlist/playlist.dart';
 import 'package:music/view/eachplaylistscreen/widget.dart';
 import 'package:music/view/nowplayingscreen/musicplayscreen.dart';
@@ -20,7 +20,7 @@ class EachPlayList extends StatelessWidget {
     required this.playlistnameId,
   }) : super(key: key);
 
-  List<Songs> playlistSongs = [];
+  List<Songs> playlistSongs = <Songs>[];
   List<Audio> finalaudioPLayLIst = [];
 
   @override
@@ -238,7 +238,7 @@ class EachPlayList extends StatelessWidget {
     );
   }
 
-  void streamFunction(index, finalplaylist) {
+  void streamFunction(int index,List<Audio> finalplaylist) {
     audioPlayer.current.listen((event) {
       if (event!.playlist.currentIndex != index) {
         audioPlayer.isPlaying;
@@ -270,7 +270,7 @@ class EachPlayList extends StatelessWidget {
     });
   }
 
-  List<Audio> playlistconvertintoAudio(afterDeleteplaylist) {
+  List<Audio> playlistconvertintoAudio( List<Audio> afterDeleteplaylist) {
     for (var item in playlistSongs) {
       afterDeleteplaylist.add(
         Audio.file(

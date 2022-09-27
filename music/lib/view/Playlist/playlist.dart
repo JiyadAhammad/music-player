@@ -8,9 +8,11 @@ import 'package:music/view/eachplaylistscreen/eachplaylistscreen.dart';
 import 'package:music/view/homescreen/navbar/navbar.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
+import '../../model/musicdb.dart';
+
 final GlobalKey<FormState> formKey = GlobalKey();
-var palyListNameValidate = '';
-final nameController = TextEditingController();
+String palyListNameValidate = '';
+final TextEditingController nameController = TextEditingController();
 
 class PlayListScreen extends StatelessWidget {
   const PlayListScreen({Key? key}) : super(key: key);
@@ -40,7 +42,7 @@ class PlayListScreen extends StatelessWidget {
         body: GetBuilder<MusicController>(
           init: MusicController(),
           builder: (_) {
-            var playlistName = box.keys.toList();
+            List<dynamic> playlistName = box.keys.toList();
 
             return playlistName.length == 2
                 ? Center(
@@ -59,11 +61,11 @@ class PlayListScreen extends StatelessWidget {
                       childAspectRatio: 4 / 3,
                     ),
                     itemCount: playlistName.length - 2,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
                       playlistName.removeWhere(
-                          (element) => element.contains('favourites'));
+                          (dynamic element) => element == 'favourites');
                       playlistName.removeWhere(
-                          (element) => element.contains('mymusic'));
+                          (dynamic element) => element == 'mymusic');
                       // var playlistSongs = box.get(playlistName[index]);
                       // return playlistName[index] != "mymusic" &&
                       //         playlistName[index] != "favourites"
@@ -73,7 +75,7 @@ class PlayListScreen extends StatelessWidget {
                           onTap: () {
                             Get.to(
                               () => EachPlayList(
-                                playlistnameId: playlistName[index],
+                                playlistnameId: playlistName[index].toString(),
                               ),
                             );
                           },
@@ -111,7 +113,7 @@ class PlayListScreen extends StatelessWidget {
                                   Icons.more_vert,
                                   color: Colors.white,
                                 ),
-                                itemBuilder: (_) => <PopupMenuItem<String>>[
+                                itemBuilder: (_) => <PopupMenuEntry<String>>[
                                   PopupMenuItem<String>(
                                     onTap: () {},
                                     value: 'rename',
@@ -149,7 +151,7 @@ class PlayListScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                                onSelected: (selected) {
+                                onSelected: (Object? selected) {
                                   if (selected == 'delete') {
                                     showDialog(
                                       context: context,
