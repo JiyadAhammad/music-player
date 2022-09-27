@@ -4,17 +4,16 @@ import 'package:get/get.dart';
 import 'package:music/model/musicdb.dart';
 import 'package:music/view/splashscreen/splashscreen.dart';
 
-// ignore: must_be_immutable
 class PlaylistItem extends StatelessWidget {
-  Songs song;
-  List playlists = [];
-  List<dynamic>? playlistSongs = [];
-  final dynamic countsong;
   PlaylistItem({
-    Key? key,
+    super.key,
     required this.song,
     required this.countsong,
-  }) : super(key: key);
+  });
+  final Songs song;
+  List<dynamic> playlists = <dynamic>[];
+  List<dynamic>? playlistSongs = <dynamic>[];
+  final dynamic countsong;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +87,7 @@ class PlaylistItem extends StatelessWidget {
                         subtitle: Padding(
                           padding: const EdgeInsets.only(left: 3.0).r,
                           child: Text(
-                            countsong,
+                            countsong.toString(),
                             style: const TextStyle(
                               color: Colors.white,
                             ),

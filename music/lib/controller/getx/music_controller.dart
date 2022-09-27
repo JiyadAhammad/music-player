@@ -2,9 +2,10 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music/model/musicdb.dart';
-import 'package:music/view/homescreen/widget.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+
+import '../../model/musicdb.dart';
+import '../../view/homescreen/widget.dart';
+import '../../view/splashscreen/splashscreen.dart';
 
 class MusicController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -53,7 +54,7 @@ class MusicController extends GetxController
 
   Future<void> addToFavoutire(Songs temp) async {
     favourites!.add(temp);
-    await box.put("favourites", favourites!);
+    await box.put('favourites', favourites!);
     update();
   }
 
@@ -61,12 +62,12 @@ class MusicController extends GetxController
     favourites!.removeWhere(
       (element) => element.id.toString() == temp.id.toString(),
     );
-    await box.put("favourites", favourites!);
+    await box.put('favourites', favourites!);
     update();
   }
 
   Future<void> removeFavouriteBottomSheet(
-    dynamic songinfav,
+    List<dynamic> songinfav,
     int index,
   ) async {
     songinfav.removeWhere(
@@ -78,43 +79,43 @@ class MusicController extends GetxController
   }
 
   Future<void> onFavIconclicktoAdd(
-    dynamic favouritesSong,
+    List<dynamic> favouritesSong,
     Songs fav,
   ) async {
     favouritesSong.add(fav);
-    box.put("favourites", favouritesSong);
+    box.put('favourites', favouritesSong);
     update();
   }
 
   Future<void> onFavIconclicktoRemove(
-    dynamic favouritesSong,
+    List<dynamic> favouritesSong,
     Songs fav,
   ) async {
     favouritesSong.removeWhere(
       (element) => element.id.toString() == fav.id.toString(),
     );
-    box.put("favourites", favouritesSong);
+    box.put('favourites', favouritesSong);
     update();
   }
 
   playListNameCreate(String value, List keys) {
-    if (value.trim() == "") {
-      return "Name Required";
+    if (value.trim() == '') {
+      return 'Name Required';
     }
     if (keys
         .where(
           (element) => element == value.trim(),
         )
         .isNotEmpty) {
-      return "This Name Already Exist";
+      return 'This Name Already Exist';
     }
 
     update();
   }
 
   playListNameEdit(String value) {
-    if (value.trim() == "") {
-      return "Name Required";
+    if (value.trim() == '') {
+      return 'Name Required';
     }
 
     update();

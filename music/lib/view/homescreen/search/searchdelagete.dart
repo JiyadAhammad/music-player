@@ -1,13 +1,15 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
-import 'package:music/view/widget/openplayer.dart';
 
-class MySearch extends SearchDelegate {
+import '../../splashscreen/splashscreen.dart';
+import '../../widget/openplayer.dart';
+
+class MySearch extends SearchDelegate<dynamic> {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [
+    return <Widget>[
       IconButton(
         onPressed: () {
           if (query.isEmpty) {
@@ -64,10 +66,10 @@ class MySearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    final searched = fullSongs
+    final List<Audio> searched = fullSongs
         .toList()
         .where(
-          (element) => element.metas.title!.toLowerCase().contains(
+          (Audio element) => element.metas.title!.toLowerCase().contains(
                 query.toLowerCase(),
               ),
         )
@@ -78,7 +80,7 @@ class MySearch extends SearchDelegate {
       body: searched.isEmpty
           ? const Center(
               child: Text(
-                "No Search Result !",
+                'No Search Result !',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -90,67 +92,68 @@ class MySearch extends SearchDelegate {
                 vertical: 15,
               ).r,
               child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15).r,
-                      ),
-                      child: ListTile(
-                        onTap: (() async {
-                          Get.back();
-                          await Openplayer(
-                            fullSongs: searched,
-                            index: index,
-                            songId: int.parse(
-                              searched[index].metas.id!,
-                            ).toString(),
-                          ).openAssetPlayer(
-                            index: index,
-                            songs: searched,
-                          );
-                        }),
-                        title: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 5.0,
-                            bottom: 3,
-                            top: 3,
-                          ).r,
-                          child: Text(
-                            searched[index].metas.title!,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                        ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 7.0,
-                          ).r,
-                          child: Text(
-                            fullSongs[index].metas.artist!,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                            ),
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15).r,
+                    ),
+                    child: ListTile(
+                      onTap: () async {
+                        Get.back();
+                        await Openplayer(
+                          fullSongs: searched,
+                          index: index,
+                          songId: int.parse(
+                            searched[index].metas.id!,
+                          ).toString(),
+                        ).openAssetPlayer(
+                          index: index,
+                          songs: searched,
+                        );
+                      },
+                      title: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 5.0,
+                          bottom: 3,
+                          top: 3,
+                        ).r,
+                        child: Text(
+                          searched[index].metas.title!,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.sp,
                           ),
                         ),
                       ),
-                    );
-                  },
-                  separatorBuilder: (
-                    context,
-                    index,
-                  ) {
-                    return SizedBox(
-                      height: 10.h,
-                    );
-                  },
-                  itemCount: searched.length),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 7.0,
+                        ).r,
+                        child: Text(
+                          fullSongs[index].metas.artist!,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (
+                  BuildContext context,
+                  int index,
+                ) {
+                  return SizedBox(
+                    height: 10.h,
+                  );
+                },
+                itemCount: searched.length,
+              ),
             ),
     );
   }
@@ -161,7 +164,7 @@ class MySearch extends SearchDelegate {
     final searched = fullSongs
         .toList()
         .where(
-          (element) => element.metas.title!.toLowerCase().contains(
+          (Audio element) => element.metas.title!.toLowerCase().contains(
                 query.toLowerCase(),
               ),
         )
@@ -172,7 +175,7 @@ class MySearch extends SearchDelegate {
       body: searched.isEmpty
           ? const Center(
               child: Text(
-                "No Search Result !",
+                'No Search Result !',
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -184,67 +187,68 @@ class MySearch extends SearchDelegate {
                 vertical: 15,
               ).r,
               child: ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15).r,
-                      ),
-                      child: ListTile(
-                        onTap: (() async {
-                          Get.back();
-                          await Openplayer(
-                            fullSongs: searched,
-                            index: index,
-                            songId: int.parse(
-                              searched[index].metas.id!,
-                            ).toString(),
-                          ).openAssetPlayer(
-                            index: index,
-                            songs: searched,
-                          );
-                        }),
-                        title: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 5.0,
-                            bottom: 3,
-                            top: 3,
-                          ).r,
-                          child: Text(
-                            searched[index].metas.title!,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18.sp,
-                            ),
-                          ),
-                        ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 7.0,
-                          ).r,
-                          child: Text(
-                            fullSongs[index].metas.artist!,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                            ),
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15).r,
+                    ),
+                    child: ListTile(
+                      onTap: () async {
+                        Get.back();
+                        await Openplayer(
+                          fullSongs: searched,
+                          index: index,
+                          songId: int.parse(
+                            searched[index].metas.id!,
+                          ).toString(),
+                        ).openAssetPlayer(
+                          index: index,
+                          songs: searched,
+                        );
+                      },
+                      title: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 5.0,
+                          bottom: 3,
+                          top: 3,
+                        ).r,
+                        child: Text(
+                          searched[index].metas.title!,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.sp,
                           ),
                         ),
                       ),
-                    );
-                  },
-                  separatorBuilder: (
-                    context,
-                    index,
-                  ) {
-                    return SizedBox(
-                      height: 10.h,
-                    );
-                  },
-                  itemCount: searched.length),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 7.0,
+                        ).r,
+                        child: Text(
+                          fullSongs[index].metas.artist!,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                separatorBuilder: (
+                  BuildContext context,
+                  int index,
+                ) {
+                  return SizedBox(
+                    height: 10.h,
+                  );
+                },
+                itemCount: searched.length,
+              ),
             ),
     );
   }

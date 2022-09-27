@@ -3,19 +3,18 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/main.dart';
-import 'package:music/model/musicdb.dart';
-// import 'package:hive_flutter/adapters.dart';
-import 'package:music/view/favouritescreen/addtofavoutie.dart';
-import 'package:music/view/favouritescreen/widget.dart';
-import 'package:music/view/homescreen/navbar/navbar.dart';
-// import 'package:music/screens/nowplayingscreen/musicplayscreen.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
-import 'package:music/view/widget/openplayer.dart';
+
+import '../../controller/getx/music_controller.dart';
+import '../../model/musicdb.dart';
+import '../homescreen/navbar/navbar.dart';
+import '../splashscreen/splashscreen.dart';
+import '../widget/openplayer.dart';
+import 'addtofavoutie.dart';
+import 'widget.dart';
 
 class FavouriteMusicScreen extends StatelessWidget {
-  const FavouriteMusicScreen({Key? key}) : super(key: key);
+  FavouriteMusicScreen({super.key});
+  final List<Songs> favouritesSongs = <Songs>[];
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class FavouriteMusicScreen extends StatelessWidget {
               Icons.arrow_back,
             ),
           ),
-          actions: [
+          actions: <Widget>[
             IconButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -53,7 +52,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                   ),
                   backgroundColor: Colors.deepPurple,
                   context: context,
-                  builder: (ctx) {
+                  builder: (BuildContext ctx) {
                     return SizedBox(
                       height: 350.h,
                       child: const Addtofavourite(),
@@ -67,18 +66,19 @@ class FavouriteMusicScreen extends StatelessWidget {
         ),
         body: GetBuilder<MusicController>(
           init: MusicController(),
-          builder: (favController) {
-            final favouritesSongs = box.get("favourites");
-            List<Audio> favSong = [];
+          builder: (MusicController favController) {
+            final List<Songs> favouritesSongs =
+                box.get('favourites')! as List<Songs>;
+             List<Audio> favSong = <Audio>[];
 
-            for (var item in favouritesSongs!) {
+            for (final Songs item in favouritesSongs) {
               favSong.add(
                 Audio.file(
-                  item.path,
+                  item.path!,
                   metas: Metas(
                     id: item.id.toString(),
-                    artist: item.artist,
-                    title: item.songname,
+                    artist: item.artist.toString(),
+                    title: item.songname.toString(),
                   ),
                 ),
               );
@@ -125,7 +125,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                   index: index,
                                   songId: favSong[index].metas.id.toString(),
                                 ).openAssetPlayer(index: index, songs: favSong);
-                                log("$favSong favourite song");
+                                log('$favSong favourite song');
                               },
                               leading: const CircleAvatar(
                                 child: Icon(
@@ -138,7 +138,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                         left: 5.0, bottom: 3, top: 3)
                                     .r,
                                 child: Text(
-                                  favouritesSongs[index].songname,
+                                  favouritesSongs[index].songname.toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     color: Colors.white,
@@ -148,7 +148,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                 ),
                               ),
                               subtitle: Text(
-                                favouritesSongs[index].artist,
+                                favouritesSongs[index].artist.toString(),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   color: Colors.white,
@@ -176,5 +176,6 @@ class FavouriteMusicScreen extends StatelessWidget {
 }
 
 Songs databaseSongs(List<Songs> songs, String id) {
-  return songs.firstWhere((element) => element.id.toString().contains(id));
+  return songs
+      .firstWhere((Songs element) => element.id.toString().contains(id));
 }

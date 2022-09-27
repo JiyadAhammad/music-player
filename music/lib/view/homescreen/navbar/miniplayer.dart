@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
-import 'package:music/main.dart';
-import 'package:music/view/homescreen/navbar/navbar.dart';
-import 'package:music/view/nowplayingscreen/musicplayscreen.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+
+import '../../nowplayingscreen/musicplayscreen.dart';
+import '../../splashscreen/splashscreen.dart';
+import 'navbar.dart';
 
 class MiniPlayer extends StatelessWidget {
-  const MiniPlayer({Key? key}) : super(key: key);
+  const MiniPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
     // return Container();
     return audioPlayer.builderCurrent(
       builder: (BuildContext context, Playing? playing) {
-        final myAudio = find(fullSongs, playing!.audio.assetAudioPath);
+        final Audio myAudio = find(
+          fullSongs,
+          playing!.audio.assetAudioPath,
+        );
         return Container(
           height: 60.h,
           decoration: BoxDecoration(
@@ -50,13 +53,12 @@ class MiniPlayer extends StatelessWidget {
                   color: Colors.white,
                 ),
                 velocity: 20,
-                startAfter: Duration.zero,
                 blankSpace: 100.w.h,
               ),
             ),
             trailing: PlayerBuilder.isPlaying(
               player: audioPlayer,
-              builder: (context, isPlaying) {
+              builder: (BuildContext context, bool isPlaying) {
                 return IconButton(
                   icon: Icon(
                     isPlaying ? Icons.pause_circle : Icons.play_circle,

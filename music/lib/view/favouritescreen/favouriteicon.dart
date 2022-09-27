@@ -3,28 +3,33 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/view/favouritescreen/favouritescreen.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+
+import '../../controller/getx/music_controller.dart';
+import '../../model/musicdb.dart';
+import '../splashscreen/splashscreen.dart';
+import 'favouritescreen.dart';
 
 class FavouriteIcon extends StatelessWidget {
+  const FavouriteIcon({
+    super.key,
+    required this.songId,
+  });
   final String songId;
-
-  const FavouriteIcon({Key? key, required this.songId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final favouritesSong = box.get("favourites");
-    final fav = databaseSongs(dbSongs, songId);
+    final List<Songs> favouritesSong = box.get('favourites')! as List<Songs>;
+    final Songs fav = databaseSongs(dbSongs, songId);
 
     return GetBuilder<MusicController>(
       init: MusicController(),
-      builder: (favIconController) {
-        return favouritesSong!
-                .where((element) => element.id.toString() == fav.id.toString())
+      builder: (MusicController favIconController) {
+        return favouritesSong
+                .where((Songs element) =>
+                    element.id.toString() == fav.id.toString())
                 .isEmpty
             ? IconButton(
-                onPressed: () async {
+                onPressed: () {
                   favIconController.onFavIconclicktoAdd(
                     favouritesSong,
                     fav,
@@ -37,7 +42,7 @@ class FavouriteIcon extends StatelessWidget {
                 ),
               )
             : IconButton(
-                onPressed: () async {
+                onPressed: () {
                   favIconController.onFavIconclicktoRemove(
                     favouritesSong,
                     fav,

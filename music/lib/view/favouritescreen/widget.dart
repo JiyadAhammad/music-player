@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:music/main.dart';
-import 'package:music/view/favouritescreen/favouritescreen.dart';
-import 'package:music/view/homescreen/widget.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
+
+import '../../main.dart';
+import '../../model/musicdb.dart';
+import '../homescreen/widget.dart';
+import '../splashscreen/splashscreen.dart';
+import 'favouritescreen.dart';
 
 class FavPopup extends StatelessWidget {
-  final dynamic songId;
-  const FavPopup({Key? key, required this.songId}) : super(key: key);
+  const FavPopup({
+    super.key,
+    required this.songId,
+  });
+  final String songId;
 
   @override
   Widget build(BuildContext context) {
     // log("message on the build context");
-    final temp = databaseSongs(dbSongs, songId);
-    return PopupMenuButton(
+    final Songs temp = databaseSongs(dbSongs, songId);
+    return PopupMenuButton<dynamic>(
       padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(
@@ -25,36 +30,32 @@ class FavPopup extends StatelessWidget {
         Icons.more_vert,
         color: Colors.white,
       ),
-      itemBuilder: (context) => [
-        favourites!
-                .where((element) => element.id.toString() == temp.id.toString())
-                .isEmpty
-            ? PopupMenuItem(
-                onTap: () {
-                  musicController.addToFavoutire(temp);
-                  // favourites!.add(temp);
-                  // await box.put("favourites", favourites!);
-                },
-                child: const Text(
-                  "Add to Favourite",
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
-            : PopupMenuItem(
-                onTap: () {
-                  musicController.removeFromFavourite(temp);
-                  // favourites!.removeWhere(
-                  //   (element) => element.id.toString() == temp.id.toString(),
-                  // );
-                  // box.put("favourites", favourites!);
-                },
-                child: const Text(
-                  'Remove From Favourites',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
+        if (favourites!
+            .where(
+                (Songs element) => element.id.toString() == temp.id.toString())
+            .isEmpty)
+          PopupMenuItem<dynamic>(
+            onTap: () {
+              musicController.addToFavoutire(temp);
+            },
+            child: const Text(
+              'Add to Favourite',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        else
+          PopupMenuItem<dynamic>(
+            onTap: () {
+              musicController.removeFromFavourite(temp);
+            },
+            child: const Text(
+              'Remove From Favourites',
+              style: TextStyle(
+                color: Colors.white,
               ),
+            ),
+          ),
       ],
     );
   }

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:music/controller/getx/music_controller.dart';
-import 'package:music/view/splashscreen/splashscreen.dart';
-import 'package:music/view/widget/ratemyapp.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../../controller/getx/music_controller.dart';
+import '../../splashscreen/splashscreen.dart';
+import '../../widget/ratemyapp.dart';
 
 // ignore: must_be_immutable
 class Navdrawer extends StatelessWidget {
-  const Navdrawer({Key? key}) : super(key: key);
+  const Navdrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +30,11 @@ class Navdrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              onTap: (() {
+              onTap: () {
                 Share.share(
                   'https://play.google.com/store/apps/details?id=in.brototype.music',
                 );
-              }),
+              },
               leading: const Icon(
                 Icons.share,
                 color: Colors.white,
@@ -50,7 +51,7 @@ class Navdrawer extends StatelessWidget {
             ),
             GetBuilder<MusicController>(
               init: MusicController(),
-              builder: (switchController) {
+              builder: (MusicController switchController) {
                 return ListTile(
                   leading: const Icon(
                     Icons.notification_add,
@@ -62,7 +63,7 @@ class Navdrawer extends StatelessWidget {
                   ),
                   trailing: Switch(
                     value: switchController.isSwitched,
-                    onChanged: (value) {
+                    onChanged: (bool value) {
                       switchController.isSwitchedToggle(value);
                       audioPlayer.showNotification = value;
                       // setState(
@@ -79,15 +80,15 @@ class Navdrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              onTap: (() {
+              onTap: () {
                 // rateMyApp(context);
                 showDialog(
                   context: context,
-                  builder: (ctx) {
+                  builder: (BuildContext ctx) {
                     return const RatemyApp();
                   },
                 );
-              }),
+              },
               leading: const Icon(
                 Icons.star_border_rounded,
                 color: Colors.white,
@@ -106,7 +107,7 @@ class Navdrawer extends StatelessWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (ctx) {
+                  builder: (BuildContext ctx) {
                     return AlertDialog(
                       backgroundColor: Colors.black,
                       title: Text(
@@ -118,7 +119,8 @@ class Navdrawer extends StatelessWidget {
                       ),
                       content: const SingleChildScrollView(
                         child: Text(
-                          '''       Jiyad Ahammad built the ΜΟΥΣΙΚΗ app as a Free app. This SERVICE is provided by Jiyad Ahammad at no cost and is intended for use as is.
+                          '''
+       Jiyad Ahammad built the ΜΟΥΣΙΚΗ app as a Free app. This SERVICE is provided by Jiyad Ahammad at no cost and is intended for use as is.
 
                 This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.
 
@@ -216,8 +218,8 @@ class Navdrawer extends StatelessWidget {
                         // Image.file("music/assets/img/luncher icon.png")
                         AssetImage('assets/img/lunchericon.png'),
                   ),
-                  applicationName: "ΜΟΥΣΙΚΗ",
-                  applicationVersion: "1.0.0+1",
+                  applicationName: 'ΜΟΥΣΙΚΗ',
+                  applicationVersion: '1.0.0+1',
                   children: [
                     Text(
                       'ΜΟΥΣΙΚΗ is an Offline Music Player created by JIYAD AHAMMAD',
@@ -279,10 +281,10 @@ class Navdrawer extends StatelessWidget {
     );
   }
 
-  void exitApp(context) {
+  void exitApp(BuildContext context) {
     showDialog(
       context: context,
-      builder: (ctx) {
+      builder: (BuildContext ctx) {
         return AlertDialog(
           title: const Text('Do you want to exit'),
           actions: <Widget>[

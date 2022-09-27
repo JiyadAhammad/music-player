@@ -19,7 +19,6 @@ List<Audio> fullSongs = <Audio>[];
 List<MusicListData> songlist2 = <MusicListData>[];
 List<Songs> allSongs = <Songs>[];
 
-// ignore: must_be_immutable
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
 
@@ -53,8 +52,7 @@ class SplashScreen extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    // ignore: avoid_unnecessary_containers
-                    Container(
+                    SizedBox(
                       child: Image.asset('assets/img/splash.png'),
                     ),
                     SizedBox(
@@ -154,6 +152,7 @@ class SplashScreen extends StatelessWidget {
     songlist2 = songlist.map((dynamic e) {
       return MusicListData.fromJson(e as Map<String, dynamic>);
     }).toList();
+    // log('$songlist2 this is map ');
     allSongs = songlist2
         .map(
           (MusicListData music) => Songs(
@@ -164,10 +163,10 @@ class SplashScreen extends StatelessWidget {
           ),
         )
         .toList();
-
+    // log('${allSongs.length} this is all songs');
     box.put('mymusic', allSongs);
     final List<Songs> dbSongs = box.get('mymusic')! as List<Songs>;
-
+    log('${dbSongs.length} this is all dbsongs');
     for (final Songs element in dbSongs) {
       fullSongs.add(
         Audio.file(
@@ -180,6 +179,8 @@ class SplashScreen extends StatelessWidget {
         ),
       );
     }
+    // log('$fullSongs this is songs fetch from storage');
+    // log('${fullSongs.length} this is songs fetch from storage');
   }
 }
 
