@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../constants/colors/colors.dart';
 import '../homescreen/navdrawer/navdrawer.dart';
 import '../homescreen/search/searchdelagete.dart';
 import '../homescreen/widget.dart';
@@ -36,7 +37,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ],
-          backgroundColor: Colors.transparent,
+          backgroundColor: ktransparent,
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
@@ -46,16 +47,16 @@ class HomeScreen extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20).r,
                   side: const BorderSide(
-                    color: Colors.white54,
+                    color: kwhite54,
                     width: 2.0,
                   ),
                 ),
-                color: Colors.transparent,
+                color: ktransparent,
                 elevation: 0,
                 child: Container(
                   height: 80.h,
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
+                    color: ktransparent,
                     borderRadius: BorderRadius.circular(20).r,
                   ),
                   child: ListTile(
@@ -72,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                     leading: const CircleAvatar(
                       child: Icon(
                         Icons.music_note,
-                        color: Colors.white,
+                        color: kwhiteIcon,
                       ),
                     ),
                     title: Padding(
@@ -82,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                         fullSongs[index].metas.title!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: kwhiteText,
                           fontWeight: FontWeight.bold,
                           fontSize: 20.sp,
                         ),
@@ -96,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         fullSongs[index].metas.artist!.toLowerCase(),
                         style: const TextStyle(
-                          color: Colors.white,
+                          color: kwhiteText,
                           fontSize: 16,
                         ),
                       ),

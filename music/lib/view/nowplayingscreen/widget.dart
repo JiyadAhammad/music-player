@@ -4,15 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../model/musicdb.dart';
 import '../Playlist/createplaylist.dart';
 import '../Playlist/playlistitem.dart';
+import '../constants/colors/colors.dart';
+import '../constants/sizedbox/sizedbox.dart';
 import '../splashscreen/splashscreen.dart';
 
 Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
   // realtimePlayingInfos.isPlaying?isRotate=true:isRotate=false;
   return Column(
     children: <Widget>[
-      SizedBox(
-        height: 5.h,
-      ),
+      kHeight5,
       slider(realtimePlayingInfos),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,7 +34,7 @@ Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
             },
             icon: Icon(
               Icons.skip_previous,
-              color: Colors.white,
+              color: kwhiteIcon,
               size: 40.sp,
             ),
           ),
@@ -42,7 +42,7 @@ Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
             height: 60.h,
             width: 60.w,
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: kwhite,
               shape: BoxShape.circle,
             ),
             alignment: Alignment.topLeft,
@@ -54,7 +54,7 @@ Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
                       : Icons.play_arrow,
                 ),
                 iconSize: 40.h.w,
-                color: Colors.black,
+                color: kwhiteIcon,
                 onPressed: () {
                   audioPlayer.playOrPause();
                 },
@@ -68,7 +68,7 @@ Widget audioplayerUI(RealtimePlayingInfos realtimePlayingInfos) {
             icon: Icon(
               Icons.skip_next,
               size: 40.sp,
-              color: Colors.white,
+              color: kwhiteIcon,
             ),
           ),
         ],
@@ -83,7 +83,7 @@ Widget getTimeText(Duration currentValue) {
       currentValue.inSeconds,
     ),
     style: const TextStyle(
-      color: Colors.white,
+      color: kwhiteText,
     ),
   );
 }
@@ -92,6 +92,7 @@ String transformingString(int seconds) {
   final String minuteString =
       '${(seconds / 60).floor() < 10 ? 0 : ''}${(seconds / 60).floor()}';
   final String secondString =
+      // ignore: noop_primitive_operations
       '${(seconds % 60).floor() < 10 ? 0 : ''}${(seconds % 60).floor()}';
   return '$minuteString:$secondString';
 }
@@ -104,7 +105,7 @@ Widget slider(RealtimePlayingInfos realtimePlayingInfos) {
           thumbColor: Colors.white,
           activeTrackColor: Colors.white,
           inactiveTrackColor: Colors.grey,
-          overlayColor: Colors.transparent,
+          overlayColor: ktransparent,
         ),
         child: Slider.adaptive(
           value: realtimePlayingInfos.currentPosition.inSeconds.toDouble(),
@@ -160,11 +161,11 @@ Future<dynamic> playlistshowbottomsheet(
           children: <Widget>[
             CircleAvatar(
               radius: 30.r,
-              backgroundColor: Colors.black,
+              backgroundColor: kblack,
               child: IconButton(
                 icon: Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: kwhiteIcon,
                   size: 30.sp,
                 ),
                 onPressed: () {

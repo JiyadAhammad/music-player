@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
 import '../../main.dart';
 import '../../model/musicdb.dart';
+import '../constants/colors/colors.dart';
 import '../favouritescreen/favouritescreen.dart';
 import '../nowplayingscreen/widget.dart';
 import '../splashscreen/splashscreen.dart';
@@ -22,10 +23,10 @@ Widget popup({required String songId, required BuildContext context}) {
             const Radius.circular(15.0).r,
           ),
         ),
-        color: Colors.black,
+        color: kblack,
         icon: const Icon(
           Icons.more_vert,
-          color: Colors.white,
+          color: kwhiteIcon,
         ),
         itemBuilder: (_) => <PopupMenuEntry<dynamic>>[
           if (favourites!
@@ -39,7 +40,7 @@ Widget popup({required String songId, required BuildContext context}) {
               },
               child: const Text(
                 'Add to Favourite',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
               ),
             )
           else
@@ -50,7 +51,7 @@ Widget popup({required String songId, required BuildContext context}) {
               child: const Text(
                 'Remove From Favourites',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: kwhiteText,
                 ),
               ),
             ),
@@ -59,7 +60,7 @@ Widget popup({required String songId, required BuildContext context}) {
             child: Text(
               'Add to Playlist',
               style: TextStyle(
-                color: Colors.white,
+                color: kwhiteText,
               ),
             ),
           ),

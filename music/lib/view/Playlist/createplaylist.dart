@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../controller/getx/music_controller.dart';
 import '../../model/musicdb.dart';
+import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 
 List<dynamic> playlists = <dynamic>[];
@@ -24,7 +25,7 @@ class CreatePlaylist extends StatelessWidget {
       title: const Center(
         child: Text(
           'Give Your Playlist Name',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: kblackText),
         ),
       ),
 
@@ -43,15 +44,15 @@ class CreatePlaylist extends StatelessWidget {
                   formContrl.playListNameCreate(value!, keys);
                   return null;
                 },
-                style: const TextStyle(color: Colors.black),
+                style: const TextStyle(color: kblackText),
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderSide:
-                        BorderSide(color: Colors.deepPurple, width: 5.w),
+                        BorderSide(color: kHomeColor, width: 5.w),
                   ),
                   // fillColor: textblack,
                   hintText: 'Playlist Name',
-                  hintStyle: const TextStyle(color: Colors.blueGrey),
+                  hintStyle: const TextStyle(color: kbluegrey),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: Colors.deepPurpleAccent, width: 5.0.w),
@@ -69,7 +70,7 @@ class CreatePlaylist extends StatelessWidget {
               TextButton(
                 child: Text(
                   'Cancel',
-                  style: TextStyle(color: Colors.black, fontSize: 16.sp),
+                  style: TextStyle(color: kblackText, fontSize: 16.sp),
                 ),
                 onPressed: () {
                   Get.back();
@@ -94,7 +95,7 @@ class CreatePlaylist extends StatelessWidget {
                           'Success',
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.green,
+                            color: kgreen,
                           ),
                         ),
                       ),
@@ -103,13 +104,13 @@ class CreatePlaylist extends StatelessWidget {
                           'Playlist Added',
                           style: TextStyle(
                             fontSize: 18,
-                            color: Colors.white,
+                            color: kwhiteText,
                           ),
                         ),
                       ),
                       snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.black,
-                      colorText: Colors.white,
+                      backgroundColor: kblack,
+                      colorText: kwhiteText,
                       maxWidth: 250,
                       margin: const EdgeInsets.only(bottom: 15),
                     );

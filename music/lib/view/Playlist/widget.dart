@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../main.dart';
+import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 import 'playlist.dart';
 
@@ -14,7 +15,7 @@ Widget updatePlaylist(
     title: const Center(
       child: Text(
         'Edit Playlist Name',
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: kblackText),
       ),
     ),
 
@@ -23,7 +24,7 @@ Widget updatePlaylist(
       key: formKey,
       child: TextFormField(
         initialValue: playlistName.toString(),
-        style: const TextStyle(color: Colors.black),
+        style: const TextStyle(color: kblackText),
         onChanged: (String value) {
           title = value.trim();
         },
@@ -36,11 +37,11 @@ Widget updatePlaylist(
         // style: const TextStyle(color: Colors.black),
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.deepPurple, width: 5.w),
+            borderSide: BorderSide(color: kHomeColor, width: 5.w),
           ),
           // fillColor: textblack,
           hintText: 'Playlist Name',
-          hintStyle: const TextStyle(color: Colors.blueGrey),
+          hintStyle: const TextStyle(color: kbluegrey),
           enabledBorder: OutlineInputBorder(
             borderSide:
                 BorderSide(color: Colors.deepPurpleAccent, width: 5.0.w),
@@ -57,7 +58,7 @@ Widget updatePlaylist(
             TextButton(
               child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.black, fontSize: 16.sp),
+                style: TextStyle(color: kblackText, fontSize: 16.sp),
               ),
               onPressed: () {
                 Get.back();
@@ -80,7 +81,7 @@ Widget updatePlaylist(
                         'Success',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.green,
+                          color: kgreen,
                         ),
                       ),
                     ),
@@ -89,13 +90,13 @@ Widget updatePlaylist(
                         'Successfully updated',
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.white,
+                          color: kwhiteText,
                         ),
                       ),
                     ),
                     snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.black,
-                    colorText: Colors.white,
+                    backgroundColor: kblack,
+                    colorText: kwhiteText,
                     maxWidth: 250,
                     margin: const EdgeInsets.only(bottom: 15),
                   );
@@ -114,11 +115,11 @@ Widget deletePlaylist(
     required List<dynamic> playlistsName,
     required int index}) {
   return AlertDialog(
-    backgroundColor: Colors.black,
+    backgroundColor: kblack,
     title: const Center(
       child: Text(
         'ALERT !!',
-        style: TextStyle(color: Colors.red),
+        style: TextStyle(color: kred),
       ),
     ),
     content: Padding(
@@ -128,7 +129,7 @@ Widget deletePlaylist(
         children: <Widget>[
           Text(
             'Do you want to delete',
-            style: TextStyle(color: Colors.white, fontSize: 20.sp),
+            style: TextStyle(color: kwhiteText, fontSize: 20.sp),
           ),
         ],
       ),
@@ -142,7 +143,7 @@ Widget deletePlaylist(
             TextButton(
               child: Text(
                 'Cancel',
-                style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                style: TextStyle(color: kwhiteText, fontSize: 18.sp),
               ),
               onPressed: () {
                 Get.back();
@@ -151,7 +152,7 @@ Widget deletePlaylist(
             TextButton(
               child: Text(
                 'Yes',
-                style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                style: TextStyle(color: kwhiteText, fontSize: 18.sp),
               ),
               onPressed: () {
                 Get.back();
@@ -166,7 +167,7 @@ Widget deletePlaylist(
                       'Success',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.red,
+                        color: kred,
                       ),
                     ),
                   ),
@@ -175,13 +176,13 @@ Widget deletePlaylist(
                       'Successfully Deleted',
                       style: TextStyle(
                         fontSize: 18,
-                        color: Colors.white,
+                        color: kwhiteText,
                       ),
                     ),
                   ),
                   snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.black,
-                  colorText: Colors.white,
+                  backgroundColor: kblack,
+                  colorText: kwhiteText,
                   maxWidth: 250,
                   margin: const EdgeInsets.only(bottom: 15),
                 );

@@ -9,6 +9,8 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../model/musicdb.dart';
 import '../../model/songfetch.dart';
+import '../constants/colors/colors.dart';
+import '../constants/sizedbox/sizedbox.dart';
 import '../homescreen/navbar/navbar.dart';
 
 final Box<List<dynamic>> box = StorageBox.getInstance();
@@ -46,29 +48,25 @@ class SplashScreen extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 40.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: kwhiteText),
                     ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
+                    kHeight,
                     SizedBox(
                       child: Image.asset('assets/img/splash.png'),
                     ),
-                    SizedBox(
-                      height: 30.h,
-                    ),
+                    kHeight30,
                     Text(
                       'Feel the Music',
                       style: TextStyle(
                         fontSize: 30.sp,
-                        color: Colors.white,
+                        color: kwhiteText,
                       ),
                     ),
                   ],
                 ),
               ),
               LoadingAnimationWidget.staggeredDotsWave(
-                color: Colors.white,
+                color: kwhite,
                 size: 70.0,
               )
             ],

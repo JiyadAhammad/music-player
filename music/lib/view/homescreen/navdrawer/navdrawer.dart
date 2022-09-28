@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../controller/getx/music_controller.dart';
+import '../../constants/colors/colors.dart';
 import '../../splashscreen/splashscreen.dart';
 import '../../widget/ratemyapp.dart';
 
@@ -15,15 +16,15 @@ class Navdrawer extends StatelessWidget {
     return Container(
       decoration: backgroundColordrawer(),
       child: Drawer(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ktransparent,
         child: ListView(
           children: <Widget>[
             DrawerHeader(
               child: CircleAvatar(
-                backgroundColor: Colors.transparent,
+                backgroundColor: ktransparent,
                 child: Text(
                   'ΜΟΥΣΙΚΗ',
-                  style: TextStyle(color: Colors.white, fontSize: 50.sp),
+                  style: TextStyle(color: kwhiteText, fontSize: 50.sp),
                 ),
               ),
             ),
@@ -35,15 +36,15 @@ class Navdrawer extends StatelessWidget {
               },
               leading: const Icon(
                 Icons.share,
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
               title: const Text(
                 'Share',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: kwhiteIcon,
                 size: 18.sp,
               ),
             ),
@@ -53,11 +54,11 @@ class Navdrawer extends StatelessWidget {
                 return ListTile(
                   leading: const Icon(
                     Icons.notification_add,
-                    color: Colors.white,
+                    color: kwhiteIcon,
                   ),
                   title: const Text(
                     'Notification',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: kwhiteText),
                   ),
                   trailing: Switch(
                     value: switchController.isSwitched,
@@ -65,7 +66,7 @@ class Navdrawer extends StatelessWidget {
                       switchController.isSwitchedToggle(value);
                       audioPlayer.showNotification = value;
                     },
-                    activeTrackColor: Colors.white,
+                    activeTrackColor: kwhite,
                     activeColor: const Color(0xFF911BEE),
                   ),
                 );
@@ -82,15 +83,15 @@ class Navdrawer extends StatelessWidget {
               },
               leading: const Icon(
                 Icons.star_border_rounded,
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
               title: const Text(
                 'Rate us',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: kwhiteIcon,
                 size: 18.sp,
               ),
             ),
@@ -100,11 +101,11 @@ class Navdrawer extends StatelessWidget {
                   context: context,
                   builder: (BuildContext ctx) {
                     return AlertDialog(
-                      backgroundColor: Colors.black,
+                      backgroundColor: kblack,
                       title: Text(
                         'Privacy Policy',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: kwhiteText,
                           fontSize: 35.sp,
                         ),
                       ),
@@ -171,7 +172,7 @@ class Navdrawer extends StatelessWidget {
                 If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact me at jiyadahammad99@gmail.com.
 
                                 ''',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: kwhiteText),
                         ),
                       ),
                       actions: <Widget>[
@@ -186,15 +187,15 @@ class Navdrawer extends StatelessWidget {
               },
               leading: const Icon(
                 Icons.lock,
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
               title: const Text(
                 'Privacy policy',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: kwhiteIcon,
                 size: 18.sp,
               ),
             ),
@@ -204,7 +205,7 @@ class Navdrawer extends StatelessWidget {
                   context: context,
                   applicationIcon: const CircleAvatar(
                     radius: 25,
-                    backgroundColor: Colors.white,
+                    backgroundColor: kwhite,
                     backgroundImage:
                         // Image.file("music/assets/img/luncher icon.png")
                         AssetImage('assets/img/lunchericon.png'),
@@ -221,30 +222,30 @@ class Navdrawer extends StatelessWidget {
               },
               leading: const Icon(
                 Icons.info,
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
               title: const Text(
                 'About',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: kwhiteIcon,
                 size: 18.sp,
               ),
             ),
             ListTile(
               leading: const Icon(
                 Icons.exit_to_app,
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
               title: const Text(
                 'Exit',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
               ),
               trailing: Icon(
                 Icons.arrow_forward_ios,
-                color: Colors.white,
+                color: kwhiteIcon,
                 size: 18.sp,
               ),
               onTap: () => exitApp(context),
@@ -255,7 +256,7 @@ class Navdrawer extends StatelessWidget {
             const ListTile(
               title: Text(
                 ' version',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: kwhiteText),
                 textAlign: TextAlign.center,
               ),
               subtitle: Text(

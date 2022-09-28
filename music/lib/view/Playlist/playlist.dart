@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
+import '../constants/colors/colors.dart';
 import '../eachplaylistscreen/eachplaylistscreen.dart';
 import '../homescreen/navbar/navbar.dart';
 import '../splashscreen/splashscreen.dart';
@@ -20,9 +21,9 @@ class PlayListScreen extends StatelessWidget {
     return Container(
       decoration: backgrounColor(),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ktransparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: ktransparent,
           title: const Text('Playlist'),
           centerTitle: true,
           elevation: 0,
@@ -47,7 +48,7 @@ class PlayListScreen extends StatelessWidget {
                     child: Text(
                       'No Playlist',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: kwhiteText,
                         fontSize: 25.sp,
                       ),
                     ),
@@ -81,16 +82,16 @@ class PlayListScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15).r,
                                   border: Border.all(
-                                    color: Colors.white54,
+                                    color: kwhite54,
                                     width: 2.5,
                                   ),
-                                  color: Colors.transparent,
+                                  color: ktransparent,
                                 ),
                                 child: Center(
                                   child: Text(
                                     playlistName[index].toString(),
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: kwhiteText,
                                       fontSize: 20.sp,
                                     ),
                                   ),
@@ -102,10 +103,10 @@ class PlayListScreen extends StatelessWidget {
                                     const Radius.circular(15.0).r,
                                   ),
                                 ),
-                                color: Colors.black,
+                                color: kblack,
                                 icon: const Icon(
                                   Icons.more_vert,
-                                  color: Colors.white,
+                                  color: kwhiteIcon,
                                 ),
                                 itemBuilder: (_) => <PopupMenuEntry<dynamic>>[
                                   PopupMenuItem<dynamic>(
@@ -115,12 +116,12 @@ class PlayListScreen extends StatelessWidget {
                                       children: const <Widget>[
                                         Icon(
                                           Icons.edit,
-                                          color: Colors.white,
+                                          color: kwhiteIcon,
                                         ),
                                         Text(
                                           ' Edit playlist',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: kwhiteText,
                                           ),
                                         ),
                                       ],
@@ -133,12 +134,12 @@ class PlayListScreen extends StatelessWidget {
                                       children: const <Widget>[
                                         Icon(
                                           Icons.delete,
-                                          color: Colors.white,
+                                          color: kwhiteIcon,
                                         ),
                                         Text(
                                           ' Delete playlist ',
                                           style: TextStyle(
-                                            color: Colors.white,
+                                            color: kwhiteText,
                                           ),
                                         ),
                                       ],
@@ -190,7 +191,7 @@ class PlayListScreen extends StatelessWidget {
                 },
               );
             },
-            backgroundColor: Colors.transparent,
+            backgroundColor: ktransparent,
             elevation: 0.0,
             child: const Icon(
               Icons.add,

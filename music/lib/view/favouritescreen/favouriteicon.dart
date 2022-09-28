@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
 import '../../model/musicdb.dart';
+import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 import 'favouritescreen.dart';
 
@@ -34,7 +35,7 @@ class FavouriteIcon extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.favorite,
-                  color: Colors.white,
+                  color: kwhiteIcon,
                   size: 30.sp,
                 ),
               )
@@ -47,7 +48,7 @@ class FavouriteIcon extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.favorite,
-                  color: Colors.red,
+                  color: kred,
                   size: 30.sp,
                 ),
               );

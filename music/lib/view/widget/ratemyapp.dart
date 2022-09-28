@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
+import '../constants/colors/colors.dart';
+import '../constants/sizedbox/sizedbox.dart';
 
 class RatemyApp extends StatelessWidget {
   const RatemyApp({super.key});
@@ -14,10 +15,10 @@ class RatemyApp extends StatelessWidget {
         title: const Center(
           child: Text(
             'Rate my App',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: kwhiteText),
           ),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: kblack,
         actions: <Widget>[
           GetBuilder<MusicController>(
             init: MusicController(),
@@ -27,17 +28,15 @@ class RatemyApp extends StatelessWidget {
                   Text(
                     'Rating ${rateController.rating}',
                     style: const TextStyle(
-                      color: Colors.white,
+                      color: kwhiteText,
                     ),
                   ),
-                  SizedBox(
-                    height: 20.sp,
-                  ),
+                  kHeight20,
                   RatingBar.builder(
-                    unratedColor: Colors.white,
+                    unratedColor: kwhiteIcon,
                     itemBuilder: (BuildContext context, int _) => const Icon(
                       Icons.star,
-                      color: Colors.amber,
+                      color: kamber,
                     ),
                     onRatingUpdate: (double rating) {
                       rateController.isRatingChanged(rating);
@@ -59,7 +58,7 @@ class RatemyApp extends StatelessWidget {
                                 '😊',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.white,
+                                  color: kwhiteText,
                                 ),
                               ),
                             ),
@@ -68,13 +67,13 @@ class RatemyApp extends StatelessWidget {
                                 'Successfully Added',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.white,
+                                  color: kwhiteText,
                                 ),
                               ),
                             ),
                             snackPosition: SnackPosition.BOTTOM,
-                            backgroundColor: Colors.black,
-                            colorText: Colors.white,
+                            backgroundColor: kblack,
+                            colorText: kwhiteText,
                             maxWidth: 250,
                             margin: const EdgeInsets.only(bottom: 15),
                           );

@@ -6,12 +6,15 @@ import 'package:marquee/marquee.dart';
 import '../../controller/getx/music_controller.dart';
 import '../../main.dart';
 import '../../model/musicdb.dart';
+import '../constants/colors/colors.dart';
+import '../constants/sizedbox/sizedbox.dart';
 import '../favouritescreen/favouriteicon.dart';
 import '../favouritescreen/favouritescreen.dart';
 import '../homescreen/navbar/navbar.dart';
 import '../splashscreen/splashscreen.dart';
 import 'widget.dart';
 
+// ignore: must_be_immutable
 class MusicPlaySceeen extends StatelessWidget {
   MusicPlaySceeen({
     super.key,
@@ -31,18 +34,11 @@ class MusicPlaySceeen extends StatelessWidget {
     final Songs playlistName = databaseSongs(dbSongs, songId!);
     // log(dbsongs.toString());
     return Container(
-      decoration: const BoxDecoration(
-        gradient: RadialGradient(
-          colors: <Color>[
-            Color(0xFF911BEE),
-            Color(0xFF4D0089),
-          ],
-        ),
-      ),
+      decoration: backgroundColordrawer(),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ktransparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: ktransparent,
           title: const Text('ΜΟΥΣΙΚΗ playing'),
           centerTitle: true,
           elevation: 0,
@@ -52,7 +48,7 @@ class MusicPlaySceeen extends StatelessWidget {
               size: 35.sp,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Get.back();
             },
           ),
         ),
@@ -93,7 +89,7 @@ class MusicPlaySceeen extends StatelessWidget {
                               text: myAudio.metas.title!,
                               style: TextStyle(
                                 fontSize: 25.sp,
-                                color: Colors.white,
+                                color: kwhiteText,
                               ),
                             ),
                           ),
@@ -102,7 +98,7 @@ class MusicPlaySceeen extends StatelessWidget {
                               myAudio.metas.artist!.toLowerCase(),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
-                                color: Colors.white,
+                                color: kwhiteText,
                                 fontSize: 18.sp,
                               ),
                             ),
@@ -123,19 +119,19 @@ class MusicPlaySceeen extends StatelessWidget {
                                     if (musicController.isRepeate == false) {
                                       audioPlayer.setLoopMode(LoopMode.single);
                                       musicController.isLoopmode(
-                                          true, Colors.black);
+                                          true, kblackIcon);
                                     } else {
                                       audioPlayer
                                           .setLoopMode(LoopMode.playlist);
                                       musicController.isLoopmode(
-                                          false, Colors.white);
+                                          false, kwhiteIcon);
                                     }
                                   },
                                   icon: Icon(
                                     musicController.isRepeate == false
                                         ? Icons.loop
                                         : Icons.repeat_one,
-                                    color: Colors.white,
+                                    color: kwhiteIcon,
                                     size: 30.sp,
                                   ),
                                 );
@@ -152,7 +148,7 @@ class MusicPlaySceeen extends StatelessWidget {
                             },
                             icon: Icon(
                               Icons.queue_music_sharp,
-                              color: Colors.white,
+                              color: kwhiteIcon,
                               size: 30.sp,
                             ),
                           ),
@@ -167,9 +163,7 @@ class MusicPlaySceeen extends StatelessWidget {
                         return audioplayerUI(realtimePlayingInfos);
                       },
                     ),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                    kHeight5,
                   ],
                 ),
               );

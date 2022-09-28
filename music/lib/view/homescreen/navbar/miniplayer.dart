@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
+import '../../constants/colors/colors.dart';
 import '../../nowplayingscreen/musicplayscreen.dart';
 import '../../splashscreen/splashscreen.dart';
 import 'navbar.dart';
@@ -23,7 +24,7 @@ class MiniPlayer extends StatelessWidget {
           height: 60.h,
           decoration: BoxDecoration(
             // shape: BoxShape.rectangle,
-            color: Colors.transparent,
+            color: ktransparent,
             borderRadius: BorderRadius.circular(20).r,
           ),
           child: ListTile(
@@ -41,7 +42,7 @@ class MiniPlayer extends StatelessWidget {
               // child:
               child: Icon(
                 Icons.music_note,
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
             ),
             title: SizedBox(
@@ -49,7 +50,7 @@ class MiniPlayer extends StatelessWidget {
               child: Marquee(
                 text: myAudio.metas.title!,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: kwhiteText,
                 ),
                 velocity: 20,
                 blankSpace: 100.w.h,
@@ -66,7 +67,7 @@ class MiniPlayer extends StatelessWidget {
                   onPressed: () {
                     audioPlayer.playOrPause();
                   },
-                  color: Colors.white,
+                  color: kwhiteIcon,
                 );
               },
             ),

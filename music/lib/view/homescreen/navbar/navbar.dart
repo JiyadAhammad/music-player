@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../controller/getx/music_controller.dart';
 import '../../Playlist/playlist.dart';
+import '../../constants/colors/colors.dart';
 import '../../favouritescreen/favouritescreen.dart';
 import '../homescreen.dart';
 import 'miniplayer.dart';
@@ -48,13 +49,13 @@ class NavBar extends StatelessWidget {
           bottomNavigationBar: Theme(
             data: Theme.of(context).copyWith(
               iconTheme: const IconThemeData(
-                color: Colors.white,
+                color: kwhiteIcon,
               ),
             ),
             child: CurvedNavigationBar(
-              color: Colors.deepPurple,
+              color: kHomeColor,
               height: 50,
-              backgroundColor: Colors.transparent,
+              backgroundColor: ktransparent,
               buttonBackgroundColor: Colors.deepOrangeAccent,
               index: navController.currentIndex,
               onTap: (int newIndex) {

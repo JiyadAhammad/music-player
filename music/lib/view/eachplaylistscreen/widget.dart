@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
 import '../../main.dart';
 import '../../model/musicdb.dart';
+import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 
 // ignore: must_be_immutable
@@ -33,7 +34,7 @@ class AddsongsToPlaylist extends StatelessWidget {
                   child: Text(
                     dbSongs[index].songname!,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                    style: TextStyle(color: kwhiteText, fontSize: 18.sp),
                   ),
                 ),
                 subtitle: Padding(
@@ -62,7 +63,7 @@ class AddsongsToPlaylist extends StatelessWidget {
                         icon: Icon(
                           Icons.add,
                           size: 35.sp,
-                          color: Colors.white,
+                          color: kwhiteIcon,
                         ))
                     : IconButton(
                         onPressed: () {
@@ -73,7 +74,7 @@ class AddsongsToPlaylist extends StatelessWidget {
                           child: Icon(
                             Icons.delete,
                             size: 30.sp,
-                            color: Colors.white,
+                            color: kwhiteIcon,
                           ),
                         ),
                       ),

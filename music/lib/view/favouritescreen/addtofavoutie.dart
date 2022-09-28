@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
+import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 
 class Addtofavourite extends StatelessWidget {
@@ -23,7 +24,7 @@ class Addtofavourite extends StatelessWidget {
               child: Text(
                 dbSongs[index].songname ?? 'Unknown',
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.white, fontSize: 18.sp),
+                style: TextStyle(color: kwhiteText, fontSize: 18.sp),
               ),
             ),
             subtitle: Padding(
@@ -50,7 +51,7 @@ class Addtofavourite extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.add,
-                          color: Colors.white,
+                          color: kwhiteIcon,
                           size: 35.sp,
                         ),
                       )
@@ -61,7 +62,7 @@ class Addtofavourite extends StatelessWidget {
                         },
                         icon: Icon(
                           Icons.delete,
-                          color: Colors.white,
+                          color: kwhiteIcon,
                           size: 35.sp,
                         ),
                       );

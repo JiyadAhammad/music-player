@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../main.dart';
+import '../constants/colors/colors.dart';
 import '../homescreen/widget.dart';
 import '../splashscreen/splashscreen.dart';
 import 'favouritescreen.dart';
@@ -22,10 +23,10 @@ class FavPopup extends StatelessWidget {
           const Radius.circular(15.0).r,
         ),
       ),
-      color: Colors.black,
+      color: kblack,
       icon: const Icon(
         Icons.more_vert,
-        color: Colors.white,
+        color: kwhiteIcon,
       ),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
         if (favourites!
@@ -38,7 +39,7 @@ class FavPopup extends StatelessWidget {
             },
             child: const Text(
               'Add to Favourite',
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: kwhiteText),
             ),
           )
         else
@@ -49,7 +50,7 @@ class FavPopup extends StatelessWidget {
             child: const Text(
               'Remove From Favourites',
               style: TextStyle(
-                color: Colors.white,
+                color: kwhiteText,
               ),
             ),
           ),

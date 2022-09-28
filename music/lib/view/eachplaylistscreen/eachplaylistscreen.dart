@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
 import '../../model/musicdb.dart';
 import '../Playlist/playlist.dart';
+import '../constants/colors/colors.dart';
 import '../nowplayingscreen/musicplayscreen.dart';
 import '../splashscreen/splashscreen.dart';
 import '../widget/openplayer.dart';
@@ -28,9 +29,9 @@ class EachPlayList extends StatelessWidget {
     return Container(
       decoration: backgrounColor(),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ktransparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: ktransparent,
           title: Text(playlistnameId),
           centerTitle: true,
           elevation: 0,
@@ -59,7 +60,7 @@ class EachPlayList extends StatelessWidget {
                     child: SizedBox(
                       child: Text(
                         'No Songs',
-                        style: TextStyle(color: Colors.white, fontSize: 25.sp),
+                        style: TextStyle(color: kwhiteText, fontSize: 25.sp),
                       ),
                     ),
                   )
@@ -72,16 +73,16 @@ class EachPlayList extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                             side: const BorderSide(
-                              color: Colors.white54,
+                              color: kwhite54,
                               width: 2.0,
                             ),
                           ),
-                          color: Colors.transparent,
+                          color: ktransparent,
                           elevation: 0,
                           child: Container(
                             height: 75,
                             decoration: BoxDecoration(
-                              color: Colors.transparent,
+                              color: ktransparent,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ListTile(
@@ -104,7 +105,7 @@ class EachPlayList extends StatelessWidget {
                               leading: const CircleAvatar(
                                 child: Icon(
                                   Icons.music_note,
-                                  color: Colors.white,
+                                  color: kwhiteIcon,
                                 ),
                               ),
                               title: Padding(
@@ -115,7 +116,7 @@ class EachPlayList extends StatelessWidget {
                                   playlistSongs[index].songname!,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: kwhiteText,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.sp,
                                   ),
@@ -130,7 +131,7 @@ class EachPlayList extends StatelessWidget {
                                   playlistSongs[index].artist!.toLowerCase(),
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    color: Colors.white,
+                                    color: kwhiteText,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -151,7 +152,7 @@ class EachPlayList extends StatelessWidget {
                                   },
                                   icon: const Icon(
                                     Icons.delete,
-                                    color: Colors.white,
+                                    color: kwhiteIcon,
                                   ),
                                 ),
                               ),
@@ -172,7 +173,7 @@ class EachPlayList extends StatelessWidget {
                   borderRadius:
                       BorderRadius.vertical(top: const Radius.circular(25).r),
                 ),
-                backgroundColor: Colors.deepPurple,
+                backgroundColor: kHomeColor,
                 context: context,
                 builder: (BuildContext ctx) {
                   return SizedBox(
@@ -184,7 +185,7 @@ class EachPlayList extends StatelessWidget {
                 },
               );
             },
-            backgroundColor: Colors.transparent,
+            backgroundColor: ktransparent,
             elevation: 0.0,
             child: const Icon(
               Icons.add,

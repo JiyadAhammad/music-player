@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../controller/getx/music_controller.dart';
 import '../../model/musicdb.dart';
+import '../constants/colors/colors.dart';
 import '../homescreen/navbar/navbar.dart';
 import '../splashscreen/splashscreen.dart';
 import '../widget/openplayer.dart';
@@ -21,9 +22,9 @@ class FavouriteMusicScreen extends StatelessWidget {
     return Container(
       decoration: backgrounColor(),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: ktransparent,
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: ktransparent,
           title: const Text('Favourites'),
           centerTitle: true,
           elevation: 0,
@@ -32,11 +33,6 @@ class FavouriteMusicScreen extends StatelessWidget {
               Get.to(
                 () => NavBar(),
               );
-              // Navigator.of(context).push(
-              //   MaterialPageRoute(
-              //     builder: ((context) => NavBar()),
-              //   ),
-              // );
             },
             icon: const Icon(
               Icons.arrow_back,
@@ -50,7 +46,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                     borderRadius:
                         BorderRadius.vertical(top: const Radius.circular(25).r),
                   ),
-                  backgroundColor: Colors.deepPurple,
+                  backgroundColor: kHomeColor,
                   context: context,
                   builder: (BuildContext ctx) {
                     return SizedBox(
@@ -87,7 +83,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                       child: Text(
                         'Favourite is Empty',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: kwhiteText,
                           fontSize: 25.sp,
                         ),
                       ),
@@ -104,16 +100,16 @@ class FavouriteMusicScreen extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20).r,
                             side: const BorderSide(
-                              color: Colors.white54,
+                              color: kwhite54,
                               width: 2.0,
                             ),
                           ),
-                          color: Colors.transparent,
+                          color: ktransparent,
                           elevation: 0,
                           child: Container(
                             height: 75.h,
                             decoration: BoxDecoration(
-                              color: Colors.transparent,
+                              color: ktransparent,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ListTile(
@@ -130,7 +126,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                               leading: const CircleAvatar(
                                 child: Icon(
                                   Icons.music_note,
-                                  color: Colors.white,
+                                  color: kwhiteIcon,
                                 ),
                               ),
                               title: Padding(
@@ -141,7 +137,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                   favouritesSongs[index].songname.toString(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: kwhiteText,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20.sp,
                                   ),
@@ -151,7 +147,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                 favouritesSongs[index].artist.toString(),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: kwhiteText,
                                   fontSize: 16.sp,
                                 ),
                               ),

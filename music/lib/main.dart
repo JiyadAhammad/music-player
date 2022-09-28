@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'controller/getx/music_controller.dart';
 import 'model/musicdb.dart';
+import 'view/constants/colors/colors.dart';
 import 'view/splashscreen/splashscreen.dart';
 
 final MusicController musicController = Get.put(MusicController());
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Music',
           theme: ThemeData(
-            primarySwatch: Colors.deepPurple,
+            primarySwatch: kHomeColor,
           ),
           home: const SplashScreen(),
         );

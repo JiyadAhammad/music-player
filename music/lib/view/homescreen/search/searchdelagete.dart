@@ -2,6 +2,8 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../constants/colors/colors.dart';
+import '../../constants/sizedbox/sizedbox.dart';
 import '../../splashscreen/splashscreen.dart';
 import '../../widget/openplayer.dart';
 
@@ -33,10 +35,10 @@ class MySearch extends SearchDelegate<dynamic> {
     return theme.copyWith(
       textTheme: const TextTheme(
         displayMedium: TextStyle(
-          color: Colors.white,
+          color: kwhite,
         ),
       ),
-      hintColor: Colors.white,
+      hintColor: kwhite,
       appBarTheme: const AppBarTheme(
         color: Color.fromARGB(255, 38, 231, 238),
       ),
@@ -58,7 +60,7 @@ class MySearch extends SearchDelegate<dynamic> {
       },
       icon: const Icon(
         Icons.arrow_back,
-        color: Colors.white,
+        color: kwhiteIcon,
       ),
     );
   }
@@ -75,13 +77,13 @@ class MySearch extends SearchDelegate<dynamic> {
         .toList();
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: kblack,
       body: searched.isEmpty
           ? const Center(
               child: Text(
                 'No Search Result !',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: kwhiteText,
                 ),
               ),
             )
@@ -96,7 +98,7 @@ class MySearch extends SearchDelegate<dynamic> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: kwhite,
                       borderRadius: BorderRadius.circular(15).r,
                     ),
                     child: ListTile(
@@ -123,7 +125,7 @@ class MySearch extends SearchDelegate<dynamic> {
                           searched[index].metas.title!,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: Colors.black,
+                            color: kblackText,
                             fontSize: 18.sp,
                           ),
                         ),
@@ -147,9 +149,7 @@ class MySearch extends SearchDelegate<dynamic> {
                   BuildContext context,
                   int index,
                 ) {
-                  return SizedBox(
-                    height: 10.h,
-                  );
+                  return kHeight;
                 },
                 itemCount: searched.length,
               ),
@@ -170,13 +170,13 @@ class MySearch extends SearchDelegate<dynamic> {
         .toList();
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: kblack,
       body: searched.isEmpty
           ? const Center(
               child: Text(
                 'No Search Result !',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: kwhiteText,
                 ),
               ),
             )
@@ -191,7 +191,7 @@ class MySearch extends SearchDelegate<dynamic> {
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: kwhite,
                       borderRadius: BorderRadius.circular(15).r,
                     ),
                     child: ListTile(
@@ -218,7 +218,7 @@ class MySearch extends SearchDelegate<dynamic> {
                           searched[index].metas.title!,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: Colors.black,
+                            color: kblackText,
                             fontSize: 18.sp,
                           ),
                         ),
@@ -242,9 +242,7 @@ class MySearch extends SearchDelegate<dynamic> {
                   BuildContext context,
                   int index,
                 ) {
-                  return SizedBox(
-                    height: 10.h,
-                  );
+                  return kHeight;
                 },
                 itemCount: searched.length,
               ),
