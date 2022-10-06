@@ -2,7 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controller/getx/music_controller.dart';
+import '../../../controller/music_controller/music_controller.dart';
 import '../../Playlist/playlist.dart';
 import '../../constants/colors/colors.dart';
 import '../../favouritescreen/favouritescreen.dart';
@@ -19,9 +19,9 @@ class NavBar extends StatelessWidget {
   // int currentSelectedIndex = 1;
 
   final List<StatelessWidget> navbarpages = <StatelessWidget>[
-    const FavouriteMusicScreen(),
+    FavouriteMusicScreen(),
     const HomeScreen(),
-    const PlayListScreen()
+    PlayListScreen()
   ];
 
   final List<Icon> itembottomnavabr = const <Icon>[

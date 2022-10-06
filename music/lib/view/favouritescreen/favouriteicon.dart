@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/favourite_controller/favourite_controller.dart';
 import '../../model/musicdb.dart';
 import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
@@ -19,9 +19,9 @@ class FavouriteIcon extends StatelessWidget {
     final List<dynamic> favouritesSong = box.get('favourites')!;
     final Songs fav = databaseSongs(dbSongs, songId);
 
-    return GetBuilder<MusicController>(
-      init: MusicController(),
-      builder: (MusicController favIconController) {
+    return GetBuilder<FavouriteController>(
+      init: FavouriteController(),
+      builder: (FavouriteController favIconController) {
         return favouritesSong
                 .where((dynamic element) =>
                     element.id.toString() == fav.id.toString())

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../../controller/getx/music_controller.dart';
+import '../../../controller/music_controller/music_controller.dart';
 import '../../constants/colors/colors.dart';
 import '../../splashscreen/splashscreen.dart';
 import '../../widget/ratemyapp.dart';

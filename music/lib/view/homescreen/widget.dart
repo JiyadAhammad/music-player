@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/music_controller/music_controller.dart';
 import '../../main.dart';
 import '../../model/musicdb.dart';
 import '../constants/colors/colors.dart';
@@ -15,7 +15,7 @@ Widget popup({required String songId, required BuildContext context}) {
   final Songs temp = databaseSongs(dbSongs, songId);
   return GetBuilder<MusicController>(
     init: MusicController(),
-    builder: (MusicController favouriteController) {
+    builder: (MusicController favController) {
       return PopupMenuButton<dynamic>(
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
@@ -35,6 +35,7 @@ Widget popup({required String songId, required BuildContext context}) {
               .isEmpty)
             PopupMenuItem<dynamic>(
               onTap: () {
+                // musicController.addToFavoutire(temp);
                 // musicController.addToFavoutire(temp);
                 musicController.addToFavoutire(temp);
               },

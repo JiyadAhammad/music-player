@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
-import '../../main.dart';
+import '../../controller/playlist_controller/playlist_controller.dart';
 import '../../model/musicdb.dart';
 import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 
 // ignore: must_be_immutable
 class AddsongsToPlaylist extends StatelessWidget {
-  AddsongsToPlaylist({
-    super.key,
-    required this.playListName,
-  });
+  AddsongsToPlaylist(
+      {super.key, required this.playListName, required this.contrlPlayList});
   final String playListName;
   List<Songs> playlistSongs = <Songs>[];
+  PlaylistController contrlPlayList;
 
   @override
   Widget build(BuildContext context) {
     playlistSongs = box.get(playListName)!.cast<Songs>();
-    return GetBuilder<MusicController>(
-      init: MusicController(),
+    return GetBuilder<PlaylistController>(
+      init: PlaylistController(),
       builder: (_) {
         return ListView.builder(
           itemCount: dbSongs.length,
@@ -54,7 +52,7 @@ class AddsongsToPlaylist extends StatelessWidget {
                         .isEmpty
                     ? IconButton(
                         onPressed: () {
-                          musicController.addPlayListMusicFromBottomSheet(
+                          contrlPlayList.addPlayListMusicFromBottomSheet(
                             playlistSongs,
                             index,
                             playListName,
@@ -67,7 +65,7 @@ class AddsongsToPlaylist extends StatelessWidget {
                         ))
                     : IconButton(
                         onPressed: () {
-                          musicController.deletePlayListMusicFromBottomSheet(
+                          contrlPlayList.deletePlayListMusicFromBottomSheet(
                               playlistSongs, index, playListName);
                         },
                         icon: Center(

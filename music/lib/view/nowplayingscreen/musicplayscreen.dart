@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:marquee/marquee.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/music_controller/music_controller.dart';
 import '../../main.dart';
 import '../../model/musicdb.dart';
 import '../constants/colors/colors.dart';

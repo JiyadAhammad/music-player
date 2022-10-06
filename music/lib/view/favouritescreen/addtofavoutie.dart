@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/favourite_controller/favourite_controller.dart';
 import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 
@@ -37,9 +37,9 @@ class Addtofavourite extends StatelessWidget {
                 ),
               ),
             ),
-            trailing: GetBuilder<MusicController>(
-              init: MusicController(),
-              builder: (MusicController favouController) {
+            trailing: GetBuilder<FavouriteController>(
+              init: FavouriteController(),
+              builder: (FavouriteController favouController) {
                 return songinfav
                         .where((dynamic element) =>
                             element.id.toString() ==

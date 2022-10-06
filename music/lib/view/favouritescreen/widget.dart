@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../main.dart';
+import '../../controller/favourite_controller/favourite_controller.dart';
 import '../constants/colors/colors.dart';
 import '../homescreen/widget.dart';
 import '../splashscreen/splashscreen.dart';
@@ -10,8 +10,10 @@ class FavPopup extends StatelessWidget {
   const FavPopup({
     super.key,
     required this.songId,
+    required this.controlfav,
   });
   final String songId;
+  final FavouriteController controlfav;
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +32,12 @@ class FavPopup extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<dynamic>>[
         if (favourites!
-            .where(
-                (dynamic element) => element.id.toString() == temp.id.toString())
+            .where((dynamic element) =>
+                element.id.toString() == temp.id.toString())
             .isEmpty)
           PopupMenuItem<dynamic>(
             onTap: () {
-              musicController.addToFavoutire( temp);
+              controlfav.addToFavoutire(temp);
             },
             child: const Text(
               'Add to Favourite',
@@ -45,7 +47,7 @@ class FavPopup extends StatelessWidget {
         else
           PopupMenuItem<dynamic>(
             onTap: () {
-              musicController.removeFromFavourite(temp);
+              controlfav.removeFromFavourite(temp);
             },
             child: const Text(
               'Remove From Favourites',

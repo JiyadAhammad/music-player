@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'controller/getx/music_controller.dart';
+import 'controller/music_controller/music_controller.dart';
 import 'model/musicdb.dart';
 import 'view/constants/colors/colors.dart';
 import 'view/splashscreen/splashscreen.dart';
+
 
 final MusicController musicController = Get.put(MusicController());
 

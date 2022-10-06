@@ -3,7 +3,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/playlist_controller/playlist_controller.dart';
 import '../../model/musicdb.dart';
 import '../Playlist/playlist.dart';
 import '../constants/colors/colors.dart';
@@ -17,11 +17,13 @@ class EachPlayList extends StatelessWidget {
   EachPlayList({
     super.key,
     required this.playlistnameId,
+    required this.playListContrl,
   });
   String playlistnameId;
 
   List<Songs> playlistSongs = <Songs>[];
   List<Audio> finalaudioPLayLIst = <Audio>[];
+  PlaylistController playListContrl;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +38,9 @@ class EachPlayList extends StatelessWidget {
           centerTitle: true,
           elevation: 0,
         ),
-        body: GetBuilder<MusicController>(
-          init: MusicController(),
-          builder: (MusicController playListController) {
+        body: GetBuilder<PlaylistController>(
+          init: PlaylistController(),
+          builder: (PlaylistController _) {
             playlistSongs = box.get(playlistnameId)!.cast<Songs>();
             final List<Audio> playPlaylist = <Audio>[];
 
@@ -140,7 +142,7 @@ class EachPlayList extends StatelessWidget {
                                 width: 30,
                                 child: IconButton(
                                   onPressed: () {
-                                    playListController.deleteSongInPlayList(
+                                    playListContrl.deleteSongInPlayList(
                                       playlistSongs,
                                       index,
                                       playlistnameId,
@@ -180,6 +182,7 @@ class EachPlayList extends StatelessWidget {
                     height: 350.h,
                     child: AddsongsToPlaylist(
                       playListName: playlistnameId,
+                      contrlPlayList: playListContrl,
                     ),
                   );
                 },

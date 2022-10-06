@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/playlist_controller/playlist_controller.dart';
 import '../constants/colors/colors.dart';
 import '../eachplaylistscreen/eachplaylistscreen.dart';
 import '../homescreen/navbar/navbar.dart';
@@ -14,7 +14,9 @@ String palyListNameValidate = '';
 final TextEditingController nameController = TextEditingController();
 
 class PlayListScreen extends StatelessWidget {
-  const PlayListScreen({super.key});
+  PlayListScreen({super.key});
+
+  final PlaylistController playlistController = Get.put(PlaylistController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,8 @@ class PlayListScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: GetBuilder<MusicController>(
-          init: MusicController(),
+        body: GetBuilder<PlaylistController>(
+          init: PlaylistController(),
           builder: (_) {
             final List<dynamic> playlistName = box.keys.toList();
 
@@ -72,6 +74,7 @@ class PlayListScreen extends StatelessWidget {
                             Get.to(
                               () => EachPlayList(
                                 playlistnameId: playlistName[index].toString(),
+                                playListContrl: playlistController,
                               ),
                             );
                           },
@@ -154,7 +157,8 @@ class PlayListScreen extends StatelessWidget {
                                         return deletePlaylist(
                                             context: context,
                                             index: index,
-                                            playlistsName: playlistName);
+                                            playlistsName: playlistName,
+                                            cntrlPlayList: playlistController);
                                       },
                                     );
                                   }
@@ -163,9 +167,9 @@ class PlayListScreen extends StatelessWidget {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return updatePlaylist(
-                                          context: context,
-                                          playlistName: playlistName[index],
-                                        );
+                                            context: context,
+                                            playlistName: playlistName[index],
+                                            contrlPlaylist: playlistController);
                                       },
                                     );
                                   }

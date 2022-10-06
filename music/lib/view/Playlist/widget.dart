@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../main.dart';
+import '../../controller/playlist_controller/playlist_controller.dart';
 import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
 import 'playlist.dart';
 
 Widget updatePlaylist(
-    {required dynamic playlistName, required BuildContext context}) {
+    {required dynamic playlistName,
+    required BuildContext context,
+    required PlaylistController contrlPlaylist}) {
   String? title;
   return AlertDialog(
     backgroundColor: Colors.white,
@@ -30,7 +32,7 @@ Widget updatePlaylist(
         },
         validator: (String? value) {
           // List keys = box.keys.toList();
-          musicController.playListNameEdit(value!);
+          contrlPlaylist.playListNameEdit(value!);
 
           return null;
         },
@@ -70,8 +72,7 @@ Widget updatePlaylist(
               child: Text('update', style: TextStyle(fontSize: 16.sp)),
               onPressed: () {
                 if (formKey.currentState!.validate()) {
-                  musicController.validateEditPLayListName(
-                      playlistName, title!);
+                  contrlPlaylist.validateEditPLayListName(playlistName, title!);
                   Get.back();
                   Get.snackbar(
                     'title',
@@ -113,7 +114,8 @@ Widget updatePlaylist(
 Widget deletePlaylist(
     {required BuildContext context,
     required List<dynamic> playlistsName,
-    required int index}) {
+    required int index,
+    required PlaylistController cntrlPlayList}) {
   return AlertDialog(
     backgroundColor: kblack,
     title: const Center(
@@ -156,7 +158,7 @@ Widget deletePlaylist(
               ),
               onPressed: () {
                 Get.back();
-                musicController.playlistDelete(playlistsName, index);
+                cntrlPlayList.playlistDelete(playlistsName, index);
 
                 playlistsName = box.keys.toList();
                 Get.snackbar(

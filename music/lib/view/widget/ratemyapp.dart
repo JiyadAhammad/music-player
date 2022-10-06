@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/music_controller/music_controller.dart';
 import '../constants/colors/colors.dart';
 import '../constants/sizedbox/sizedbox.dart';
 

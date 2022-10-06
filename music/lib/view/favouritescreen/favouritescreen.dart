@@ -2,7 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../controller/getx/music_controller.dart';
+import '../../controller/favourite_controller/favourite_controller.dart';
 import '../../model/musicdb.dart';
 import '../constants/colors/colors.dart';
 import '../homescreen/navbar/navbar.dart';
@@ -14,7 +14,10 @@ import 'widget.dart';
 List<dynamic> favouritesSongs = <dynamic>[];
 
 class FavouriteMusicScreen extends StatelessWidget {
-  const FavouriteMusicScreen({super.key});
+  FavouriteMusicScreen({super.key});
+
+  final FavouriteController favouriteController =
+      Get.put(FavouriteController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +63,9 @@ class FavouriteMusicScreen extends StatelessWidget {
             )
           ],
         ),
-        body: GetBuilder<MusicController>(
-          init: MusicController(),
-          builder: (MusicController favController) {
+        body: GetBuilder<FavouriteController>(
+          init: FavouriteController(),
+          builder: (FavouriteController favController) {
             final List<Audio> favSong = <Audio>[];
 
             for (final dynamic item in favouritesSongs) {
@@ -155,6 +158,7 @@ class FavouriteMusicScreen extends StatelessWidget {
                                 width: 25,
                                 child: FavPopup(
                                   songId: favouritesSongs[index].id.toString(),
+                                  controlfav: favouriteController,
                                   // context: context),
                                 ),
                               ),

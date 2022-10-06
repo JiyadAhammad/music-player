@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../controller/getx/music_controller.dart';
+import '../../controller/playlist_controller/playlist_controller.dart';
 import '../../model/musicdb.dart';
 import '../constants/colors/colors.dart';
 import '../splashscreen/splashscreen.dart';
@@ -32,9 +32,9 @@ class CreatePlaylist extends StatelessWidget {
       // form validation
       content: Form(
         key: formKey,
-        child: GetBuilder<MusicController>(
-            init: MusicController(),
-            builder: (MusicController formContrl) {
+        child: GetBuilder<PlaylistController>(
+            init: PlaylistController(),
+            builder: (PlaylistController formContrl) {
               return TextFormField(
                 onChanged: (String value) {
                   title = value.trim();
