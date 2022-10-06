@@ -4,13 +4,32 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+I have successfully built a music player named 'ΜΟΥΣΙΚΗ' using Flutter. It's an offline music player having different features.The difficulties I faced as a self taught developer helped me to find better solutions for my problems.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Playstore Link : https://lnkd.in/gvnvadwK
+github Link : https://lnkd.in/g8SvmTtR
+
+Features:-
+- List all songs from Local Store
+- Method Channel to fetch internal storage(Kotlin)
+- Play/Pause
+- Next/Previous
+- Background play/pause&next/previous
+- Search
+- Add Song into Playlist and Favorites
+- Notification On/Off
+
+Technology Used:-
+- Flutter
+- Dart
+- Hive
+- Kotlin(Method channel)
+
+Packages:-
+- Assets Audio Player
+- Hive_flutter
+- Build_Runner
+- hive_generator
