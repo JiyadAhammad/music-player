@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 part 'musicdb.g.dart';
-
+// Hive Page
 @HiveType(typeId: 0)
 class Songs extends HiveObject {
   Songs({
