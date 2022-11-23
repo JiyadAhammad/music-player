@@ -47,4 +47,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[mail](jiyadahammad74@gmail.com)
+[Contact](jiyadahammad74@gmail.com)
