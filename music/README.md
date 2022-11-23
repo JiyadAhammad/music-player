@@ -9,7 +9,7 @@ Use the Link [ΜΟΥΣΙΚΗ](https://play.google.com/store/apps/details?id=in.b
 
 ## 
 
-```
+```python
 ## Features:-
 List all songs from Local Store
 Method Channel to fetch internal storage(Kotlin)
